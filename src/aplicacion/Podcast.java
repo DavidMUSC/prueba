@@ -1,4 +1,4 @@
 package aplicacion;
 
-public class artista {
+public class Podcast {
 }

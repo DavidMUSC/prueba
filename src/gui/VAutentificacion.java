@@ -39,6 +39,13 @@ public class VAutentificacion extends JDialog {
         vr.setVisible(true);
     }
 
+    private void iniciarSesion(java.awt.event.ActionEvent evt) {
+        //etiquetaFallo.setVisible(false);
+        if (fa.comprobarAutentificacion(usuario.getText(), contraseña.getText()))
+            this.dispose();
+        //else etiquetaFallo.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         panel1 = new JPanel();
@@ -107,6 +114,7 @@ public class VAutentificacion extends JDialog {
             inicioSesion.setText("Entrar");
             inicioSesion.setBackground(new Color(0x00d856));
             inicioSesion.setForeground(Color.white);
+            inicioSesion.addActionListener(e -> iniciarSesion(e));
 
             //---- olvidarContrasena ----
             olvidarContrasena.setText("\u00bfHas olvidado tu contrase\u00f1a?");

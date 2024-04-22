@@ -1,4 +1,4 @@
 package aplicacion;
 
-public class oyente {
+public class Genero {
 }

@@ -2,16 +2,15 @@ package baseDatos;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Properties;
-import java.util.Calendar;
+
+import aplicacion.*;
 
 public class fachadaBaseDatos {
     private aplicacion.fachadaAplicacion fa;
     private java.sql.Connection conexion;
 
-    //TODO: atributos de daos
+    private DAOOyentes daoOyentes;
 
     public fachadaBaseDatos (aplicacion.fachadaAplicacion fa){
 
@@ -38,7 +37,7 @@ public class fachadaBaseDatos {
                     usuario);
 
             //TODO: iniciar daos aqui
-
+            daoOyentes = new DAOOyentes(conexion,fa);
 
         } catch (FileNotFoundException f){
             System.out.println(f.getMessage());
@@ -55,4 +54,9 @@ public class fachadaBaseDatos {
 
 
     }
+
+    public Oyente validarUsuario(String nombre, String contrasena){
+        return daoOyentes.validarUsuario(nombre, contrasena);
+    }
+
 }

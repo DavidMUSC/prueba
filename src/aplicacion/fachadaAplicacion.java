@@ -5,9 +5,11 @@ import java.awt.*;
 public class fachadaAplicacion {
     gui.fachadaGui fgui;
     baseDatos.fachadaBaseDatos fbd;
+    gestionOyentes go;
     public fachadaAplicacion(){
         fgui=new gui.fachadaGui(this);
-        // fbd= new baseDatos.fachadaBaseDatos(this);
+        fbd= new baseDatos.fachadaBaseDatos(this);
+        go = new gestionOyentes(fgui,fbd);
     }
     public static void main(String args[]) {
 
@@ -30,5 +32,9 @@ public class fachadaAplicacion {
     public void muestraExcepcion(String e){
         //TODO: implementar mostrar excepcion
         //fgui.muestraExcepcion(e);
+    }
+
+    public boolean comprobarAutentificacion(String nombre, String contrasena){
+        return go.comprobarAutentificacion(nombre, contrasena);
     }
 }
