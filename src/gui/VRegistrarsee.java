@@ -1,43 +1,30 @@
 /*
- * Created by JFormDesigner on Fri Apr 19 17:56:23 CEST 2024
+ * Created by JFormDesigner on Sun Apr 21 12:29:11 CEST 2024
  */
 
 package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URI;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
 /**
  * @author davra
  */
-public class VAutentificacion extends JDialog {
+public class VRegistrarsee extends JDialog {
 
     private aplicacion.fachadaAplicacion fa;
 
-    public VAutentificacion(Frame owner, aplicacion.fachadaAplicacion fa) {
-        super(owner);
+    public VRegistrarsee(Dialog owner, boolean modal, aplicacion.fachadaAplicacion fa) {
+        super(owner, modal);
         this.fa = fa;
         initComponents();
     }
 
-    private void olvidarContrasena(ActionEvent e) {
-        // abre un enlace para recuperar la contraseña
-        try {
-            Desktop.getDesktop().browse(new URI("https://support.spotify.com/mx/article/cannot-remember-login/"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    private void registrarse(ActionEvent e) {
-        // abre un jframe para registrarse
-        boolean b = false;
-        VRegistrarsee vr = new VRegistrarsee(this, b , fa);
-        vr.setVisible(true);
-    }
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -50,9 +37,11 @@ public class VAutentificacion extends JDialog {
         label5 = new JLabel();
         usuario = new JTextField();
         contraseña = new JTextField();
-        inicioSesion = new JButton();
-        olvidarContrasena = new JButton();
         registrar = new JButton();
+        correo = new JTextField();
+        label6 = new JLabel();
+        label7 = new JLabel();
+        textField1 = new JTextField();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -94,7 +83,7 @@ public class VAutentificacion extends JDialog {
             }
 
             //---- label3 ----
-            label3.setText("INICIAR SESI\u00d3N");
+            label3.setText("REGISTRARSE");
             label3.setForeground(new Color(0x00d856));
 
             //---- label4 ----
@@ -103,24 +92,20 @@ public class VAutentificacion extends JDialog {
             //---- label5 ----
             label5.setText("Contrase\u00f1a:");
 
-            //---- inicioSesion ----
-            inicioSesion.setText("Entrar");
-            inicioSesion.setBackground(new Color(0x00d856));
-            inicioSesion.setForeground(Color.white);
-
-            //---- olvidarContrasena ----
-            olvidarContrasena.setText("\u00bfHas olvidado tu contrase\u00f1a?");
-            olvidarContrasena.setBackground(new Color(0xf2f2f2));
-            olvidarContrasena.setBorderPainted(false);
-            olvidarContrasena.setForeground(new Color(0x00d856));
-            olvidarContrasena.addActionListener(e -> olvidarContrasena(e));
-
             //---- registrar ----
-            registrar.setText("\u00bfA\u00fan no tienes cuenta? Reg\u00edstrate aqu\u00ed.");
-            registrar.setBackground(new Color(0xf2f2f2));
-            registrar.setBorderPainted(false);
-            registrar.setForeground(new Color(0x00d856));
-            registrar.addActionListener(e -> registrarse(e));
+            registrar.setText("Confirmar");
+            registrar.setBackground(new Color(0x00d856));
+            registrar.setForeground(Color.white);
+
+            //---- label6 ----
+            label6.setText("E-mail:");
+
+            //---- label7 ----
+            label7.setText("Fecha de nacimimento:");
+
+            //---- textField1 ----
+            textField1.setText("dd/mm/aaaa");
+            textField1.setForeground(Color.gray);
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -130,31 +115,31 @@ public class VAutentificacion extends JDialog {
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGroup(panel1Layout.createParallelGroup()
+                                .addGap(134, 134, 134)
+                                .addComponent(label3))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(registrar))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(panel1Layout.createParallelGroup()
-                                            .addGroup(panel1Layout.createSequentialGroup()
-                                                .addComponent(label4)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(usuario, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panel1Layout.createSequentialGroup()
-                                                .addComponent(label5)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(contraseña, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGap(126, 126, 126)
-                                        .addComponent(label3))
-                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(label7)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panel1Layout.createParallelGroup()
-                                            .addComponent(registrar)
-                                            .addComponent(olvidarContrasena))))
-                                .addContainerGap(34, Short.MAX_VALUE))
-                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                                .addComponent(inicioSesion)
-                                .addGap(135, 135, 135))))
+                                        .addComponent(textField1))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(label4)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(usuario, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                        .addComponent(label6)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(correo))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(label5)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(contraseña, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(34, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
@@ -162,21 +147,25 @@ public class VAutentificacion extends JDialog {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(label3)
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label4)
                             .addComponent(usuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(label6)
+                            .addComponent(correo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label5)
                             .addComponent(contraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(inicioSesion)
-                        .addGap(12, 12, 12)
-                        .addComponent(olvidarContrasena)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(label7)
+                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(registrar)
-                        .addContainerGap(13, Short.MAX_VALUE))
+                        .addGap(13, 13, 13))
             );
         }
 
@@ -205,8 +194,10 @@ public class VAutentificacion extends JDialog {
     private JLabel label5;
     private JTextField usuario;
     private JTextField contraseña;
-    private JButton inicioSesion;
-    private JButton olvidarContrasena;
     private JButton registrar;
+    private JTextField correo;
+    private JLabel label6;
+    private JLabel label7;
+    private JTextField textField1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

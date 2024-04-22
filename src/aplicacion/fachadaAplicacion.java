@@ -1,5 +1,7 @@
 package aplicacion;
 
+import java.awt.*;
+
 public class fachadaAplicacion {
     gui.fachadaGui fgui;
     baseDatos.fachadaBaseDatos fbd;
@@ -12,6 +14,13 @@ public class fachadaAplicacion {
         fachadaAplicacion fa;
         fa= new fachadaAplicacion();
         fa.iniciaInterfazUsuario();
+
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+        System.out.println("Fuentes disponibles en tu sistema:");
+        for (String font : fonts) {
+            System.out.println(font);
+        }
     }
 
     public void iniciaInterfazUsuario(){
