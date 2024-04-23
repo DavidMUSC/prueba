@@ -12,6 +12,7 @@ public class fachadaBaseDatos {
 
     private DAOOyentes daoOyentes;
     private DAOArtistas daoArtista;
+    private DAOAdministrador daoAdministrador;
 
     public fachadaBaseDatos (aplicacion.fachadaAplicacion fa){
 
@@ -36,6 +37,7 @@ public class fachadaBaseDatos {
             //TODO: iniciar daos aqui
             daoOyentes = new DAOOyentes(conexion,fa);
             daoArtista = new DAOArtistas(conexion, fa);
+            daoAdministrador = new DAOAdministrador(conexion, fa);
             System.out.println("Conexión exitosa a la base de datos.");
         } catch (SQLException e) {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
@@ -53,7 +55,15 @@ public class fachadaBaseDatos {
 
     //MÉTODOS ARTISTAS
     public Artista validarArtista(String nombre, String contrasena){
-        daoArtista
+        Artista a;
+        a = daoArtista.validarArtista(nombre, contrasena);
+        return a;
     }
 
+    //MÉTODOS ADMIN
+    public Administrador validarAdministrador(String nombre, String contrasena) {
+        Administrador a;
+        a = daoAdministrador.validarAdministrador(nombre, contrasena);
+        return a;
+    }
 }

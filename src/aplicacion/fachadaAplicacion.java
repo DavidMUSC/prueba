@@ -5,11 +5,18 @@ import java.awt.*;
 public class fachadaAplicacion {
     gui.fachadaGui fgui;
     baseDatos.fachadaBaseDatos fbd;
+
+    //Atributos gestion
     gestionOyentes go;
+    gestionArtista ga;
+    gestionAdministrador gadmin;
+
     public fachadaAplicacion(){
         fgui=new gui.fachadaGui(this);
         fbd= new baseDatos.fachadaBaseDatos(this);
+        //inicializar gestiones
         go = new gestionOyentes(fgui,fbd);
+        ga = new gestionArtista(fgui,fbd);
     }
     public static void main(String args[]) {
 
@@ -31,14 +38,25 @@ public class fachadaAplicacion {
 
     public void muestraExcepcion(String e){
         //TODO: implementar mostrar excepcion
-        //fgui.muestraExcepcion(e);
+        fgui.muestraExcepcion(e);
     }
 
-    public Oyente comprobarAutentificacion(String nombre, String contrasena){
-        return go.comprobarAutentificacion(nombre, contrasena);
+    //FUNCIONES OYENTES
+    public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
+        return go.comprobarAutentificacionOyente(nombre, contrasena);
     }
 
     public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
         go.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
+    }
+
+    //FUNCIONES ARTISTAS
+    public Artista comprobarAutentificacionArtista(String nombre, String contrasena){
+        return  ga.comprobarAutentificacionArtista(nombre, contrasena);
+    }
+
+    //FUNCIONES ADMIN
+    public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
+        return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
 }

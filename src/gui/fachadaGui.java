@@ -17,4 +17,10 @@ public class fachadaGui {
         va = new VAutentificacion(fa);
         va.setVisible(true);
     }
+
+    public void muestraExcepcion(String e){
+        VAviso v;
+        v = new VAviso(e);
+        v.setVisible(true);
+    }
 }

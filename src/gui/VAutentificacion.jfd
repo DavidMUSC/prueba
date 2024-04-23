@@ -54,6 +54,7 @@ new FormModel {
 					"text": "Entrar"
 					"background": new java.awt.Color( 0, 216, 86, 255 )
 					"foreground": sfield java.awt.Color white
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "inicioSesion", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "olvidarContrasena"

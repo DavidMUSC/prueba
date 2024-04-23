@@ -11,7 +11,7 @@ public class gestionOyentes {
         this.fbd = fbd;
         admin = false;
     }
-    public Oyente comprobarAutentificacion(String nombre, String contrasena){
+    public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
         Oyente o;
         o=fbd.validarUsuario(nombre, contrasena);
         return o;

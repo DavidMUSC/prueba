@@ -99,7 +99,6 @@ public class VRegistrarsee extends JDialog {
             registrar.setText("Confirmar");
             registrar.setBackground(new Color(0x00d856));
             registrar.setForeground(Color.white);
-            registrar.addActionListener(e -> registrar(e));
 
             //---- label6 ----
             label6.setText("E-mail:");
@@ -108,7 +107,7 @@ public class VRegistrarsee extends JDialog {
             label7.setText("Fecha de nacimimento:");
 
             //---- textField1 ----
-            textField1.setText("aaaa-mm-dd");
+            textField1.setText("dd/mm/aaaa");
             textField1.setForeground(Color.gray);
 
             GroupLayout panel1Layout = new GroupLayout(panel1);

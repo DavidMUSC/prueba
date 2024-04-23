@@ -11,10 +11,10 @@ public class gestionArtista {
         this.fbd = fbd;
     }
 
-    public boolean comprobarAutentificacion(String nombre, String contrasena){
+    public Artista comprobarAutentificacionArtista(String nombre, String contrasena){
         Artista a;
-        a=fbd.validarUsuario(nombre, contrasena);
-        return a != null;
+        a=fbd.validarArtista(nombre, contrasena);
+        return a;
     }
 
 

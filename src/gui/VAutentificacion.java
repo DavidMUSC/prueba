@@ -39,11 +39,28 @@ public class VAutentificacion extends JDialog {
         vr.setVisible(true);
     }
 
-    private void iniciarSesion(java.awt.event.ActionEvent evt) {
-        //etiquetaFallo.setVisible(false);
-        if (fa.comprobarAutentificacion(usuario.getText(), contraseña.getText()))
+
+
+    private void inicioSesion(ActionEvent e) {
+        //comprobar si los campos de usuario y contraseña están vacíos
+        if (usuario.getText().equals("") || contraseña.getText().equals("")) {
+            fa.muestraExcepcion("Introduce un usuario y una contraseña");
+            return;
+        }
+
+        //comprueba si el usuario y la contraseña son correctos
+        if (fa.comprobarAutentificacionOyente(usuario.getText(), contraseña.getText())!=null){
+
             this.dispose();
-        //else etiquetaFallo.setVisible(true);
+        }else if(fa.comprobarAutentificacionArtista(usuario.getText(), contraseña.getText())!=null){
+
+            this.dispose();
+        }else if(fa.comprobarAutentificacionAdministrador(usuario.getText(), contraseña.getText())!=null){
+
+            this.dispose();
+        }else{
+            fa.muestraExcepcion("Usuario o contraseña incorrectos");
+        }
     }
 
     private void initComponents() {
@@ -114,7 +131,7 @@ public class VAutentificacion extends JDialog {
             inicioSesion.setText("Entrar");
             inicioSesion.setBackground(new Color(0x00d856));
             inicioSesion.setForeground(Color.white);
-            inicioSesion.addActionListener(e -> iniciarSesion(e));
+            inicioSesion.addActionListener(e -> inicioSesion(e));
 
             //---- olvidarContrasena ----
             olvidarContrasena.setText("\u00bfHas olvidado tu contrase\u00f1a?");
