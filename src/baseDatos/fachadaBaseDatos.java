@@ -3,7 +3,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-
+import java.sql.*;
 import aplicacion.*;
 
 public class fachadaBaseDatos {
@@ -14,44 +14,30 @@ public class fachadaBaseDatos {
 
     public fachadaBaseDatos (aplicacion.fachadaAplicacion fa){
 
-        Properties configuracion = new Properties();
-        this.fa=fa;
-        FileInputStream arqConfiguracion;
+        int i = 12;
+        i=13;
+        System.out.println(i);
+        try {
+            // Intenta cargar dinámicamente la clase del driver JDBC
+            Class.forName("org.postgresql.Driver");
+            System.out.println("Driver JDBC cargado exitosamente.");
+        } catch (ClassNotFoundException e) {
+            // Captura la excepción si la clase no puede ser encontrada
+            System.err.println("Error: No se pudo encontrar la clase del driver JDBC.");
+            e.printStackTrace();
+        }
+        String url = "jdbc:postgresql://flora.db.elephantsql.com:5432/pqnougax";
+        String usuario = "pqnougax";
+        String contrasena = "EDlmJk7k_3RxO6UeEZUZ6c6oKqC5Na0o";
 
         try {
-            arqConfiguracion = new FileInputStream("baseDatos.properties");
-            configuracion.load(arqConfiguracion);
-            arqConfiguracion.close();
-
-            Properties usuario = new Properties();
-
-
-            String gestor = configuracion.getProperty("gestor");
-
-            usuario.setProperty("user", configuracion.getProperty("usuario"));
-            usuario.setProperty("password", configuracion.getProperty("clave"));
-            this.conexion=java.sql.DriverManager.getConnection("jdbc:"+gestor+"://"+
-                            configuracion.getProperty("servidor")+":"+
-                            configuracion.getProperty("puerto")+"/"+
-                            configuracion.getProperty("baseDatos"),
-                    usuario);
-
+            conexion = DriverManager.getConnection(url,usuario,contrasena);
             //TODO: iniciar daos aqui
             daoOyentes = new DAOOyentes(conexion,fa);
-
-        } catch (FileNotFoundException f){
-            System.out.println(f.getMessage());
-            fa.muestraExcepcion(f.getMessage());
-        } catch (IOException i){
-            System.out.println(i.getMessage());
-            fa.muestraExcepcion(i.getMessage());
+            System.out.println("Conexión exitosa a la base de datos.");
+        } catch (SQLException e) {
+            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
         }
-        catch (java.sql.SQLException e){
-            System.out.println(e.getMessage());
-            fa.muestraExcepcion(e.getMessage());
-        }
-
-
 
     }
 

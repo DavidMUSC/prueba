@@ -9,5 +9,15 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="IntelliJ IDEA GridLayout" level="project" />
     <orderEntry type="library" name="MigLayout" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/jarJDBC" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/jarJDBC" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

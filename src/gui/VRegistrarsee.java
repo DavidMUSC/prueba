@@ -89,7 +89,6 @@ public class VRegistrarsee extends JDialog {
             label3.setText("REGISTRARSE");
             label3.setForeground(new Color(0x00d856));
 
-
             //---- label4 ----
             label4.setText("Usuario:");
 

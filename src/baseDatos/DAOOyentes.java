@@ -1,6 +1,7 @@
 package baseDatos;
 import aplicacion.*;
 import java.sql.*;
+import java.text.*;
 public class DAOOyentes extends abstractDAO{
     public DAOOyentes (Connection conexion, aplicacion.fachadaAplicacion fa){
         super.setConexion(conexion);
@@ -46,17 +47,20 @@ public class DAOOyentes extends abstractDAO{
 
         try {
             stmUsuario=con.prepareStatement("INSERT INTO OYENTE (nombre, contraseña, email, fechaNacimiento, tipoPlan, fechaPago, fechaVencimiento, cancion) " +
-                    "VALUES (?, ?, ?, ?, (SELECT tipo FROM PLAN WHERE tipo = 'normal'), null, null, null);");
+                    "VALUES (?, ?, ?, ?, (SELECT tipo FROM PLAN WHERE tipo = 'Basico'), null, null, null);");
             stmUsuario.setString(1, usuario);
             stmUsuario.setString(2, contrasena);
             stmUsuario.setString(3, correo);
-            stmUsuario.setString(4, fechaNacimiento);
-
+            Date fecha = (java.sql.Date) formatoFecha.parse(fechaNacimiento);
+            stmUsuario.setDate(4, fecha);
+            stmUsuario.executeQuery();
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        }finally{
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } finally{
             try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
     }
