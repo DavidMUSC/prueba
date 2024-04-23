@@ -44,8 +44,8 @@ public class fachadaAplicacion {
     public void muestraBuscar(int op){
         fgui.muestraBuscar(this,op);
     }
-    public void muestraPrincipal(){
-        fgui.muestraPrincipal(this);
+    public void muestraPrincipal(int op){
+        fgui.muestraPrincipal(op);
     }
 
     //FUNCIONES OYENTES

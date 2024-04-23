@@ -33,7 +33,6 @@ public class VPrincipal extends JFrame {
                 break;
         }
     }
-
     private void bttBuscar(ActionEvent e) {
         fa.muestraBuscar(op);
         this.dispose();

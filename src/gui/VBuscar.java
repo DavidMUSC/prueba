@@ -15,7 +15,9 @@ import aplicacion.fachadaAplicacion;
  */
 public class VBuscar extends JFrame {
     fachadaAplicacion fa;
+    int op;
     public VBuscar(fachadaAplicacion fa,int op) {
+        this.op=op;
         this.fa = fa;
         initComponents();
         switch(op){
@@ -37,6 +39,11 @@ public class VBuscar extends JFrame {
     }
 
     private void bttInicio(ActionEvent e) {
+        fa.muestraPrincipal(this.op);
+        this.dispose();
+    }
+
+    private void bttLupa(ActionEvent e) {
         // TODO add your code here
     }
 
@@ -53,6 +60,7 @@ public class VBuscar extends JFrame {
         bttPublicar = new JButton();
         bttGestion = new JButton();
         textField1 = new JTextField();
+        button1 = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -139,7 +147,7 @@ public class VBuscar extends JFrame {
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(label1)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bttInicio)
                             .addGap(18, 18, 18)
                             .addComponent(bttBuscar)
@@ -157,13 +165,21 @@ public class VBuscar extends JFrame {
                 );
             }
 
+            //---- button1 ----
+            button1.setIcon(new ImageIcon(getClass().getResource("/fotos/lupa20.png")));
+            button1.setBorder(null);
+            button1.setBackground(new Color(0xf2f2f2));
+            button1.addActionListener(e -> bttLupa(e));
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(button1)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
             );
@@ -172,8 +188,10 @@ public class VBuscar extends JFrame {
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(395, Short.MAX_VALUE))
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button1))
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
         }
 
@@ -204,5 +222,6 @@ public class VBuscar extends JFrame {
     private JButton bttPublicar;
     private JButton bttGestion;
     private JTextField textField1;
+    private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

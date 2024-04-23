@@ -65,10 +65,10 @@ public class DAOArtistas extends abstractDAO {
                 String email = resultSet.getString("email");
                 // Otros campos del artista
 
-                Artista artista = new Artista(nombre, contraseña, email);
+                //Artista artista = new Artista(nombre, contraseña, email);
                 // Agregar más campos al constructor de Artista si es necesario
 
-                artistasEncontrados.add(artista);
+                //artistasEncontrados.add(artista);
             }
         }
 
