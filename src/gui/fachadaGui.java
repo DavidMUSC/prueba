@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+import aplicacion.*;
 
 public class fachadaGui {
     aplicacion.fachadaAplicacion fa;
@@ -22,5 +23,11 @@ public class fachadaGui {
         VAviso v;
         v = new VAviso(e);
         v.setVisible(true);
+    }
+
+    public void muestraBuscar(fachadaAplicacion fa,int op){
+        VBuscar vb;
+        vb = new VBuscar(fa,op);
+        vb.setVisible(true);
     }
 }
