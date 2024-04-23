@@ -36,6 +36,7 @@ public class VAviso extends JDialog {
 
         //======== panel1 ========
         {
+            panel1.setBackground(Color.red);
 
             //---- buttonCerrar ----
             buttonCerrar.setText("Cerrar");
@@ -57,14 +58,28 @@ public class VAviso extends JDialog {
                 scrollPane1.setViewportView(mensaje);
             }
 
+            //---- label1 ----
+            label1.setText("ERROR");
+            label1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 16));
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGroup(panel1Layout.createParallelGroup()
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addComponent(scrollPane1)
+                                .addContainerGap())
+                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(buttonCerrar)
+                                .addGap(72, 72, 72))))
+                    .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label1, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()

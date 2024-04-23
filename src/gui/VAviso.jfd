@@ -9,10 +9,11 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq t {space ::99:x, comp buttonCerrar:::p::p, space :p:98:p}, seq l {space :::p, comp scrollPane1::::261:x, space :::p}}"
-				"$verticalGroup": "par l {seq l {space ::44:x, comp scrollPane1:::p::p, space :p:43:p, comp buttonCerrar:::p::p, space :::p}}"
+				"$horizontalGroup": "par l {seq {space :::p, par l {seq {comp scrollPane1:::::x, space :::p}, seq t {space :0:0:x, comp buttonCerrar:::p::p, space :p:72:p}}}, seq t {space :::x, comp label1:::p:120:p, space :p:18:p}}"
+				"$verticalGroup": "par l {seq l {space ::16:x, comp label1:::p:16:p, space u:::p, comp scrollPane1:::p:47:p, space :p:18:p, comp buttonCerrar:::p::p, space :::p}}"
 			} ) {
 				name: "panel1"
+				"background": sfield java.awt.Color red
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "buttonCerrar"
 					"text": "Cerrar"
@@ -32,6 +33,11 @@ new FormModel {
 						"lineWrap": true
 						"autoscrolls": false
 					} )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "ERROR"
+					"font": new java.awt.Font( "Franklin Gothic Demi", 1, 16 )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
