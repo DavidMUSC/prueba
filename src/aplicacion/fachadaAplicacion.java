@@ -1,7 +1,5 @@
 package aplicacion;
 
-import java.awt.*;
-
 public class fachadaAplicacion {
     gui.fachadaGui fgui;
     baseDatos.fachadaBaseDatos fbd;
@@ -17,6 +15,7 @@ public class fachadaAplicacion {
         //inicializar gestiones
         go = new gestionOyentes(fgui,fbd);
         ga = new gestionArtista(fgui,fbd);
+        gadmin = new gestionAdministrador(fgui,fbd);
     }
     public static void main(String args[]) {
 
@@ -32,13 +31,18 @@ public class fachadaAplicacion {
         }*/
     }
 
+    //FUNCIONES GUI
     public void iniciaInterfazUsuario(){
         fgui.iniciaVista();
     }
 
     public void muestraExcepcion(String e){
-        //TODO: implementar mostrar excepcion
+
         fgui.muestraExcepcion(e);
+    }
+
+    public void muestraBuscar(){
+        fgui.muestraBuscar(this);
     }
 
     //FUNCIONES OYENTES

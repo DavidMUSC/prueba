@@ -47,16 +47,22 @@ public class VAutentificacion extends JDialog {
             fa.muestraExcepcion("Introduce un usuario y una contraseña");
             return;
         }
-
+        int op=0;
         //comprueba si el usuario y la contraseña son correctos
         if (fa.comprobarAutentificacionOyente(usuario.getText(), contraseña.getText())!=null){
-
+            op=1;
+            VPrincipal vpa = new VPrincipal(fa,op);
+            vpa.setVisible(true);
             this.dispose();
         }else if(fa.comprobarAutentificacionArtista(usuario.getText(), contraseña.getText())!=null){
-
+            op=2;
+            VPrincipal vpa = new VPrincipal(fa,op);
+            vpa.setVisible(true);
             this.dispose();
         }else if(fa.comprobarAutentificacionAdministrador(usuario.getText(), contraseña.getText())!=null){
-
+            op=3;
+            VPrincipal vpa = new VPrincipal(fa,op);
+            vpa.setVisible(true);
             this.dispose();
         }else{
             fa.muestraExcepcion("Usuario o contraseña incorrectos");

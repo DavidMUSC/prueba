@@ -23,16 +23,20 @@ new FormModel {
 					name: "scrollPane1"
 					add( new FormComponent( "javax.swing.JTextArea" ) {
 						name: "mensaje"
-						"font": new java.awt.Font( "Arial", 0, 14 )
+						"font": new java.awt.Font( "Arial", 0, 12 )
 						"foreground": sfield java.awt.Color red
 						"background": sfield java.awt.Color white
 						"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						"disabledTextColor": new java.awt.Color( 0, 0, 0, 255 )
+						"caretColor": sfield java.awt.Color white
+						"lineWrap": true
+						"autoscrolls": false
 					} )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 275, 170 )
+			"location": new java.awt.Point( 45, 0 )
+			"size": new java.awt.Dimension( 230, 170 )
 		} )
 	}
 }

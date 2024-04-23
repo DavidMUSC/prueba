@@ -1,5 +1,5 @@
 /*
- * Created by JFormDesigner on Tue Apr 23 16:35:33 CEST 2024
+ * Created by JFormDesigner on Tue Apr 23 19:03:35 CEST 2024
  */
 
 package gui;
@@ -13,31 +13,15 @@ import aplicacion.fachadaAplicacion;
 /**
  * @author davra
  */
-public class VPrincipal extends JFrame {
+public class VBuscar extends JFrame {
     fachadaAplicacion fa;
-    public VPrincipal(fachadaAplicacion fa, int op) {
+    public VBuscar(fachadaAplicacion fa) {
         this.fa = fa;
         initComponents();
-        switch(op){
-            case 1:
-                bttGestion.setVisible(false);
-                bttPublicar.setVisible(false);
-                break;
-            case 2:
-                bttGestion.setVisible(false);
-                break;
-            case 3:
-                bttPublicar.setVisible(false);
-                break;
-        }
     }
 
     private void bttBuscar(ActionEvent e) {
-        //fa.muestraBuscar();
-        VBuscar vb;
-        vb = new VBuscar(fa);
-        vb.setVisible(true);
-        //this.dispose();
+        // TODO add your code here
     }
 
     private void initComponents() {
@@ -52,6 +36,7 @@ public class VPrincipal extends JFrame {
         bttAjustes = new JButton();
         bttPublicar = new JButton();
         bttGestion = new JButton();
+        textField1 = new JTextField();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -161,11 +146,17 @@ public class VPrincipal extends JFrame {
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 486, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(395, Short.MAX_VALUE))
             );
         }
 
@@ -195,5 +186,6 @@ public class VPrincipal extends JFrame {
     private JButton bttAjustes;
     private JButton bttPublicar;
     private JButton bttGestion;
+    private JTextField textField1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

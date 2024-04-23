@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class fachadaGui {
     aplicacion.fachadaAplicacion fa;
-    VPrincipal vp;
+
 
     public fachadaGui(aplicacion.fachadaAplicacion fa){
         this.fa=fa;

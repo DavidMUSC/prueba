@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :0:486:x}}"
-				"$verticalGroup": "par l {comp panel2::l:::x}"
+				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space ::60:x, comp textField1:::p:409:p, space :p:17:p}}"
+				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:48:p, comp textField1:::p::p, space ::395:x}}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -80,6 +80,9 @@ new FormModel {
 						"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						"font": new java.awt.Font( "Franklin Gothic Demi Cond", 1, 18 )
 					} )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField1"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

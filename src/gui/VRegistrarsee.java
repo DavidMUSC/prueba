@@ -107,7 +107,7 @@ public class VRegistrarsee extends JDialog {
             label7.setText("Fecha de nacimimento:");
 
             //---- textField1 ----
-            textField1.setText("dd/mm/aaaa");
+            textField1.setText("aaaa-mm-dd");
             textField1.setForeground(Color.gray);
 
             GroupLayout panel1Layout = new GroupLayout(panel1);

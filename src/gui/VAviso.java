@@ -29,6 +29,7 @@ public class VAviso extends JDialog {
         buttonCerrar = new JButton();
         scrollPane1 = new JScrollPane();
         mensaje = new JTextArea();
+        label1 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -45,10 +46,14 @@ public class VAviso extends JDialog {
             {
 
                 //---- mensaje ----
-                mensaje.setFont(new Font("Arial", Font.PLAIN, 14));
+                mensaje.setFont(new Font("Arial", Font.PLAIN, 12));
                 mensaje.setForeground(Color.red);
                 mensaje.setBackground(Color.white);
                 mensaje.setBorder(null);
+                mensaje.setDisabledTextColor(Color.black);
+                mensaje.setCaretColor(Color.white);
+                mensaje.setLineWrap(true);
+                mensaje.setAutoscrolls(false);
                 scrollPane1.setViewportView(mensaje);
             }
 
@@ -56,10 +61,6 @@ public class VAviso extends JDialog {
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
-                    .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                        .addContainerGap(99, Short.MAX_VALUE)
-                        .addComponent(buttonCerrar)
-                        .addGap(98, 98, 98))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
@@ -68,9 +69,11 @@ public class VAviso extends JDialog {
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap(44, Short.MAX_VALUE)
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addComponent(label1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonCerrar)
                         .addContainerGap())
             );
@@ -96,5 +99,6 @@ public class VAviso extends JDialog {
     private JButton buttonCerrar;
     private JScrollPane scrollPane1;
     private JTextArea mensaje;
+    private JLabel label1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

@@ -68,7 +68,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "textField1"
-					"text": "dd/mm/aaaa"
+					"text": "aaaa-mm-dd"
 					"foreground": sfield java.awt.Color gray
 				} )
 			} )
