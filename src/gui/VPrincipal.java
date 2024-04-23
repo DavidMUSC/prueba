@@ -6,12 +6,14 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import aplicacion.*;
 
 /**
  * @author davra
  */
 public class VPrincipal extends JFrame {
     aplicacion.fachadaAplicacion fa;
+    Oyente o;
 
     public VPrincipal(aplicacion.fachadaAplicacion fa) {
         fa = this.fa;

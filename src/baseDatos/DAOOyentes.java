@@ -51,15 +51,21 @@ public class DAOOyentes extends abstractDAO{
             stmUsuario.setString(1, usuario);
             stmUsuario.setString(2, contrasena);
             stmUsuario.setString(3, correo);
-            Date fecha = (java.sql.Date) formatoFecha.parse(fechaNacimiento);
-            stmUsuario.setDate(4, fecha);
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                java.util.Date fechaUtil = formatoFecha.parse(fechaNacimiento); // Convertir la cadena a java.util.Date
+                java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime()); // Convertir java.util.Date a java.sql.Date
+                stmUsuario.setDate(4, fechaSql);
+            } catch (ParseException e) {
+                // Manejar la excepción si la cadena no está en el formato esperado
+                e.printStackTrace();
+            }
+
             stmUsuario.executeQuery();
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         } finally{
             try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }

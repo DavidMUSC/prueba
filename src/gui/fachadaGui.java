@@ -8,14 +8,13 @@ public class fachadaGui {
 
     public fachadaGui(aplicacion.fachadaAplicacion fa){
         this.fa=fa;
-        this.vp = new VPrincipal(fa);
+        //this.vp = new VPrincipal(fa);
     }
 
     public void iniciaVista(){
         VAutentificacion va;
 
-        va = new VAutentificacion(vp, fa);
-        vp.setVisible(true);
+        va = new VAutentificacion(fa);
         va.setVisible(true);
     }
 }

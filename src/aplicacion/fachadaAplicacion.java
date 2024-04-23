@@ -17,12 +17,12 @@ public class fachadaAplicacion {
         fa= new fachadaAplicacion();
         fa.iniciaInterfazUsuario();
 
-        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        /*String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         System.out.println("Fuentes disponibles en tu sistema:");
         for (String font : fonts) {
             System.out.println(font);
-        }
+        }*/
     }
 
     public void iniciaInterfazUsuario(){
@@ -34,7 +34,7 @@ public class fachadaAplicacion {
         //fgui.muestraExcepcion(e);
     }
 
-    public boolean comprobarAutentificacion(String nombre, String contrasena){
+    public Oyente comprobarAutentificacion(String nombre, String contrasena){
         return go.comprobarAutentificacion(nombre, contrasena);
     }
 

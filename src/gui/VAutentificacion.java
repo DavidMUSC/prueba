@@ -17,8 +17,8 @@ public class VAutentificacion extends JDialog {
 
     private aplicacion.fachadaAplicacion fa;
 
-    public VAutentificacion(Frame owner, aplicacion.fachadaAplicacion fa) {
-        super(owner);
+    public VAutentificacion(aplicacion.fachadaAplicacion fa) {
+        super();
         this.fa = fa;
         initComponents();
     }

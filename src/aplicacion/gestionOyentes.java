@@ -11,10 +11,10 @@ public class gestionOyentes {
         this.fbd = fbd;
         admin = false;
     }
-    public boolean comprobarAutentificacion(String nombre, String contrasena){
+    public Oyente comprobarAutentificacion(String nombre, String contrasena){
         Oyente o;
         o=fbd.validarUsuario(nombre, contrasena);
-        return o != null;
+        return o;
     }
     public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
         fbd.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
