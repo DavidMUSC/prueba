@@ -35,4 +35,10 @@ public class fachadaGui {
         va = new VPrincipal(fa,op);
         va.setVisible(true);
     }
+
+    public void muestraBiblioteca(int op) {
+        VBiblioteca vb;
+        vb= new VBiblioteca(fa,op);
+        vb.setVisible(true);
+    }
 }

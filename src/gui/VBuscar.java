@@ -47,6 +47,11 @@ public class VBuscar extends JFrame {
         // TODO add your code here
     }
 
+    private void bttBiblioteca(ActionEvent e) {
+        fa.muestraBiblioteca(this.op);
+        this.dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         panel1 = new JPanel();
@@ -97,6 +102,7 @@ public class VBuscar extends JFrame {
                 bttBiblioteca.setForeground(Color.white);
                 bttBiblioteca.setBorder(null);
                 bttBiblioteca.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttBiblioteca.addActionListener(e -> bttBiblioteca(e));
 
                 //---- bttPerfil ----
                 bttPerfil.setText("PERFIL");

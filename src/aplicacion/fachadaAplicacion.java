@@ -66,4 +66,8 @@ public class fachadaAplicacion {
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
+
+    public void muestraBiblioteca(int op) {
+        fgui.muestraBiblioteca(op);
+    }
 }
