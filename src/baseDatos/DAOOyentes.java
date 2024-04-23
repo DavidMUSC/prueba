@@ -7,7 +7,7 @@ public class DAOOyentes extends abstractDAO{
         super.setFachadaAplicacion(fa);
     }
 
-    public Oyente validarUsuario(String nombre, String contraseña){
+    public Oyente validarUsuario(String nombre, String contrasena){
         Oyente resultado=null;
         Connection con;
         PreparedStatement stmUsuario=null;
@@ -20,7 +20,7 @@ public class DAOOyentes extends abstractDAO{
                     "from oyente "+
                     "where nombre = ? and contraseña = ?");
             stmUsuario.setString(1, nombre);
-            stmUsuario.setString(2, contraseña);
+            stmUsuario.setString(2, contrasena);
             rsOyente=stmUsuario.executeQuery();
             if (rsOyente.next())
             {
