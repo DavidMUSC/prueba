@@ -49,11 +49,11 @@ public class Album {
         this.añoLanzamiento = añoLanzamiento;
     }
 
-    public int getNombreDiscografica() {
+    public int getIDDiscografica() {
         return IDDiscografica;
     }
 
-    public void setNombreDiscografica(int IDDiscografica) {
+    public void setIDDiscografica(int IDDiscografica) {
         this.IDDiscografica = IDDiscografica;
     }
 

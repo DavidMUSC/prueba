@@ -2,6 +2,7 @@ package baseDatos;
 
 import aplicacion.Artista;
 import aplicacion.Oyente;
+import java.util.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,5 +43,35 @@ public class DAOArtistas extends abstractDAO {
             try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
         return resultado;
+    }
+
+    public List<Artista> buscarArtistas(String terminoBusqueda) throws SQLException {
+        Artista resultado=null;
+        Connection con;
+        PreparedStatement stmUsuario=null;
+        ResultSet rsOyente;
+        List<Artista> artistasEncontrados = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT * FROM ARTISTA WHERE nombre LIKE ?";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setString(1, "%" + terminoBusqueda + "%");
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String nombre = resultSet.getString("nombre");
+                String contraseña = resultSet.getString("contraseña");
+                String email = resultSet.getString("email");
+                // Otros campos del artista
+
+                Artista artista = new Artista(nombre, contraseña, email);
+                // Agregar más campos al constructor de Artista si es necesario
+
+                artistasEncontrados.add(artista);
+            }
+        }
+
+        return artistasEncontrados;
     }
 }
