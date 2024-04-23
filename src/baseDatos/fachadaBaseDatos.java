@@ -11,6 +11,7 @@ public class fachadaBaseDatos {
     private java.sql.Connection conexion;
 
     private DAOOyentes daoOyentes;
+    private DAOArtistas daoArtista;
 
     public fachadaBaseDatos (aplicacion.fachadaAplicacion fa){
 
@@ -34,6 +35,7 @@ public class fachadaBaseDatos {
             conexion = DriverManager.getConnection(url,usuario,contrasena);
             //TODO: iniciar daos aqui
             daoOyentes = new DAOOyentes(conexion,fa);
+            daoArtista = new DAOArtistas(conexion, fa);
             System.out.println("Conexión exitosa a la base de datos.");
         } catch (SQLException e) {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
@@ -41,11 +43,17 @@ public class fachadaBaseDatos {
 
     }
 
+    //MÉTODOS OYENTES
     public Oyente validarUsuario(String nombre, String contrasena){
         return daoOyentes.validarUsuario(nombre, contrasena);
     }
     public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
         daoOyentes.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
+    }
+
+    //MÉTODOS ARTISTAS
+    public Artista validarArtista(String nombre, String contrasena){
+        daoArtista
     }
 
 }
