@@ -16,4 +16,7 @@ public class gestionOyentes {
         o=fbd.validarUsuario(nombre, contrasena);
         return o != null;
     }
+    public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
+        fbd.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
+    }
 }

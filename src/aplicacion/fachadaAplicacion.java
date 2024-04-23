@@ -37,4 +37,8 @@ public class fachadaAplicacion {
     public boolean comprobarAutentificacion(String nombre, String contrasena){
         return go.comprobarAutentificacion(nombre, contrasena);
     }
+
+    public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
+        go.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
+    }
 }

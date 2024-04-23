@@ -22,7 +22,10 @@ public class VRegistrarsee extends JDialog {
         initComponents();
     }
 
-
+    public void registrar(java.awt.event.ActionEvent evt) {
+        fa.registrarOyente(usuario.getText(), correo.getText(), contraseña.getText(), textField1.getText());
+        this.dispose();
+    }
 
 
 
@@ -86,6 +89,7 @@ public class VRegistrarsee extends JDialog {
             label3.setText("REGISTRARSE");
             label3.setForeground(new Color(0x00d856));
 
+
             //---- label4 ----
             label4.setText("Usuario:");
 
@@ -96,6 +100,7 @@ public class VRegistrarsee extends JDialog {
             registrar.setText("Confirmar");
             registrar.setBackground(new Color(0x00d856));
             registrar.setForeground(Color.white);
+            registrar.addActionListener(e -> registrar(e));
 
             //---- label6 ----
             label6.setText("E-mail:");

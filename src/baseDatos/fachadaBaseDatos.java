@@ -58,5 +58,8 @@ public class fachadaBaseDatos {
     public Oyente validarUsuario(String nombre, String contrasena){
         return daoOyentes.validarUsuario(nombre, contrasena);
     }
+    public void registrarOyente(String usuario, String correo, String contrasena, String fechaNacimiento) {
+        daoOyentes.registrarOyente(usuario, correo, contrasena, fechaNacimiento);
+    }
 
 }
