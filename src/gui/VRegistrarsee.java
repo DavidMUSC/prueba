@@ -99,6 +99,7 @@ public class VRegistrarsee extends JDialog {
             registrar.setText("Confirmar");
             registrar.setBackground(new Color(0x00d856));
             registrar.setForeground(Color.white);
+            registrar.addActionListener(this::registrar);
 
             //---- label6 ----
             label6.setText("E-mail:");

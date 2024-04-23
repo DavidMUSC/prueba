@@ -61,7 +61,7 @@ public class DAOOyentes extends abstractDAO{
                 e.printStackTrace();
             }
 
-            stmUsuario.executeQuery();
+            stmUsuario.executeUpdate();
 
         } catch (SQLException e){
             System.out.println(e.getMessage());

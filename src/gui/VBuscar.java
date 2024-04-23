@@ -15,12 +15,28 @@ import aplicacion.fachadaAplicacion;
  */
 public class VBuscar extends JFrame {
     fachadaAplicacion fa;
-    public VBuscar(fachadaAplicacion fa) {
+    public VBuscar(fachadaAplicacion fa,int op) {
         this.fa = fa;
         initComponents();
+        switch(op){
+            case 1:
+                bttGestion.setVisible(false);
+                bttPublicar.setVisible(false);
+                break;
+            case 2:
+                bttGestion.setVisible(false);
+                break;
+            case 3:
+                bttPublicar.setVisible(false);
+                break;
+        }
     }
 
     private void bttBuscar(ActionEvent e) {
+        // TODO add your code here
+    }
+
+    private void bttInicio(ActionEvent e) {
         // TODO add your code here
     }
 
@@ -57,6 +73,7 @@ public class VBuscar extends JFrame {
                 bttInicio.setForeground(Color.white);
                 bttInicio.setBorder(null);
                 bttInicio.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttInicio.addActionListener(e -> bttInicio(e));
 
                 //---- bttBuscar ----
                 bttBuscar.setText("BUSCAR");

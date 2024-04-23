@@ -30,4 +30,9 @@ public class fachadaGui {
         vb = new VBuscar(fa,op);
         vb.setVisible(true);
     }
+    public void muestraPrincipal(){
+        VPrincipal va;
+        va = new VPrincipal(fa);
+        va.setVisible(true);
+    }
 }

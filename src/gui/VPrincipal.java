@@ -15,8 +15,10 @@ import aplicacion.fachadaAplicacion;
  */
 public class VPrincipal extends JFrame {
     fachadaAplicacion fa;
+    int op;
     public VPrincipal(fachadaAplicacion fa, int op) {
         this.fa = fa;
+        this.op=op;
         initComponents();
         switch(op){
             case 1:
@@ -33,11 +35,8 @@ public class VPrincipal extends JFrame {
     }
 
     private void bttBuscar(ActionEvent e) {
-        //fa.muestraBuscar();
-        VBuscar vb;
-        vb = new VBuscar(fa);
-        vb.setVisible(true);
-        //this.dispose();
+        fa.muestraBuscar(op);
+        this.dispose();
     }
 
     private void initComponents() {
