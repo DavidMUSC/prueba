@@ -90,9 +90,17 @@ public class fachadaAplicacion {
         return gp.buscarPlaylists(terminoBusqueda);
     }
 
+    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario){
+        return gp.buscarPlaylistsUsuario(nombreUsuario);
+    }
+
     //FUNCIONES CANCION
     public List<Cancion> buscarCanciones(String terminoBusqueda){
         return gc.buscarCanciones(terminoBusqueda);
+    }
+
+    public String obtenerArtistaDeCancion(String nombreCancion){
+        return gc.obtenerArtistaDeCancion(nombreCancion);
     }
 
     //FUNCIONES ALBUM
@@ -100,9 +108,17 @@ public class fachadaAplicacion {
         return gal.buscarAlbumes(terminoBusqueda);
     }
 
+    public String obtenerArtistaDeAlbum(String nombreAlbum){
+        return gal.obtenerArtistaDeAlbum(nombreAlbum);
+    }
+
     //FUNCIONES PODCAST
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return gpo.buscarPodcasts(terminoBusqueda);
+    }
+
+    public String obtenerArtistaDePodcast(String nombrePodcast){
+        return gpo.obtenerArtistaDePodcast(nombrePodcast);
     }
 
 }

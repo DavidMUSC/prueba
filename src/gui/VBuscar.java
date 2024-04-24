@@ -68,22 +68,25 @@ public class VBuscar extends JFrame {
         }
         List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);
         for(Podcast a : listaPodcast){
-            Elemento e2 = new Elemento(a.getNombre(),"Podcast");
+            String artista = fa.obtenerArtistaDePodcast(a.getNombre());
+            Elemento e2 = new Elemento(a.getNombre() +" - "+artista,"Podcast");
             lista.add(e2);
         }
         List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
         for(Playlist a : listaPlaylist){
-            Elemento e3 = new Elemento(a.getNombrePlaylist(),"Playlist");
+            Elemento e3 = new Elemento(a.getNombrePlaylist() + " - "+a.getCreador(),"Playlist");
             lista.add(e3);
         }
         List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
         for(Cancion a : listaCanciones){
-            Elemento e4 = new Elemento(a.getNombre(),"Cancion");
+            String artista = fa.obtenerArtistaDeCancion(a.getNombre());
+            Elemento e4 = new Elemento(a.getNombre()+ " - "+artista,"Cancion");
             lista.add(e4);
         }
         List<Album> listaAlbums = fa.buscarAlbum(nombre);
         for(Album a : listaAlbums){
-            Elemento e5 = new Elemento(a.getNombre(),a.getTipo());
+            String artista = fa.obtenerArtistaDeAlbum(a.getNombre());
+            Elemento e5 = new Elemento(a.getNombre()+ " - "+artista,a.getTipo());
             lista.add(e5);
         }
 

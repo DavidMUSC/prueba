@@ -72,7 +72,6 @@ public class DAOPlaylist extends abstractDAO {
                 String fechaCreacion = rsPlaylist.getString("fechaCreacion");
 
                 Playlist playlist = new Playlist(idPlaylist, nombrePlaylist, creador, fechaCreacion);
-                // Agregar más campos al constructor de Playlist si es necesario
 
                 playlistsEncontradas.add(playlist);
             }
@@ -88,5 +87,44 @@ public class DAOPlaylist extends abstractDAO {
         }
         return playlistsEncontradas;
     }
-    
+
+    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario) {
+        Connection con;
+        PreparedStatement stmPlaylist = null;
+        ResultSet rsPlaylist;
+        List<Playlist> playlistsEncontradas = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT * FROM PLAYLIST WHERE IDOyente = ?";
+        try {
+            stmPlaylist = con.prepareStatement(sql);
+            stmPlaylist.setString(1, nombreUsuario);
+
+            rsPlaylist = stmPlaylist.executeQuery();
+            while (rsPlaylist.next()) {
+                int idPlaylist = rsPlaylist.getInt("IDPlaylist");
+                String nombrePlaylist = rsPlaylist.getString("nombrePlaylist");
+                String creador = rsPlaylist.getString("IDOyente");
+                String fechaCreacion = rsPlaylist.getString("fechaCreacion");
+
+                Playlist playlist = new Playlist(idPlaylist, nombrePlaylist, creador, fechaCreacion);
+
+                playlistsEncontradas.add(playlist);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmPlaylist.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return playlistsEncontradas;
+    }
+
+
+
 }

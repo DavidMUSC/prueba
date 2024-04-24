@@ -16,4 +16,8 @@ public class gestionPodcast {
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return fbd.buscarPodcasts(terminoBusqueda);
     }
+
+    public String obtenerArtistaDePodcast(String nombrePodcast){
+        return fbd.obtenerArtistaDePodcast(nombrePodcast);
+    }
 }

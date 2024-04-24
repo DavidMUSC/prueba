@@ -47,7 +47,7 @@ public class VBiblioteca extends JFrame {
                 break;
         }
 
-        //playlistsUsuario = fa.bus(usuarioActual);
+        playlistsUsuario = fa.buscarPlaylistsUsuario(usuarioActual);
         for(Playlist playlistIndice: playlistsUsuario){
             nombresPlaylists.add(playlistIndice.getNombrePlaylist());
         }

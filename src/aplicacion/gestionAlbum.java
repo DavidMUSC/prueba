@@ -15,4 +15,8 @@ public class gestionAlbum {
     public List<Album> buscarAlbumes(String terminoBusqueda){
         return fbd.buscarAlbumes(terminoBusqueda);
     }
+
+    public String obtenerArtistaDeAlbum(String nombreAlbum){
+        return fbd.obtenerArtistaDeAlbum(nombreAlbum);
+    }
 }
