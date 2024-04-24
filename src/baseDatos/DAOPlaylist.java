@@ -28,19 +28,18 @@ public class DAOPlaylist extends abstractDAO {
         try {
             stmPlaylist=con.prepareStatement("INSERT INTO PLAYLIST (IDPlaylist, nombrePlaylist, fechaCreacion, IDOyente)\n" +
                     "VALUES (\n" +
-                    "    (SELECT COALESCE(MAX(IDPlaylist), 0) + 1 FROM PLAYLIST WHERE IDOyente = ?),\n" +
+                    "    (SELECT MAX(IDPlaylist) + 1 FROM PLAYLIST),\n" +
                     "    ?,\n" +
                     "    ?,\n" +
                     "    ?\n" +
                     ");");
-            stmPlaylist.setString(1, usuario);
-            stmPlaylist.setString(2, nombre);
+            stmPlaylist.setString(1, nombre);
             LocalDate fechaActual = LocalDate.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String fechaFormateada = fechaActual.format(formato);
             Date fechaSql = Date.valueOf(fechaFormateada);
-            stmPlaylist.setDate(3, fechaSql);
-            stmPlaylist.setString(4, usuario);
+            stmPlaylist.setDate(2, fechaSql);
+            stmPlaylist.setString(3, usuario);
 
             stmPlaylist.executeUpdate();
 
