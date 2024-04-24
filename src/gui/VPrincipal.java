@@ -6,8 +6,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+
+import aplicacion.Playlist;
 import aplicacion.fachadaAplicacion;
 
 /**
@@ -16,6 +20,7 @@ import aplicacion.fachadaAplicacion;
 public class VPrincipal extends JFrame {
     private fachadaAplicacion fa;
     private String usuarioActual;
+    List<String> nombresPlaylists = new ArrayList<>();
     int op;
     public VPrincipal(fachadaAplicacion fa, int op, String usuarioActual) {
         this.fa = fa;
@@ -37,6 +42,15 @@ public class VPrincipal extends JFrame {
                 bttBuscar.setVisible(false);
                 break;
         }
+
+
+        for(Playlist playlistIndice: fa.buscarPlaylistsUsuario("Spotify")){
+            nombresPlaylists.add(playlistIndice.getNombrePlaylist());
+        }
+
+        modeloListaBiblioteca modelo;
+        modelo = (modeloListaBiblioteca) list1.getModel();
+        modelo.agregarLista(nombresPlaylists);
     }
     private void bttBuscar(ActionEvent e) {
         fa.muestraBuscar(op, usuarioActual);
@@ -48,8 +62,17 @@ public class VPrincipal extends JFrame {
         this.dispose();
     }
 
+    private void createUIComponents() {
+        list1 = new JList<>();
+        list1.setModel(new modeloListaBiblioteca());
+    }
+
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        createUIComponents();
+
         panel1 = new JPanel();
         panel2 = new JPanel();
         label1 = new JLabel();
@@ -60,6 +83,8 @@ public class VPrincipal extends JFrame {
         bttAjustes = new JButton();
         bttPublicar = new JButton();
         bttGestion = new JButton();
+        textField1 = new JTextField();
+        scrollPane1 = new JScrollPane();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -146,7 +171,7 @@ public class VPrincipal extends JFrame {
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(label1)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bttInicio)
                             .addGap(18, 18, 18)
                             .addComponent(bttBuscar)
@@ -164,17 +189,36 @@ public class VPrincipal extends JFrame {
                 );
             }
 
+            //---- textField1 ----
+            textField1.setText("LO QUE NO TE PUEDES PERDER:");
+            textField1.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+
+            //======== scrollPane1 ========
+            {
+                scrollPane1.setViewportView(list1);
+            }
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 486, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addGroup(panel1Layout.createParallelGroup()
+                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 36, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
         }
 
@@ -204,5 +248,8 @@ public class VPrincipal extends JFrame {
     private JButton bttAjustes;
     private JButton bttPublicar;
     private JButton bttGestion;
+    private JTextField textField1;
+    private JScrollPane scrollPane1;
+    private JList list1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
