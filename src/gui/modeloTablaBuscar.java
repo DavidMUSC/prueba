@@ -6,6 +6,10 @@ public class modeloTablaBuscar extends javax.swing.table.AbstractTableModel {
     //tabla de dos columnas, una con el tipo de dato y otra con el nombre
     private List<Elemento> datos;
 
+    public modeloTablaBuscar(){
+        this.datos=new java.util.ArrayList<Elemento>();
+    }
+
     public String getColumnName(int col){
         String nombre="";
 
