@@ -55,7 +55,7 @@ public class DAOPodcast extends abstractDAO {
         PreparedStatement stmArtista = null;
         ResultSet rsArtista;
         String nombreArtista = null;
-
+        int i = 23;
         con = this.getConexion();
 
         String sql = "SELECT a.nombreArtistico " +
