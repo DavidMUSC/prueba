@@ -31,9 +31,8 @@ public class DAOPodcast extends abstractDAO {
             while (rsPodcast.next()) {
                 int idPodcast = rsPodcast.getInt("IDPodcast");
                 String nombre = rsPodcast.getString("nombre");
-                String creador = rsPodcast.getString("creador");
 
-                Podcast podcast = new Podcast(idPodcast, nombre, creador);
+                Podcast podcast = new Podcast(idPodcast, nombre);
                 // Agregar más campos al constructor de Podcast si es necesario
 
                 podcastsEncontrados.add(podcast);

@@ -47,6 +47,25 @@ public class VBuscar extends JFrame {
     }
 
     private void bttLupa(ActionEvent e) {
+        busqueda();
+    }
+
+    private void bttBiblioteca(ActionEvent e) {
+        fa.muestraBiblioteca(this.op);
+        this.dispose();
+    }
+
+    private void createUIComponents() {
+        tabla = new JTable();
+        modeloTablaBuscar m = new modeloTablaBuscar();
+        tabla.setModel(m);
+    }
+
+    private void lupaKeyPressed(KeyEvent e) {
+        // TODO add your code here
+    }
+
+    private void busqueda(){
         if(buscador.getText().equals("")){
             return;
         }
@@ -83,14 +102,15 @@ public class VBuscar extends JFrame {
         m.setFilas(lista);
     }
 
-    private void bttBiblioteca(ActionEvent e) {
-        fa.muestraBiblioteca(this.op);
-        this.dispose();
+
+    private void panel1KeyPressed(KeyEvent e) {
+        //si pulsas enter se ejecuta el boton de lupa
+        if(e.getKeyCode()==KeyEvent.VK_ENTER){
+            busqueda();
+        }
     }
 
-    private void createUIComponents() {
-        // TODO: add custom component creation code here
-    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -109,13 +129,18 @@ public class VBuscar extends JFrame {
         buscador = new JTextField();
         button1 = new JButton();
         scrollPane1 = new JScrollPane();
-        tabla = new JTable();
-        tabla.setModel(new modeloTablaBuscar());
+
         //======== this ========
         var contentPane = getContentPane();
 
         //======== panel1 ========
         {
+            panel1.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    panel1KeyPressed(e);
+                }
+            });
 
             //======== panel2 ========
             {
@@ -220,6 +245,12 @@ public class VBuscar extends JFrame {
             button1.setBorder(null);
             button1.setBackground(new Color(0xf2f2f2));
             button1.addActionListener(e -> bttLupa(e));
+            button1.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    lupaKeyPressed(e);
+                }
+            });
 
             //======== scrollPane1 ========
             {
@@ -232,15 +263,14 @@ public class VBuscar extends JFrame {
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                                 .addComponent(button1)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                                 .addComponent(buscador, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28))
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(16, Short.MAX_VALUE))))
             );
@@ -249,12 +279,12 @@ public class VBuscar extends JFrame {
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(buscador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(button1))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))
+                        .addContainerGap(29, Short.MAX_VALUE))
             );
         }
 

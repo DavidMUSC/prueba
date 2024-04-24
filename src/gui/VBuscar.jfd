@@ -9,10 +9,11 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, par l {seq {space ::17:x, comp button1:::p::p, space u:::p, comp buscador:::p:409:p, space :p:28:p}, seq l {space s:::p, comp scrollPane1:::p::p, space ::16:x}}}}"
-				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:48:p, par b {comp buscador::b:p::p, comp button1::b:p::p}, space u:::p, comp scrollPane1:::p:360:p, space ::23:x}}"
+				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space s:::p, par l {seq {comp button1:::p::p, space ::11:x, comp buscador:::p:409:p, space :p:28:p}, seq {comp scrollPane1:::p::p, space ::16:x}}}}"
+				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:48:p, par l {comp buscador:::p::p, comp button1:::p::p}, space :::p, comp scrollPane1:::p:360:p, space ::29:x}}"
 			} ) {
 				name: "panel1"
+				addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "panel1KeyPressed", true ) )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {comp bttInicio::l:::x, seq {par l {comp label1:::p::p, comp bttBuscar::l:p:212:p, comp bttBiblioteca::l:p:212:p, comp bttPublicar::l:p:212:p, comp bttAjustes::l:p:212:p, comp bttPerfil::l:p:212:p, comp bttGestion::l:p:212:p}, space :0:0:x}}"
 					"$verticalGroup": "par l {seq t {space :::p, comp label1:::p::p, space ::38:x, comp bttInicio:::p::p, space s:::p, comp bttBuscar:::p::p, space :p:18:p, comp bttBiblioteca:::p::p, space s:::p, comp bttPublicar:::p::p, space s:::p, comp bttGestion:::p::p, space :p:67:p, comp bttPerfil:::p::p, space :::p, comp bttAjustes:::p::p, space :p:28:p}}"
@@ -92,6 +93,7 @@ new FormModel {
 					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"background": new java.awt.Color( 242, 242, 242, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttLupa", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "lupaKeyPressed", true ) )
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane1"

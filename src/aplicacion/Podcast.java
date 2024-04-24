@@ -3,13 +3,11 @@ package aplicacion;
 public class Podcast {
     private int idPodcast;
     private String nombre;
-    private String creador;
 
     // Constructor
-    public Podcast(int idPodcast, String nombre, String creador) {
+    public Podcast(int idPodcast, String nombre) {
         this.idPodcast = idPodcast;
         this.nombre = nombre;
-        this.creador = creador;
     }
 
     // Getters y setters
@@ -29,21 +27,9 @@ public class Podcast {
         this.nombre = nombre;
     }
 
-    public String getCreador() {
-        return creador;
-    }
-
-    public void setCreador(String creador) {
-        this.creador = creador;
-    }
-
     // Método toString para representación de cadena
     @Override
     public String toString() {
-        return "Podcast{" +
-                "idPodcast=" + idPodcast +
-                ", nombre='" + nombre + '\'' +
-                ", creador='" + creador + '\'' +
-                '}';
+        return nombre;
     }
 }
