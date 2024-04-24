@@ -52,4 +52,39 @@ public class DAOAlbum extends abstractDAO {
         return albumesEncontrados;
     }
 
+    public String obtenerArtistaDeAlbum(String nombreAlbum) {
+        Connection con;
+        PreparedStatement stmArtista = null;
+        ResultSet rsArtista;
+        String nombreArtista = null;
+
+        con = this.getConexion();
+
+        String sql = "SELECT a.nombreArtistico " +
+                "FROM ARTISTA a " +
+                "INNER JOIN COMPONER c ON a.nombre = c.IDArtista " +
+                "INNER JOIN ALBUM al ON c.IDAlbum = al.IDAlbum " +
+                "WHERE al.nombre = ?";
+        try {
+            stmArtista = con.prepareStatement(sql);
+            stmArtista.setString(1, nombreAlbum);
+
+            rsArtista = stmArtista.executeQuery();
+            if (rsArtista.next()) {
+                nombreArtista = rsArtista.getString("nombreArtistico");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmArtista.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return nombreArtista;
+    }
+
+
 }
