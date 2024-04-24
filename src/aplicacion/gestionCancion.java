@@ -16,4 +16,8 @@ public class gestionCancion {
         return fbd.buscarCanciones(terminoBusqueda);
     }
 
+    public String obtenerArtistaDeCancion(String nombreCancion){
+        return fbd.obtenerArtistaDeCancion(nombreCancion);
+    }
+
 }

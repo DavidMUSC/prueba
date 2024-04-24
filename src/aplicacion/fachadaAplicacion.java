@@ -99,9 +99,17 @@ public class fachadaAplicacion {
         return gc.buscarCanciones(terminoBusqueda);
     }
 
+    public String obtenerArtistaDeCancion(String nombreCancion){
+        return gc.obtenerArtistaDeCancion(nombreCancion);
+    }
+
     //FUNCIONES ALBUM
     public List<Album> buscarAlbum(String terminoBusqueda){
         return gal.buscarAlbumes(terminoBusqueda);
+    }
+
+    public String obtenerArtistaDeAlbum(String nombreAlbum){
+        return gal.obtenerArtistaDeAlbum(nombreAlbum);
     }
 
     //FUNCIONES PODCAST
