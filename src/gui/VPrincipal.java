@@ -14,11 +14,13 @@ import aplicacion.fachadaAplicacion;
  * @author davra
  */
 public class VPrincipal extends JFrame {
-    fachadaAplicacion fa;
+    private fachadaAplicacion fa;
+    private String usuarioActual;
     int op;
-    public VPrincipal(fachadaAplicacion fa, int op) {
+    public VPrincipal(fachadaAplicacion fa, int op, String usuarioActual) {
         this.fa = fa;
         this.op=op;
+        this.usuarioActual=usuarioActual;
         initComponents();
         switch(op){
             case 1:
@@ -30,16 +32,19 @@ public class VPrincipal extends JFrame {
                 break;
             case 3:
                 bttPublicar.setVisible(false);
+                bttInicio.setVisible(false);
+                bttBiblioteca.setVisible(false);
+                bttBuscar.setVisible(false);
                 break;
         }
     }
     private void bttBuscar(ActionEvent e) {
-        fa.muestraBuscar(op);
+        fa.muestraBuscar(op, usuarioActual);
         this.dispose();
     }
 
     private void bttBiblioteca(ActionEvent e) {
-        fa.muestraBiblioteca(op);
+        fa.muestraBiblioteca(op, usuarioActual);
         this.dispose();
     }
 
