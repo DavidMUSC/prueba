@@ -69,7 +69,7 @@ public class DAOPodcast extends abstractDAO {
 
             rsArtista = stmArtista.executeQuery();
             if (rsArtista.next()) {
-                nombreArtista = rsArtista.getString("nombre");
+                nombreArtista = rsArtista.getString("nombreArtistico");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
