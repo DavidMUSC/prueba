@@ -60,8 +60,14 @@ public class VBuscar extends JFrame {
         this.dispose();
     }
 
+    private void createUIComponents() {
+        // TODO: add custom component creation code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        createUIComponents();
+
         panel1 = new JPanel();
         panel2 = new JPanel();
         label1 = new JLabel();
@@ -74,7 +80,9 @@ public class VBuscar extends JFrame {
         bttGestion = new JButton();
         buscador = new JTextField();
         button1 = new JButton();
-
+        scrollPane1 = new JScrollPane();
+        tabla = new JTable();
+        tabla.setModel(new modeloTablaBuscar());
         //======== this ========
         var contentPane = getContentPane();
 
@@ -161,7 +169,7 @@ public class VBuscar extends JFrame {
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(label1)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                             .addComponent(bttInicio)
                             .addGap(18, 18, 18)
                             .addComponent(bttBuscar)
@@ -185,17 +193,28 @@ public class VBuscar extends JFrame {
             button1.setBackground(new Color(0xf2f2f2));
             button1.addActionListener(e -> bttLupa(e));
 
+            //======== scrollPane1 ========
+            {
+                scrollPane1.setViewportView(tabla);
+            }
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button1)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buscador, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
+                        .addGroup(panel1Layout.createParallelGroup()
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addComponent(button1)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buscador, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(16, Short.MAX_VALUE))))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
@@ -205,7 +224,9 @@ public class VBuscar extends JFrame {
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(buscador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(button1))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(23, Short.MAX_VALUE))
             );
         }
 
@@ -224,6 +245,8 @@ public class VBuscar extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
+
+
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel panel1;
     private JPanel panel2;
@@ -237,5 +260,7 @@ public class VBuscar extends JFrame {
     private JButton bttGestion;
     private JTextField buscador;
     private JButton button1;
+    private JScrollPane scrollPane1;
+    private JTable tabla;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
