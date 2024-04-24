@@ -90,6 +90,10 @@ public class fachadaAplicacion {
         return gp.buscarPlaylists(terminoBusqueda);
     }
 
+    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario){
+        return gp.buscarPlaylistsUsuario(nombreUsuario);
+    }
+
     //FUNCIONES CANCION
     public List<Cancion> buscarCanciones(String terminoBusqueda){
         return gc.buscarCanciones(terminoBusqueda);
@@ -103,6 +107,10 @@ public class fachadaAplicacion {
     //FUNCIONES PODCAST
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return gpo.buscarPodcasts(terminoBusqueda);
+    }
+
+    public String obtenerArtistaDePodcast(String nombrePodcast){
+        return gpo.obtenerArtistaDePodcast(nombrePodcast);
     }
 
 }

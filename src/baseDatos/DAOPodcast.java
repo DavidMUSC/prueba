@@ -50,4 +50,39 @@ public class DAOPodcast extends abstractDAO {
         return podcastsEncontrados;
     }
 
+    public String obtenerArtistaDePodcast(String nombrePodcast) {
+        Connection con;
+        PreparedStatement stmArtista = null;
+        ResultSet rsArtista;
+        String nombreArtista = null;
+
+        con = this.getConexion();
+
+        String sql = "SELECT a.nombreArtistico " +
+                "FROM ARTISTA a " +
+                "INNER JOIN PARTICIPARPODCAST pp ON a.nombre = pp.IDArtista " +
+                "INNER JOIN PODCAST p ON pp.IDPodcast = p.IDPodcast " +
+                "WHERE p.nombre = ?";
+        try {
+            stmArtista = con.prepareStatement(sql);
+            stmArtista.setString(1, nombrePodcast);
+
+            rsArtista = stmArtista.executeQuery();
+            if (rsArtista.next()) {
+                nombreArtista = rsArtista.getString("nombre");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmArtista.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return nombreArtista;
+    }
+
+
 }
