@@ -1,4 +1,5 @@
 package aplicacion;
+import java.util.List;
 
 public class fachadaAplicacion {
     gui.fachadaGui fgui;
