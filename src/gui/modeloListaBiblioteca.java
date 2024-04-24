@@ -22,4 +22,12 @@ public class modeloListaBiblioteca extends javax.swing.AbstractListModel {
     public Object getElementAt(int index) {
         return lista.get(index);
     }
+
+    // Método para agregar una lista completa al modelo
+    //@Override
+    public void agregarLista(List<String> nuevaLista) {
+        int sizeAnterior = lista.size();
+        lista.addAll(nuevaLista);
+        fireIntervalAdded(this, sizeAnterior, lista.size() - 1);
+    }
 }

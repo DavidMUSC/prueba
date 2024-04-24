@@ -6,8 +6,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.*;
+import aplicacion.Playlist;
 
+import aplicacion.Playlist;
 import aplicacion.fachadaAplicacion;
 import net.miginfocom.swing.*;
 
@@ -17,7 +21,10 @@ import net.miginfocom.swing.*;
 public class VBiblioteca extends JFrame {
     fachadaAplicacion fa;
     String usuarioActual;
+    List<Playlist> playlistsUsuario = new ArrayList<>();
+    List<String> nombresPlaylists = new ArrayList<>();
     int op;
+
     public VBiblioteca(fachadaAplicacion fa,int op, String usuarioActual) {
         this.op=op;
         this.fa = fa;
@@ -39,6 +46,16 @@ public class VBiblioteca extends JFrame {
                 bttBuscar.setVisible(false);
                 break;
         }
+
+        playlistsUsuario = fa.buscarPlaylistsUsuario(usuarioActual);
+        for(Playlist playlistIndice: playlistsUsuario){
+            nombresPlaylists.add(playlistIndice.getNombrePlaylist());
+        }
+
+        modeloListaBiblioteca modelo;
+        modelo = (modeloListaBiblioteca) list1.getModel();
+        modelo.agregarLista(nombresPlaylists);
+
     }
 
     private void bttInicio(ActionEvent e) {
