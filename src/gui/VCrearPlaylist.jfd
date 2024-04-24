@@ -4,17 +4,17 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {comp panel3::l:::x}"
+			"$horizontalGroup": "par l {comp panel3::l::498:x}"
 			"$verticalGroup": "par l {comp panel3::l:::x}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {comp panel4::l:::x}"
-				"$verticalGroup": "par l {seq l {comp panel4:::p::p, space :0:280:x}}"
+				"$horizontalGroup": "par l {seq {par t {seq t {space :::x, comp bttLupa:::p::p, space :::p, par l:::p {seq {space :6:6:p, comp scrollPane1:::::x}, comp buscadorCancion:::p:152:p}, par l {seq {space :p:53:p, comp scrollPane2:::p:156:p}, seq {space :p:95:p, comp label4:::p:70:p}}, space :p:39:p}, seq l {space :p:20:p, comp label2:::p:48:p, space :::p, comp buscadorNombre:::p:400:p, space :0:0:x}}, comp label3:::p:46:p, space :::x}, seq l {comp panel4:::p::p, space :::x}, seq l {space :p:113:p, comp button2:::p::p, space :::x, comp bttGuardar:::p::p, space :p:31:p}}"
+				"$verticalGroup": "par l {seq l {comp panel4:::p::p, space :p:31:p, par t {seq {par b {comp buscadorNombre::b:p::p, comp label2::b:p::p}, par l {seq {space :p:11:p, comp label3:::p::p}, seq l {space :::p, comp buscadorCancion:::p::p}}}, comp label4::t:p:21:p, comp bttLupa::t:p::p}, space u:::p, par l {comp scrollPane2::::132:x, comp scrollPane1::::132:x}, space u:::p, par b {comp bttGuardar::b:p::p, comp button2::b:p::p}, space :p:11:p}}"
 			} ) {
 				name: "panel3"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:131:p, comp label1:::p::p, space ::135:x}}"
+					"$horizontalGroup": "par l {seq l {space :p:131:p, comp label1:::p::p, space ::138:x}}"
 					"$verticalGroup": "par l {seq t {space ::28:x, comp label1:::p::p, space :p:26:p}}"
 				} ) {
 					name: "panel4"
@@ -25,6 +25,60 @@ new FormModel {
 						"font": new java.awt.Font( "Franklin Gothic Demi", 1, 30 )
 						"foreground": sfield java.awt.Color white
 					} )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "Nombre:"
+					"font": new java.awt.Font( "Arial", 0, 12 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "buscadorNombre"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "buscadorCancion"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "bttLupa"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/fotos/lupa20.png" )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"background": new java.awt.Color( 242, 242, 242, 255 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttLupa", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "lupaKeyPressed", true ) )
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane1"
+					add( new FormComponent( "javax.swing.JList" ) {
+						name: "listaBuscador"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane2"
+					add( new FormComponent( "javax.swing.JList" ) {
+						name: "listaPlaylist"
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "bttGuardar"
+					"text": "GUARDAR"
+					"font": new java.awt.Font( "Arial", 1, 12 )
+					"background": new java.awt.Color( 0, 216, 86, 255 )
+					"foreground": sfield java.awt.Color white
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "PLAYLIST"
+					"font": new java.awt.Font( "Franklin Gothic Demi", 1, 14 )
+					"foreground": new java.awt.Color( 0, 216, 86, 255 )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button2"
+					"text": "AÑADIR"
+					"font": new java.awt.Font( "Arial", 1, 12 )
+					"foreground": new java.awt.Color( 255, 255, 255, 255 )
+					"background": new java.awt.Color( 0, 216, 86, 255 )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

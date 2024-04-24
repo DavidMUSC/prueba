@@ -41,8 +41,6 @@ public class DAOCancion extends abstractDAO {
 
                 Cancion cancion = new Cancion(nombre, idCancion, duracion, idioma, nombreGenero, letra, visualizaciones, IDAlbum, explicito);
                 cancionesEncontradas.add(cancion);
-
-                cancionesEncontradas.add(cancion);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

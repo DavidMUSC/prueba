@@ -1,4 +1,7 @@
 package aplicacion;
+import gui.VCrearPlaylist;
+
+import java.awt.*;
 import java.util.List;
 
 public class fachadaAplicacion {
@@ -44,7 +47,9 @@ public class fachadaAplicacion {
     public void iniciaInterfazUsuario(){
         fgui.iniciaVista();
     }
-
+    public void muestraCrearPlaylist(Frame owner, fachadaAplicacion fa, int op, String usuarioActual){
+        fgui.muestraCrearPlaylist(owner,fa,op,usuarioActual);
+    }
     public void muestraExcepcion(String e){
 
         fgui.muestraExcepcion(e);
