@@ -82,4 +82,48 @@ public class DAOArtistas extends abstractDAO {
         }
         return artistasEncontrados;
     }
+
+    public List<Artista> buscarArtistasMismoGenero(String nombreArtista) {
+        Connection con;
+        PreparedStatement stmArtistas = null;
+        ResultSet rsArtistas;
+        List<Artista> artistasEncontrados = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT a.* FROM ARTISTA a " +
+                "INNER JOIN PARTICIPARGÉNERO pg ON a.nombre = pg.IDArtista " +
+                "INNER JOIN PARTICIPARGÉNERO pg2 ON pg.nombreGenero = pg2.nombreGenero " +
+                "WHERE pg2.IDArtista = ?";
+
+        try {
+            stmArtistas = con.prepareStatement(sql);
+            stmArtistas.setString(1, nombreArtista);
+
+            rsArtistas = stmArtistas.executeQuery();
+            while (rsArtistas.next()) {
+                String nombre = rsArtistas.getString("nombre");
+                String contraseña = rsArtistas.getString("contraseña");
+                String email = rsArtistas.getString("email");
+                Date fechaNacimiento  = rsArtistas.getDate("fechaNacimiento");
+                String nombreArtistico = rsArtistas.getString("nombreArtistico");
+                String paisNacimiento = rsArtistas.getString("paisNacimiento");
+
+                Artista artista = new Artista(nombre, contraseña, email, fechaNacimiento, nombreArtistico, paisNacimiento);
+                artistasEncontrados.add(artista);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmArtistas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return artistasEncontrados;
+    }
+
+
 }
