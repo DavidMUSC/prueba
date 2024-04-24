@@ -81,6 +81,10 @@ public class VBiblioteca extends JFrame {
         list1.setModel(new modeloListaBiblioteca());
     }
 
+    private void bttCrearPlaylist(ActionEvent e) {
+        fa.muestraCrearPlaylist(this,fa,op,usuarioActual);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         createUIComponents();
@@ -97,7 +101,7 @@ public class VBiblioteca extends JFrame {
         bttGestion = new JButton();
         scrollPane1 = new JScrollPane();
         label2 = new JLabel();
-        button1 = new JButton();
+        bttCrearPlaylist = new JButton();
         label3 = new JLabel();
 
         //======== this ========
@@ -218,12 +222,13 @@ public class VBiblioteca extends JFrame {
             label2.setBackground(new Color(0x00d856));
             label2.setForeground(new Color(0x00d856));
 
-            //---- button1 ----
-            button1.setIcon(new ImageIcon(getClass().getResource("/fotos/descarga (1).png")));
-            button1.setForeground(new Color(0x00d856));
-            button1.setFont(new Font("Arial", Font.BOLD, 14));
-            button1.setBorder(null);
-            button1.setBackground(new Color(0xf2f2f2));
+            //---- bttCrearPlaylist ----
+            bttCrearPlaylist.setIcon(new ImageIcon(getClass().getResource("/fotos/descarga (1).png")));
+            bttCrearPlaylist.setForeground(new Color(0x00d856));
+            bttCrearPlaylist.setFont(new Font("Arial", Font.BOLD, 14));
+            bttCrearPlaylist.setBorder(null);
+            bttCrearPlaylist.setBackground(new Color(0xf2f2f2));
+            bttCrearPlaylist.addActionListener(e -> bttCrearPlaylist(e));
 
             //---- label3 ----
             label3.setText("Crear playlist");
@@ -245,7 +250,7 @@ public class VBiblioteca extends JFrame {
                                 .addGap(153, 153, 153)
                                 .addComponent(label2, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(button1)
+                                .addComponent(bttCrearPlaylist)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(label3)
                                 .addContainerGap())))
@@ -261,7 +266,7 @@ public class VBiblioteca extends JFrame {
                             .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(button1, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bttCrearPlaylist, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(label3, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8)))
                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE)
@@ -298,7 +303,7 @@ public class VBiblioteca extends JFrame {
     private JScrollPane scrollPane1;
     private JList list1;
     private JLabel label2;
-    private JButton button1;
+    private JButton bttCrearPlaylist;
     private JLabel label3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

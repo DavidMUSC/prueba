@@ -30,6 +30,11 @@ public class fachadaGui {
         vb = new VBuscar(fa,op, usuarioActual);
         vb.setVisible(true);
     }
+    public void muestraCrearPlaylist(Frame owner, fachadaAplicacion fa,int op, String usuarioActual){
+        VCrearPlaylist vcp = new VCrearPlaylist(owner,fa);
+        vcp.setVisible(true);
+    }
+
     public void muestraPrincipal(int op,String usuarioActual ){
         VPrincipal va;
         va = new VPrincipal(fa,op, usuarioActual);
