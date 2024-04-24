@@ -49,14 +49,14 @@ public class fachadaAplicacion {
 
         fgui.muestraExcepcion(e);
     }
-    public void muestraBuscar(int op){
-        fgui.muestraBuscar(this,op);
+    public void muestraBuscar(int op, String usuarioActual){
+        fgui.muestraBuscar(this,op, usuarioActual);
     }
-    public void muestraBiblioteca(int op) {
-        fgui.muestraBiblioteca(op);
+    public void muestraBiblioteca(int op, String usuarioActual) {
+        fgui.muestraBiblioteca(op, usuarioActual);
     }
-    public void muestraPrincipal(int op){
-        fgui.muestraPrincipal(op);
+    public void muestraPrincipal(int op, String usuarioActual){
+        fgui.muestraPrincipal(op, usuarioActual );
     }
 
     //FUNCIONES OYENTES

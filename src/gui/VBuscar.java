@@ -18,10 +18,12 @@ import aplicacion.*;
  */
 public class VBuscar extends JFrame {
     fachadaAplicacion fa;
+    String usuarioActual;
     int op;
-    public VBuscar(fachadaAplicacion fa,int op) {
+    public VBuscar(fachadaAplicacion fa,int op, String usuarioActual) {
         this.op=op;
         this.fa = fa;
+        this.usuarioActual = usuarioActual;
         initComponents();
         switch(op){
             case 1:
@@ -33,6 +35,9 @@ public class VBuscar extends JFrame {
                 break;
             case 3:
                 bttPublicar.setVisible(false);
+                bttInicio.setVisible(false);
+                bttBiblioteca.setVisible(false);
+                bttBuscar.setVisible(false);
                 break;
         }
     }
@@ -42,7 +47,7 @@ public class VBuscar extends JFrame {
     }
 
     private void bttInicio(ActionEvent e) {
-        fa.muestraPrincipal(this.op);
+        fa.muestraPrincipal(this.op, usuarioActual);
         this.dispose();
     }
 
@@ -51,7 +56,7 @@ public class VBuscar extends JFrame {
     }
 
     private void bttBiblioteca(ActionEvent e) {
-        fa.muestraBiblioteca(this.op);
+        fa.muestraBiblioteca(this.op, usuarioActual);
         this.dispose();
     }
 
