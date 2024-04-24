@@ -24,6 +24,7 @@ public class VRegistrarsee extends JDialog {
 
     public void registrar(java.awt.event.ActionEvent evt) {
         fa.registrarOyente(usuario.getText(), correo.getText(), contraseña.getText(), textField1.getText());
+        fa.registrarPlaylist("Canciones que te gustan",usuario.getText());
         this.dispose();
     }
 

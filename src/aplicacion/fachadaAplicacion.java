@@ -8,6 +8,10 @@ public class fachadaAplicacion {
     gestionOyentes go;
     gestionArtista ga;
     gestionAdministrador gadmin;
+    gestionPlaylist gp;
+    gestionPodcast gpo;
+    gestionAlbum gal;
+    gestionCancion gc;
 
     public fachadaAplicacion(){
         fgui=new gui.fachadaGui(this);
@@ -16,6 +20,10 @@ public class fachadaAplicacion {
         go = new gestionOyentes(fgui,fbd);
         ga = new gestionArtista(fgui,fbd);
         gadmin = new gestionAdministrador(fgui,fbd);
+        gp = new gestionPlaylist(fgui,fbd);
+        gpo = new gestionPodcast(fgui, fbd);
+        gal = new gestionAlbum(fgui, fbd);
+        gc = new gestionCancion(fgui, fbd);
     }
     public static void main(String args[]) {
 
@@ -40,9 +48,11 @@ public class fachadaAplicacion {
 
         fgui.muestraExcepcion(e);
     }
-
     public void muestraBuscar(int op){
         fgui.muestraBuscar(this,op);
+    }
+    public void muestraBiblioteca(int op) {
+        fgui.muestraBiblioteca(op);
     }
     public void muestraPrincipal(int op){
         fgui.muestraPrincipal(op);
@@ -67,7 +77,28 @@ public class fachadaAplicacion {
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
 
-    public void muestraBiblioteca(int op) {
-        fgui.muestraBiblioteca(op);
+    //FUNCIONES PLAYLIST
+    public void registrarPlaylist(String nombre, String usuario) {
+        gp.registrarPlaylist(nombre,usuario);
     }
+
+    public List<Playlist> buscarPlaylists(String terminoBusqueda){
+        return gp.buscarPlaylists(terminoBusqueda);
+    }
+
+    //FUNCIONES CANCION
+    public List<Cancion> buscarCanciones(String terminoBusqueda){
+        return gc.buscarCanciones(terminoBusqueda);
+    }
+
+    //FUNCIONES ALBUM
+    public List<Album> buscarAlbum(String terminoBusqueda){
+        return gal.buscarAlbumes(terminoBusqueda);
+    }
+
+    //FUNCIONES PODCAST
+    public List<Podcast> buscarPodcasts(String terminoBusqueda){
+        return gpo.buscarPodcasts(terminoBusqueda);
+    }
+
 }

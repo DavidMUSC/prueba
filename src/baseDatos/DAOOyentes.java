@@ -69,5 +69,7 @@ public class DAOOyentes extends abstractDAO{
         } finally{
             try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
+
+
     }
 }
