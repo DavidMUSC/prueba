@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :::x, comp button1:::p::p, space u:::p, comp textField1:::p:409:p, space :p:17:p}}"
-				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:48:p, par b {comp textField1::b:p::p, comp button1::b:p::p}, space :::x}}"
+				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :::x, comp button1:::p::p, space u:::p, comp buscador:::p:409:p, space :p:17:p}}"
+				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:48:p, par b {comp buscador::b:p::p, comp button1::b:p::p}, space :::x}}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -84,7 +84,7 @@ new FormModel {
 					} )
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField1"
+					name: "buscador"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "button1"

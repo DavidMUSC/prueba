@@ -6,9 +6,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
-import aplicacion.fachadaAplicacion;
+
+import aplicacion.*;
 
 /**
  * @author davra
@@ -44,7 +47,12 @@ public class VBuscar extends JFrame {
     }
 
     private void bttLupa(ActionEvent e) {
-        // TODO add your code here
+        String nombre=buscador.getText();
+        List<Artista> listaArtistas = fa.buscarArtistas(nombre);
+        List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);
+        List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
+        List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
+        List<Album> listaAlbums = fa.buscarAlbum(nombre);
     }
 
     private void bttBiblioteca(ActionEvent e) {
@@ -64,7 +72,7 @@ public class VBuscar extends JFrame {
         bttAjustes = new JButton();
         bttPublicar = new JButton();
         bttGestion = new JButton();
-        textField1 = new JTextField();
+        buscador = new JTextField();
         button1 = new JButton();
 
         //======== this ========
@@ -186,7 +194,7 @@ public class VBuscar extends JFrame {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(button1)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buscador, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
             );
             panel1Layout.setVerticalGroup(
@@ -195,7 +203,7 @@ public class VBuscar extends JFrame {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscador, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(button1))
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
@@ -227,7 +235,7 @@ public class VBuscar extends JFrame {
     private JButton bttAjustes;
     private JButton bttPublicar;
     private JButton bttGestion;
-    private JTextField textField1;
+    private JTextField buscador;
     private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

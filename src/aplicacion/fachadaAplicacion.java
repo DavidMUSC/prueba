@@ -72,6 +72,9 @@ public class fachadaAplicacion {
     public Artista comprobarAutentificacionArtista(String nombre, String contrasena){
         return  ga.comprobarAutentificacionArtista(nombre, contrasena);
     }
+    public List<Artista> buscarArtistas(String terminoBusqueda){
+        return ga.buscarArtistas(terminoBusqueda);
+    }
 
     //FUNCIONES ADMIN
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
