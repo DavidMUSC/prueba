@@ -4,14 +4,15 @@
 
 package gui;
 
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.*;
 import java.awt.event.*;
 
 import aplicacion.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
 import javax.swing.GroupLayout;
 
 /**
@@ -19,17 +20,18 @@ import javax.swing.GroupLayout;
  */
 public class VCrearPlaylist extends JDialog {
     fachadaAplicacion fa;
-    Elemento elemento;
-    List<Integer> listaIDCanciones = new ArrayList<>();
+    String usuario;
+    List<Elemento> listaElementos = new ArrayList<>();
     public VCrearPlaylist(Frame owner, fachadaAplicacion fa, String usuario) {
         super(owner);
         this.fa=fa;
+        this.usuario=usuario;
         initComponents();
-        bttAnadir.setVisible(false);
+        //bttAnadir.setVisible(false);
     }
 
     private void bttLupa(ActionEvent e) {
-        if(buscadorCancion.equals("")){
+        if(buscadorCancion.getText().equals("")){
             return;
         }
         String nombre=buscadorCancion.getText();
@@ -49,26 +51,61 @@ public class VCrearPlaylist extends JDialog {
     private void lupaKeyPressed(KeyEvent e) {
         // TODO add your code here
     }
-
     private void createUIComponents() {
         listaBuscador = new JTable();
         listaPlaylist = new JTable();
         listaBuscador.setModel(new modeloTablaBuscarCanciones());
         listaPlaylist.setModel(new modeloTablaBuscarCanciones());
+        /*listaBuscador.addMouseListener(new MouseAdapter(){
+            private void listaBuscadorMouseClicked(MouseEvent e) {
+                bttAnadir.setVisible(true);
+            }
+        });*/
     }
 
-    private void listaBuscadorMouseClicked(MouseEvent e) {
-        //this.elemento = new Elemento
-        bttAnadir.setVisible(true);
-    }
+
+
+
+
 
     private void bttAnadir(ActionEvent e) {
-        //lista
+        int row = listaBuscador.getSelectedRow();
+         if(row>=0) {
+             Elemento elementoBuscado=new Elemento((String)listaBuscador.getValueAt(row,0),(String)listaBuscador.getValueAt(row,1),0);
+             boolean encontrado = false;
+            for (Elemento elemento : listaElementos) {
+                if (elemento.getNombre().equals(elementoBuscado.getNombre())&&elemento.getArtista().equals(elementoBuscado.getArtista())) {
+                    encontrado = true;
+                    break;
+                }
+            }
+
+            if (!encontrado) {
+                listaElementos.add(elementoBuscado);
+            }
+        }
+        modeloTablaBuscarCanciones m;
+        m = (modeloTablaBuscarCanciones) listaPlaylist.getModel();
+        m.setFilas(listaElementos);
+    }
+
+    private void bttGuardar(ActionEvent e) {
+        if(buscadorNombre.getText().equals("")){
+            return;
+        }
+        fa.registrarPlaylist(buscadorNombre.getText(),usuario);
+        int idPlaylist = fa.buscarIDPlaylists(buscadorNombre.getText(),usuario);
+        for(Elemento elem : listaElementos){
+            fa.insertarCancionEnPlaylist(elem.getNombre(),idPlaylist);
+        }
+        this.dispose();
+        fa.muestraBiblioteca(1,usuario);
     }
 
     private void button2(ActionEvent e) {
         // TODO add your code here
     }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -126,6 +163,7 @@ public class VCrearPlaylist extends JDialog {
             bttGuardar.setFont(new Font("Arial", Font.BOLD, 12));
             bttGuardar.setBackground(new Color(0x00d856));
             bttGuardar.setForeground(Color.white);
+            bttGuardar.addActionListener(e -> bttGuardar(e));
 
             //---- label4 ----
             label4.setText("PLAYLIST");
@@ -137,7 +175,10 @@ public class VCrearPlaylist extends JDialog {
             bttAnadir.setFont(new Font("Arial", Font.BOLD, 12));
             bttAnadir.setForeground(Color.white);
             bttAnadir.setBackground(new Color(0x00d856));
-            bttAnadir.addActionListener(e -> button2(e));
+            bttAnadir.addActionListener(e -> {
+			button2(e);
+			bttAnadir(e);
+		});
 
             //======== panel4 ========
             {

@@ -50,6 +50,57 @@ public class DAOPlaylist extends abstractDAO {
             try {stmPlaylist.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
     }
+    public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist) {
+        Connection con;
+        PreparedStatement stmPlaylist=null;
+
+        con=this.getConexion();
+
+        try {
+            stmPlaylist=con.prepareStatement("INSERT INTO FORMARPARTE (IDCancion,IDPlaylist)\n" +
+                    "VALUES ((select IDCancion from Cancion where nombre = ?),?);");
+            stmPlaylist.setString(1, nombreCancion);
+            stmPlaylist.setInt(2, IDPlaylist);
+
+            stmPlaylist.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally{
+            try {stmPlaylist.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+    }
+
+    public int buscarIDPlaylists(String terminoBusqueda,String usuario) {
+        Connection con;
+        PreparedStatement stmPlaylist = null;
+        ResultSet rsPlaylist;
+        List<Playlist> playlistsEncontradas = new ArrayList<>();
+        int idPlaylist=0;
+        con = this.getConexion();
+
+        String sql = "SELECT IDPlaylist FROM PLAYLIST WHERE nombrePlaylist = ? and IDOyente = ?";
+        try {
+            stmPlaylist = con.prepareStatement(sql);
+            stmPlaylist.setString(1, terminoBusqueda);
+            stmPlaylist.setString(2, usuario);
+            rsPlaylist = stmPlaylist.executeQuery();
+            while (rsPlaylist.next()) {
+                idPlaylist = rsPlaylist.getInt("IDPlaylist");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmPlaylist.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return idPlaylist;
+    }
 
     public List<Playlist> buscarPlaylists(String terminoBusqueda) {
         Connection con;

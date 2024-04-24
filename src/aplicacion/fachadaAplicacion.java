@@ -98,6 +98,12 @@ public class fachadaAplicacion {
     public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario){
         return gp.buscarPlaylistsUsuario(nombreUsuario);
     }
+    public int buscarIDPlaylists(String terminoBusqueda,String usuario) {
+        return gp.buscarIDPlaylists(terminoBusqueda,usuario);
+    }
+    public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist){
+        fbd.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
+    }
 
     //FUNCIONES CANCION
     public List<Cancion> buscarCanciones(String terminoBusqueda){
