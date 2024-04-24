@@ -5,9 +5,12 @@
 package gui;
 
 import java.awt.event.*;
-import aplicacion.fachadaAplicacion;
+
+import aplicacion.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -16,72 +19,81 @@ import javax.swing.GroupLayout;
  */
 public class VCrearPlaylist extends JDialog {
     fachadaAplicacion fa;
-    String usuarioActual;
-    public VCrearPlaylist(Frame owner, fachadaAplicacion fa, String usuarioActual){
+    Elemento elemento;
+    List<Integer> listaIDCanciones = new ArrayList<>();
+    public VCrearPlaylist(Frame owner, fachadaAplicacion fa, String usuario) {
         super(owner);
-        this.usuarioActual=usuarioActual;
         this.fa=fa;
         initComponents();
+        bttAnadir.setVisible(false);
     }
 
     private void bttLupa(ActionEvent e) {
-        // TODO add your code here
+        if(buscadorCancion.equals("")){
+            return;
+        }
+        String nombre=buscadorCancion.getText();
+        java.util.List<Elemento> lista = new ArrayList<>();
+
+        java.util.List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
+        for(Cancion a : listaCanciones){
+            String artista = fa.obtenerArtistaDeCancion(a.getNombre());
+            lista.add(new Elemento(a.getNombre(),artista,0));
+        }
+
+        modeloTablaBuscarCanciones m;
+        m = (modeloTablaBuscarCanciones) listaBuscador.getModel();
+        m.setFilas(lista);
     }
 
     private void lupaKeyPressed(KeyEvent e) {
         // TODO add your code here
     }
 
+    private void createUIComponents() {
+        listaBuscador = new JTable();
+        listaPlaylist = new JTable();
+        listaBuscador.setModel(new modeloTablaBuscarCanciones());
+        listaPlaylist.setModel(new modeloTablaBuscarCanciones());
+    }
+
+    private void listaBuscadorMouseClicked(MouseEvent e) {
+        //this.elemento = new Elemento
+        bttAnadir.setVisible(true);
+    }
+
+    private void bttAnadir(ActionEvent e) {
+        //lista
+    }
+
+    private void button2(ActionEvent e) {
+        // TODO add your code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        createUIComponents();
+
         panel3 = new JPanel();
-        panel4 = new JPanel();
-        label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
         buscadorNombre = new JTextField();
         buscadorCancion = new JTextField();
         bttLupa = new JButton();
         scrollPane1 = new JScrollPane();
-        listaBuscador = new JList();
         scrollPane2 = new JScrollPane();
-        listaPlaylist = new JList();
         bttGuardar = new JButton();
         label4 = new JLabel();
-        button2 = new JButton();
+        bttAnadir = new JButton();
+        panel4 = new JPanel();
+        label1 = new JLabel();
+        label5 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
 
         //======== panel3 ========
         {
-
-            //======== panel4 ========
-            {
-                panel4.setBackground(new Color(0x00d856));
-
-                //---- label1 ----
-                label1.setText("CREAR PLAYLIST");
-                label1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 30));
-                label1.setForeground(Color.white);
-
-                GroupLayout panel4Layout = new GroupLayout(panel4);
-                panel4.setLayout(panel4Layout);
-                panel4Layout.setHorizontalGroup(
-                    panel4Layout.createParallelGroup()
-                        .addGroup(panel4Layout.createSequentialGroup()
-                            .addGap(131, 131, 131)
-                            .addComponent(label1)
-                            .addContainerGap(138, Short.MAX_VALUE))
-                );
-                panel4Layout.setVerticalGroup(
-                    panel4Layout.createParallelGroup()
-                        .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
-                            .addContainerGap(28, Short.MAX_VALUE)
-                            .addComponent(label1)
-                            .addGap(26, 26, 26))
-                );
-            }
 
             //---- label2 ----
             label2.setText("Nombre:");
@@ -120,80 +132,115 @@ public class VCrearPlaylist extends JDialog {
             label4.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 14));
             label4.setForeground(new Color(0x00d856));
 
-            //---- button2 ----
-            button2.setText("A\u00d1ADIR");
-            button2.setFont(new Font("Arial", Font.BOLD, 12));
-            button2.setForeground(Color.white);
-            button2.setBackground(new Color(0x00d856));
+            //---- bttAnadir ----
+            bttAnadir.setText("A\u00d1ADIR");
+            bttAnadir.setFont(new Font("Arial", Font.BOLD, 12));
+            bttAnadir.setForeground(Color.white);
+            bttAnadir.setBackground(new Color(0x00d856));
+            bttAnadir.addActionListener(e -> button2(e));
+
+            //======== panel4 ========
+            {
+                panel4.setBackground(new Color(0x00d856));
+
+                //---- label1 ----
+                label1.setText("CREAR PLAYLIST");
+                label1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 30));
+                label1.setForeground(Color.white);
+
+                //---- label5 ----
+                label5.setIcon(new ImageIcon(getClass().getResource("/fotos/spotipify100.png")));
+
+                GroupLayout panel4Layout = new GroupLayout(panel4);
+                panel4.setLayout(panel4Layout);
+                panel4Layout.setHorizontalGroup(
+                    panel4Layout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(label5, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+                            .addGap(27, 27, 27)
+                            .addComponent(label1)
+                            .addContainerGap(170, Short.MAX_VALUE))
+                );
+                panel4Layout.setVerticalGroup(
+                    panel4Layout.createParallelGroup()
+                        .addComponent(label5, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                        .addGroup(panel4Layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addComponent(label1)
+                            .addContainerGap(27, Short.MAX_VALUE))
+                );
+            }
 
             GroupLayout panel3Layout = new GroupLayout(panel3);
             panel3.setLayout(panel3Layout);
             panel3Layout.setHorizontalGroup(
                 panel3Layout.createParallelGroup()
                     .addGroup(panel3Layout.createSequentialGroup()
-                        .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(panel3Layout.createParallelGroup()
                             .addGroup(panel3Layout.createSequentialGroup()
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bttLupa)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(panel3Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(scrollPane1))
-                                    .addComponent(buscadorCancion, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panel3Layout.createParallelGroup()
-                                    .addGroup(panel3Layout.createSequentialGroup()
-                                        .addGap(53, 53, 53)
-                                        .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel3Layout.createSequentialGroup()
-                                        .addGap(95, 95, 95)
-                                        .addComponent(label4, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(39, 39, 39))
-                            .addGroup(GroupLayout.Alignment.LEADING, panel3Layout.createSequentialGroup()
+                                .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panel3Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addComponent(label2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buscadorNombre, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addComponent(label3, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel3Layout.createSequentialGroup()
-                        .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel3Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(button2)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bttGuardar)
-                        .addGap(31, 31, 31))
+                                .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panel3Layout.createSequentialGroup()
+                                        .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                            .addGroup(panel3Layout.createSequentialGroup()
+                                                .addComponent(bttLupa)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(panel3Layout.createParallelGroup()
+                                                    .addComponent(buscadorCancion, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(panel3Layout.createParallelGroup()
+                                                    .addGroup(panel3Layout.createSequentialGroup()
+                                                        .addGap(42, 42, 42)
+                                                        .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(GroupLayout.Alignment.TRAILING, panel3Layout.createSequentialGroup()
+                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(label4, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(34, 34, 34))))
+                                            .addGroup(panel3Layout.createSequentialGroup()
+                                                .addComponent(label2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(buscadorNombre, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(label3, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel3Layout.createSequentialGroup()
+                                        .addComponent(bttAnadir)
+                                        .addGap(170, 170, 170)
+                                        .addComponent(bttGuardar)
+                                        .addGap(111, 111, 111)))))
+                        .addContainerGap())
             );
             panel3Layout.setVerticalGroup(
                 panel3Layout.createParallelGroup()
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(panel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(label2)
+                            .addComponent(buscadorNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panel3Layout.createParallelGroup()
                             .addGroup(panel3Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(label3))
+                            .addGroup(panel3Layout.createSequentialGroup()
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buscadorNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label2))
-                                .addGroup(panel3Layout.createParallelGroup()
-                                    .addGroup(panel3Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(label3))
-                                    .addGroup(panel3Layout.createSequentialGroup()
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buscadorCancion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(label4, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bttLupa))
+                                    .addComponent(buscadorCancion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label4, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(GroupLayout.Alignment.TRAILING, panel3Layout.createSequentialGroup()
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bttLupa)))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel3Layout.createParallelGroup()
-                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(bttGuardar)
-                            .addComponent(button2))
+                            .addComponent(bttAnadir)
+                            .addComponent(bttGuardar))
                         .addGap(11, 11, 11))
             );
         }
@@ -202,7 +249,9 @@ public class VCrearPlaylist extends JDialog {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(panel3, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addComponent(panel3, GroupLayout.PREFERRED_SIZE, 479, GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -215,19 +264,20 @@ public class VCrearPlaylist extends JDialog {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel panel3;
-    private JPanel panel4;
-    private JLabel label1;
     private JLabel label2;
     private JLabel label3;
     private JTextField buscadorNombre;
     private JTextField buscadorCancion;
     private JButton bttLupa;
     private JScrollPane scrollPane1;
-    private JList listaBuscador;
+    private JTable listaBuscador;
     private JScrollPane scrollPane2;
-    private JList listaPlaylist;
+    private JTable listaPlaylist;
     private JButton bttGuardar;
     private JLabel label4;
-    private JButton button2;
+    private JButton bttAnadir;
+    private JPanel panel4;
+    private JLabel label1;
+    private JLabel label5;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

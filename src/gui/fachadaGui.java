@@ -31,7 +31,7 @@ public class fachadaGui {
         vb.setVisible(true);
     }
     public void muestraCrearPlaylist(Frame owner, fachadaAplicacion fa,int op, String usuarioActual){
-        VCrearPlaylist vcp = new VCrearPlaylist(owner,fa);
+        VCrearPlaylist vcp = new VCrearPlaylist(owner,fa,usuarioActual);
         vcp.setVisible(true);
     }
 

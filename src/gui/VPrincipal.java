@@ -43,8 +43,9 @@ public class VPrincipal extends JFrame {
                 break;
         }
 
-
-        for(Playlist playlistIndice: fa.buscarPlaylistsUsuario("Spotify")){
+        List <Playlist> listaP = new ArrayList<>();
+        listaP= fa.buscarPlaylistsUsuario("spotify");
+        for(Playlist playlistIndice: listaP){
             nombresPlaylists.add(playlistIndice.getNombrePlaylist());
         }
 
