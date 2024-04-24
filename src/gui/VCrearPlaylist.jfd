@@ -1,0 +1,35 @@
+JFDML JFormDesigner: "8.2.2.0.382" Java: "17.0.10" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp panel3::l:::x}"
+			"$verticalGroup": "par l {comp panel3::l:::x}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {comp panel4::l:::x}"
+				"$verticalGroup": "par l {seq l {comp panel4:::p::p, space :0:280:x}}"
+			} ) {
+				name: "panel3"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:131:p, comp label1:::p::p, space ::135:x}}"
+					"$verticalGroup": "par l {seq t {space ::28:x, comp label1:::p::p, space :p:26:p}}"
+				} ) {
+					name: "panel4"
+					"background": new java.awt.Color( 0, 216, 86, 255 )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "CREAR PLAYLIST"
+						"font": new java.awt.Font( "Franklin Gothic Demi", 1, 30 )
+						"foreground": sfield java.awt.Color white
+					} )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 500, 400 )
+		} )
+	}
+}

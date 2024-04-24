@@ -52,7 +52,12 @@ public class VBuscar extends JFrame {
     }
 
     private void bttLupa(ActionEvent e) {
-        busqueda();
+        String nombre=buscador.getText();
+        List<Artista> listaArtistas = fa.buscarArtistas(nombre);
+        List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);
+        List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
+        List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
+        List<Album> listaAlbums = fa.buscarAlbum(nombre);
     }
 
     private void bttBiblioteca(ActionEvent e) {
@@ -61,61 +66,16 @@ public class VBuscar extends JFrame {
     }
 
     private void createUIComponents() {
-        tabla = new JTable();
-        modeloTablaBuscar m = new modeloTablaBuscar();
-        tabla.setModel(m);
+        // TODO: add custom component creation code here
+    }
+
+    private void panel1KeyPressed(KeyEvent e) {
+        // TODO add your code here
     }
 
     private void lupaKeyPressed(KeyEvent e) {
         // TODO add your code here
     }
-
-    private void busqueda(){
-        if(buscador.getText().equals("")){
-            return;
-        }
-        String nombre=buscador.getText();
-        List<Elemento> lista = new ArrayList<Elemento>();
-        List<Artista> listaArtistas = fa.buscarArtistas(nombre);
-        for(Artista a : listaArtistas){
-            Elemento e0 = new Elemento(a.getNombre(),"Artista");
-            lista.add(e0);
-        }
-        List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);
-        for(Podcast a : listaPodcast){
-            Elemento e2 = new Elemento(a.getNombre(),"Podcast");
-            lista.add(e2);
-        }
-        List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
-        for(Playlist a : listaPlaylist){
-            Elemento e3 = new Elemento(a.getNombrePlaylist(),"Playlist");
-            lista.add(e3);
-        }
-        List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
-        for(Cancion a : listaCanciones){
-            Elemento e4 = new Elemento(a.getNombre(),"Cancion");
-            lista.add(e4);
-        }
-        List<Album> listaAlbums = fa.buscarAlbum(nombre);
-        for(Album a : listaAlbums){
-            Elemento e5 = new Elemento(a.getNombre(),a.getTipo());
-            lista.add(e5);
-        }
-
-        modeloTablaBuscar m;
-        m = (modeloTablaBuscar) tabla.getModel();
-        m.setFilas(lista);
-    }
-
-
-    private void panel1KeyPressed(KeyEvent e) {
-        //si pulsas enter se ejecuta el boton de lupa
-        if(e.getKeyCode()==KeyEvent.VK_ENTER){
-            busqueda();
-        }
-    }
-
-
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
