@@ -2,6 +2,8 @@ package baseDatos;
 
 import aplicacion.Artista;
 import aplicacion.Oyente;
+
+import java.sql.Date;
 import java.util.*;
 
 import java.sql.Connection;
@@ -45,33 +47,39 @@ public class DAOArtistas extends abstractDAO {
         return resultado;
     }
 
-    public List<Artista> buscarArtistas(String terminoBusqueda) throws SQLException {
-        Artista resultado=null;
+    public List<Artista> buscarArtistas(String terminoBusqueda) {
         Connection con;
-        PreparedStatement stmUsuario=null;
-        ResultSet rsOyente;
+        PreparedStatement stmArtista=null;
+        ResultSet rsArtista;
         List<Artista> artistasEncontrados = new ArrayList<>();
 
         con = this.getConexion();
 
         String sql = "SELECT * FROM ARTISTA WHERE nombre LIKE ?";
-        try (PreparedStatement statement = con.prepareStatement(sql)) {
-            statement.setString(1, "%" + terminoBusqueda + "%");
+        try {
+            stmArtista = con.prepareStatement(sql);
+            stmArtista.setString(1, "%" + terminoBusqueda + "%");
 
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String nombre = resultSet.getString("nombre");
-                String contraseña = resultSet.getString("contraseña");
-                String email = resultSet.getString("email");
-                // Otros campos del artista
+            rsArtista = stmArtista.executeQuery();
+            while (rsArtista.next()) {
+                String nombre = rsArtista.getString("nombre");
+                String contraseña = rsArtista.getString("contraseña");
+                String email = rsArtista.getString("email");
+                Date fechaNacimiento  = rsArtista.getDate("fechaNacimiento");
+                String nombreArtistico = rsArtista.getString("nombreArtistico");
+                String paisNacimiento = rsArtista.getString("paisNacimiento");
 
-                //Artista artista = new Artista(nombre, contraseña, email);
-                // Agregar más campos al constructor de Artista si es necesario
 
-                //artistasEncontrados.add(artista);
+                Artista artista = new Artista(nombre, contraseña, email, fechaNacimiento, nombreArtistico, paisNacimiento);
+
+                artistasEncontrados.add(artista);
             }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+            try {stmArtista.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
-
         return artistasEncontrados;
     }
 }
