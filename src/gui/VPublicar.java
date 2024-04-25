@@ -8,8 +8,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import javax.swing.event.*;
 
 import aplicacion.Album;
+import aplicacion.Discografica;
 import aplicacion.fachadaAplicacion;
 
 
@@ -65,8 +67,8 @@ public class VPublicar extends JFrame {
         lista.setModel(new modeloListaBiblioteca());
 
         //poner en enabled false bttGuardar y bttCancion
-        bttGuardar.setEnabled(false);
-        bttCancion.setEnabled(false);
+        //bttGuardar.setEnabled(false);
+        //bttCancion.setEnabled(false);
     }
 
     private void bttInicio(ActionEvent e) {
@@ -74,9 +76,7 @@ public class VPublicar extends JFrame {
         this.dispose();
     }
 
-    private void bttAnadirCancion(ActionEvent e) {
-        //NO HACER NADA
-    }
+
 
     private void tipo(ActionEvent e) {
         // añadir los tipos de album que se pueden crear. Por ejemplo EP, Album y Single al JcomboBox
@@ -85,29 +85,46 @@ public class VPublicar extends JFrame {
 
     }
 
-    private void bttCancion(ActionEvent e) {
+
+
+    private void bttGuardarAlbum(ActionEvent e) {
+
+    }
+
+    private void bttNuevaCancion(ActionEvent e) {
         //El boton está enabled solo si están los campos discografía y nombre rellenos
         if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
-
+            fa.muestraExcepcion("Completa los campos de nombre y discográfica antes de continuar.");
         } else {
             //TODO:Crear ventana nueva cancion
             String discografica = this.discografica.getText();
             String nombre = this.nombre.getText();
             String tipo = (String) this.tipo.getSelectedItem();
-            Integer idDiscografica;
-            if(fa.buscarDiscografica(discografica) == null){
-                fa.insertarDiscografica(discografica);
-            }else{
+            Integer idDiscografica = -1;
+            Discografica discografica1 = fa.buscarDiscografica(discografica);
 
+            if(discografica1 == null){
+                idDiscografica = fa.insertarDiscografica(discografica);
+            }else{
+                idDiscografica = discografica1.getIDDiscografica();
             }
-            Album album = new Album(-1, nombre,tipo, 0, 0);
+            Album album = new Album(-1, nombre,tipo, 0, idDiscografica);
+            //Aqui va la transaccion de crear un album
+            Integer albumID = 0;
+            //Abrir VanadirCancion
+            VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumID);
+            vc.setVisible(true);
 
         }
     }
 
-    private void bttGuardarAlbum(ActionEvent e) {
 
+
+    private void bttNuevaCancionStateChanged(ChangeEvent e) {
+        // TODO add your code here
     }
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -128,10 +145,12 @@ public class VPublicar extends JFrame {
         label2 = new JLabel();
         nombre = new JTextField();
         label4 = new JLabel();
+        bttGuardar = new JButton();
         discografica = new JTextField();
         label3 = new JLabel();
         scrollPane1 = new JScrollPane();
         label5 = new JLabel();
+        bttNuevaCancion = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -267,16 +286,6 @@ public class VPublicar extends JFrame {
                     tipo.setBackground(new Color(0x00d856));
                     tipo.addActionListener(e -> tipo(e));
 
-                    //---- bttCancion ----
-                    bttCancion.setText("NUEVA CANCI\u00d3N");
-                    bttCancion.setFont(new Font("Arial", Font.BOLD, 14));
-                    bttCancion.setForeground(Color.white);
-                    bttCancion.setBackground(new Color(0x00d856));
-                    bttCancion.addActionListener(e -> {
-			bttAnadirCancion(e);
-			bttCancion(e);
-		});
-
                     //---- bttGuardar ----
                     bttGuardar.setText("GUARDAR");
                     bttGuardar.setBackground(new Color(0x00d856));
@@ -298,6 +307,14 @@ public class VPublicar extends JFrame {
                     label5.setForeground(new Color(0x00d856));
                     label5.setFont(new Font("Arial", Font.BOLD, 14));
 
+                    //---- bttNuevaCancion ----
+                    bttNuevaCancion.setText("NUEVA CANCI\u00d3N");
+                    bttNuevaCancion.setBackground(new Color(0x00d856));
+                    bttNuevaCancion.setForeground(Color.white);
+                    bttNuevaCancion.setFont(new Font("Arial", Font.BOLD, 14));
+                    bttNuevaCancion.addActionListener(e -> bttNuevaCancion(e));
+                    bttNuevaCancion.addChangeListener(e -> bttNuevaCancionStateChanged(e));
+
                     GroupLayout panel4Layout = new GroupLayout(panel4);
                     panel4.setLayout(panel4Layout);
                     panel4Layout.setHorizontalGroup(
@@ -317,18 +334,22 @@ public class VPublicar extends JFrame {
                                         .addGap(103, 103, 103)))
                                 .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel4Layout.createSequentialGroup()
-                                        .addComponent(label3)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(discografica))
-                                    .addGroup(panel4Layout.createSequentialGroup()
-                                        .addComponent(bttCancion)
+                                        .addComponent(bttNuevaCancion)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(bttGuardar))
-                                    .addComponent(label5))
-                                .addGap(35, 35, 35))
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(label3)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(discografica)))
+                                .addGap(51, 51, 51))
                             .addGroup(panel4Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panel4Layout.createParallelGroup()
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addGap(96, 96, 96)
+                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addGap(203, 203, 203)
+                                        .addComponent(label5)))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     );
                     panel4Layout.setVerticalGroup(
@@ -347,7 +368,7 @@ public class VPublicar extends JFrame {
                                         .addComponent(label4))
                                     .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                     .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bttCancion)
+                                        .addComponent(bttNuevaCancion)
                                         .addComponent(bttGuardar)))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                                 .addComponent(label5)
@@ -407,12 +428,12 @@ public class VPublicar extends JFrame {
     private JTextField nombre;
     private JLabel label4;
     private JComboBox tipo;
-    private JButton bttCancion;
     private JButton bttGuardar;
     private JTextField discografica;
     private JLabel label3;
     private JScrollPane scrollPane1;
     private JList lista;
     private JLabel label5;
+    private JButton bttNuevaCancion;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

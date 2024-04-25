@@ -7,13 +7,16 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import aplicacion.*;
 
 /**
  * @author davra
  */
 public class VanadirCancion extends JDialog {
-    public VanadirCancion(Window owner) {
+    fachadaAplicacion fa;
+    public VanadirCancion(Frame owner, fachadaAplicacion fa, String usuarioActual, Integer idAlbum) {
         super(owner);
+        this.fa= fa;
         initComponents();
     }
 
