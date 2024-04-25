@@ -46,4 +46,10 @@ public class fachadaGui {
         vb= new VBiblioteca(fa,op, usuarioActual);
         vb.setVisible(true);
     }
+
+    public void muestraPublicar(String usuarioActual) {
+        VPublicar vp;
+        vp = new VPublicar(fa, usuarioActual);
+        vp.setVisible(true);
+    }
 }

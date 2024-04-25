@@ -94,7 +94,7 @@ public class DAOArtistas extends abstractDAO {
         String sql = "SELECT * FROM ARTISTA WHERE nombre = ?";
         try {
             stmArtista = con.prepareStatement(sql);
-            stmArtista.setString(1, "%" + terminoBusqueda + "%");
+            stmArtista.setString(1, terminoBusqueda);
 
             rsArtista = stmArtista.executeQuery();
             while (rsArtista.next()) {
