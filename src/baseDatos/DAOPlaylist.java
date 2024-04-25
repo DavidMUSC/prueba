@@ -1,6 +1,7 @@
 package baseDatos;
 
 import aplicacion.Playlist;
+import aplicacion.Elemento;
 import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -139,15 +140,15 @@ public class DAOPlaylist extends abstractDAO {
         return playlistsEncontradas;
     }
 
-    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario) {
+    public List<Elemento> buscarPlaylistsUsuario(String nombreUsuario) {
         Connection con;
         PreparedStatement stmPlaylist = null;
         ResultSet rsPlaylist;
-        List<Playlist> playlistsEncontradas = new ArrayList<>();
+        List<Elemento> playlistsEncontradas = new ArrayList<>();
 
         con = this.getConexion();
 
-        String sql = "SELECT * FROM PLAYLIST WHERE IDOyente = ?";
+        String sql = "SELECT nombrePlaylist, FROM PLAYLIST WHERE IDOyente = ?";
         try {
             stmPlaylist = con.prepareStatement(sql);
             stmPlaylist.setString(1, nombreUsuario);

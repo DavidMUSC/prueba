@@ -21,7 +21,7 @@ public class gestionPlaylist {
         return fbd.buscarPlaylists(terminoBusqueda);
     }
 
-    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario){
+    public List<Elemento> buscarPlaylistsUsuario(String nombreUsuario){
         return fbd.buscarPlaylistsUsuario(nombreUsuario);
     }
     public int buscarIDPlaylists(String terminoBusqueda,String usuario) {

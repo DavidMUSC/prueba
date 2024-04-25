@@ -95,7 +95,7 @@ public class fachadaAplicacion {
         return gp.buscarPlaylists(terminoBusqueda);
     }
 
-    public List<Playlist> buscarPlaylistsUsuario(String nombreUsuario){
+    public List<Elemento> buscarPlaylistsUsuario(String nombreUsuario){
         return gp.buscarPlaylistsUsuario(nombreUsuario);
     }
     public int buscarIDPlaylists(String terminoBusqueda,String usuario) {
