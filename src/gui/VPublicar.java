@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+
+import aplicacion.Album;
 import aplicacion.fachadaAplicacion;
 
 
@@ -38,7 +40,33 @@ public class VPublicar extends JFrame {
     }
 
     private void createUIComponents() {
-        // TODO: add custom component creation code here
+        tipo = new JComboBox();
+        tipo.addItem("EP");
+        tipo.addItem("Album");
+        tipo.addItem("Single");
+        //el color de fondo de la pestaña es #00d856
+        tipo.setBackground(new Color(0, 216, 86));
+        // Configuración del color de selección a un verde más oscuro
+        tipo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (isSelected) {
+                    c.setBackground(new Color(0, 153, 76)); // Un verde más oscuro, #00994C
+                    c.setForeground(Color.WHITE); // Color de texto blanco para mejor contraste
+                }
+                return c;
+            }
+        });
+
+        //Crear jlista
+        lista = new JList();
+        lista.setModel(new modeloListaBiblioteca());
+
+        //poner en enabled false bttGuardar y bttCancion
+        bttGuardar.setEnabled(false);
+        bttCancion.setEnabled(false);
     }
 
     private void bttInicio(ActionEvent e) {
@@ -46,8 +74,45 @@ public class VPublicar extends JFrame {
         this.dispose();
     }
 
+    private void bttAnadirCancion(ActionEvent e) {
+        //NO HACER NADA
+    }
+
+    private void tipo(ActionEvent e) {
+        // añadir los tipos de album que se pueden crear. Por ejemplo EP, Album y Single al JcomboBox
+
+
+
+    }
+
+    private void bttCancion(ActionEvent e) {
+        //El boton está enabled solo si están los campos discografía y nombre rellenos
+        if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
+
+        } else {
+            //TODO:Crear ventana nueva cancion
+            String discografica = this.discografica.getText();
+            String nombre = this.nombre.getText();
+            String tipo = (String) this.tipo.getSelectedItem();
+            Integer idDiscografica;
+            if(fa.buscarDiscografica(discografica) == null){
+                fa.insertarDiscografica(discografica);
+            }else{
+
+            }
+            Album album = new Album(-1, nombre,tipo, 0, 0);
+
+        }
+    }
+
+    private void bttGuardarAlbum(ActionEvent e) {
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        createUIComponents();
+
         panel1 = new JPanel();
         panel2 = new JPanel();
         label1 = new JLabel();
@@ -58,16 +123,15 @@ public class VPublicar extends JFrame {
         bttAjustes = new JButton();
         bttPublicar = new JButton();
         tabbedPane1 = new JTabbedPane();
-        panel4 = new JPanel();
         panel5 = new JPanel();
+        panel4 = new JPanel();
         label2 = new JLabel();
-        textField1 = new JTextField();
-        label3 = new JLabel();
-        textField2 = new JTextField();
-        comboBox1 = new JComboBox();
+        nombre = new JTextField();
         label4 = new JLabel();
-        button1 = new JButton();
-        button2 = new JButton();
+        discografica = new JTextField();
+        label3 = new JLabel();
+        scrollPane1 = new JScrollPane();
+        label5 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -170,84 +234,129 @@ public class VPublicar extends JFrame {
                 tabbedPane1.setForeground(Color.white);
                 tabbedPane1.setBackground(new Color(0x00d856));
 
-                //======== panel4 ========
-                {
-
-                    GroupLayout panel4Layout = new GroupLayout(panel4);
-                    panel4.setLayout(panel4Layout);
-                    panel4Layout.setHorizontalGroup(
-                        panel4Layout.createParallelGroup()
-                            .addGap(0, 480, Short.MAX_VALUE)
-                    );
-                    panel4Layout.setVerticalGroup(
-                        panel4Layout.createParallelGroup()
-                            .addGap(0, 436, Short.MAX_VALUE)
-                    );
-                }
-                tabbedPane1.addTab("\u00c1lbum", panel4);
-
                 //======== panel5 ========
                 {
-
-                    //---- label2 ----
-                    label2.setText("Nombre:");
-
-                    //---- label3 ----
-                    label3.setText("Discogr\u00e1fica:");
-
-                    //---- label4 ----
-                    label4.setText("Tipo:");
-
-                    //---- button1 ----
-                    button1.setText("GUARDAR");
-
-                    //---- button2 ----
-                    button2.setText("NUEVA CANCI\u00d3N");
 
                     GroupLayout panel5Layout = new GroupLayout(panel5);
                     panel5.setLayout(panel5Layout);
                     panel5Layout.setHorizontalGroup(
                         panel5Layout.createParallelGroup()
-                            .addGroup(panel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(panel5Layout.createSequentialGroup()
-                                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(label3)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel5Layout.createSequentialGroup()
-                                        .addComponent(label4)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(button2)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(button1)))
-                                .addContainerGap(20, Short.MAX_VALUE))
+                            .addGap(0, 505, Short.MAX_VALUE)
                     );
                     panel5Layout.setVerticalGroup(
                         panel5Layout.createParallelGroup()
-                            .addGroup(panel5Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label2)
-                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3)
-                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label4)
-                                    .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(button1)
-                                    .addComponent(button2))
-                                .addContainerGap(341, Short.MAX_VALUE))
+                            .addGap(0, 436, Short.MAX_VALUE)
                     );
                 }
                 tabbedPane1.addTab("Podcast", panel5);
+
+                //======== panel4 ========
+                {
+
+                    //---- label2 ----
+                    label2.setText("Nombre:");
+                    label2.setFont(new Font("Arial", Font.PLAIN, 14));
+
+                    //---- label4 ----
+                    label4.setText("Tipo:");
+                    label4.setFont(new Font("Arial", Font.PLAIN, 14));
+
+                    //---- tipo ----
+                    tipo.setFont(new Font("Arial", Font.PLAIN, 14));
+                    tipo.setForeground(Color.white);
+                    tipo.setBackground(new Color(0x00d856));
+                    tipo.addActionListener(e -> tipo(e));
+
+                    //---- bttCancion ----
+                    bttCancion.setText("NUEVA CANCI\u00d3N");
+                    bttCancion.setFont(new Font("Arial", Font.BOLD, 14));
+                    bttCancion.setForeground(Color.white);
+                    bttCancion.setBackground(new Color(0x00d856));
+                    bttCancion.addActionListener(e -> {
+			bttAnadirCancion(e);
+			bttCancion(e);
+		});
+
+                    //---- bttGuardar ----
+                    bttGuardar.setText("GUARDAR");
+                    bttGuardar.setBackground(new Color(0x00d856));
+                    bttGuardar.setForeground(Color.white);
+                    bttGuardar.setFont(new Font("Arial", Font.BOLD, 14));
+                    bttGuardar.addActionListener(e -> bttGuardarAlbum(e));
+
+                    //---- label3 ----
+                    label3.setText("Discogr\u00e1fica:");
+                    label3.setFont(new Font("Arial", Font.PLAIN, 14));
+
+                    //======== scrollPane1 ========
+                    {
+                        scrollPane1.setViewportView(lista);
+                    }
+
+                    //---- label5 ----
+                    label5.setText("\u00c1LBUM");
+                    label5.setForeground(new Color(0x00d856));
+                    label5.setFont(new Font("Arial", Font.BOLD, 14));
+
+                    GroupLayout panel4Layout = new GroupLayout(panel4);
+                    panel4.setLayout(panel4Layout);
+                    panel4Layout.setHorizontalGroup(
+                        panel4Layout.createParallelGroup()
+                            .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel4Layout.createParallelGroup()
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(nombre, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(label4)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(103, 103, 103)))
+                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(label3)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(discografica))
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(bttCancion)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bttGuardar))
+                                    .addComponent(label5))
+                                .addGap(35, 35, 35))
+                            .addGroup(panel4Layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    );
+                    panel4Layout.setVerticalGroup(
+                        panel4Layout.createParallelGroup()
+                            .addGroup(panel4Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label2)
+                                    .addComponent(nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3)
+                                    .addComponent(discografica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panel4Layout.createParallelGroup()
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(label4))
+                                    .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(bttCancion)
+                                        .addComponent(bttGuardar)))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(label5)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40))
+                    );
+                }
+                tabbedPane1.addTab("\u00c1lbum", panel4);
             }
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
@@ -257,12 +366,12 @@ public class VPublicar extends JFrame {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tabbedPane1, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tabbedPane1)
+                    .addComponent(tabbedPane1, GroupLayout.Alignment.TRAILING)
             );
         }
 
@@ -292,15 +401,18 @@ public class VPublicar extends JFrame {
     private JButton bttAjustes;
     private JButton bttPublicar;
     private JTabbedPane tabbedPane1;
-    private JPanel panel4;
     private JPanel panel5;
+    private JPanel panel4;
     private JLabel label2;
-    private JTextField textField1;
-    private JLabel label3;
-    private JTextField textField2;
-    private JComboBox comboBox1;
+    private JTextField nombre;
     private JLabel label4;
-    private JButton button1;
-    private JButton button2;
+    private JComboBox tipo;
+    private JButton bttCancion;
+    private JButton bttGuardar;
+    private JTextField discografica;
+    private JLabel label3;
+    private JScrollPane scrollPane1;
+    private JList lista;
+    private JLabel label5;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

@@ -62,43 +62,28 @@ public class DAODiscografica extends abstractDAO {
         }
     }
 
-    public int insertarDiscografica(String nombreDiscografica) {
+    public void insertarDiscografica(String nombreDiscografica) {
         Connection con = null;
         PreparedStatement stmDiscografica = null;
-        ResultSet rsMaxID = null;
-        int nuevoIDDiscografica = -1; // Valor por defecto en caso de error
 
         try {
             con = this.getConexion();
 
-            // Consulta SQL para obtener el máximo ID de discográfica
-            String sqlMaxID = "SELECT MAX(IDDiscografica) FROM DISCOGRAFICA";
-
-            // Obtener el máximo ID de discográfica actual
-            stmDiscografica = con.prepareStatement(sqlMaxID);
-            rsMaxID = stmDiscografica.executeQuery();
-            if (rsMaxID.next()) {
-                nuevoIDDiscografica = rsMaxID.getInt(1) + 1;
-            }
-
             // Consulta SQL para insertar una nueva discográfica
-            String sqlInsertDiscografica = "INSERT INTO DISCOGRAFICA (IDDiscografica, nombre) VALUES (?, ?)";
+            String sqlInsertDiscografica = "INSERT INTO DISCOGRAFICA (IDDiscografica, nombre) " +
+                    "SELECT COALESCE(MAX(IDDiscografica), 0) + 1, ? " +
+                    "FROM DISCOGRAFICA";
 
-            // Insertar la discográfica con el nuevo ID
+            // Insertar la discográfica
             stmDiscografica = con.prepareStatement(sqlInsertDiscografica);
-            stmDiscografica.setInt(1, nuevoIDDiscografica);
-            stmDiscografica.setString(2, nombreDiscografica);
-            stmDiscografica.executeUpdate();
+            stmDiscografica.setString(1, nombreDiscografica); // Asignar el parámetro nombre
 
+            stmDiscografica.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-            return -1; // Si ocurre una excepción, devuelve un ID inválido
         } finally {
             try {
-                if (rsMaxID != null) {
-                    rsMaxID.close();
-                }
                 if (stmDiscografica != null) {
                     stmDiscografica.close();
                 }
@@ -109,9 +94,7 @@ public class DAODiscografica extends abstractDAO {
                 System.out.println("Imposible cerrar cursores");
             }
         }
-
-        // Devolver el nuevo ID de la discográfica creada
-        return nuevoIDDiscografica;
     }
+
 
 }

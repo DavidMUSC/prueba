@@ -159,8 +159,8 @@ public class fachadaAplicacion {
     }
 
     //FUNCIONES DISCOGRAFICA
-    public int  insertarDiscografica(String nombreDiscografica){
-        return gd.insertarDiscografica(nombreDiscografica);
+    public void insertarDiscografica(String nombreDiscografica){
+        gd.insertarDiscografica(nombreDiscografica);
     }
     public Discografica buscarDiscografica(String nombreDiscografica){
         return gd.buscarDiscografica(nombreDiscografica);

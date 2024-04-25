@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :::p, comp tabbedPane1:::p:480:p}}"
-				"$verticalGroup": "par l {comp panel2:::::x, comp tabbedPane1::l:::x}"
+				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :::p, comp tabbedPane1::::0:x}}"
+				"$verticalGroup": "par l {comp panel2:::::x, comp tabbedPane1::t:::x}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -82,54 +82,94 @@ new FormModel {
 					"foreground": new java.awt.Color( 255, 255, 255, 255 )
 					"background": new java.awt.Color( 0, 216, 86, 255 )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {space :0:480:x}"
+						"$horizontalGroup": "par l {space :0:505:x}"
 						"$verticalGroup": "par l {space :0:436:x}"
 					} ) {
-						name: "panel4"
+						name: "panel5"
 					}, new FormLayoutConstraints( null ) {
-						"title": "Álbum"
+						"title": "Podcast"
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq l {space :::p, par l:::p {seq {comp label2:::p:53:p, space :::p, comp textField1:::p:140:p, space u:::p, comp label3:::p::p, space :::p, comp textField2:::p:168:p}, seq {comp label4:::p::p, space :::p, comp comboBox1:::p::p, space :::x, comp button2:::p::p, space u:::p, comp button1:::p::p}}, space ::20:x}}"
-						"$verticalGroup": "par l {seq l {space :p:20:p, par b {comp label2::b:p::p, comp textField1::b:p::p, comp label3::b:p::p, comp textField2::b:p::p}, space :p:23:p, par b {comp label4::b:p::p, comp comboBox1::b:p::p, comp button1::b:p::p, comp button2::b:p::p}, space ::341:x}}"
+						"$horizontalGroup": "par l {seq t {space :::p, par l {seq {comp label2:::::x, space :::p, comp nombre:::p:140:p, space s:::p}, seq l {comp label4:::p::p, space :6:6:p, comp tipo:::p::p, space :p:103:p}}, par l:::p {seq l {comp label3:::p::p, space :::p, comp discografica:::::x}, seq l {comp bttCancion:::p::p, space :::p, comp bttGuardar:::p::p}, comp label5:::p::p}, space :p:35:p}, seq l {space :p:96:p, comp scrollPane1:::p:303:p, space :::x}}"
+						"$verticalGroup": "par l {seq l {space :p:17:p, par b {comp label2::b:p::p, comp nombre::b:p::p, comp label3::b:p::p, comp discografica::b:p::p}, space u:::p, par l {seq l {space :5:5:p, comp label4:::p::p}, comp tipo:::p::p, par b:t {comp bttCancion::b:p::p, comp bttGuardar::b:p::p}}, space ::27:x, comp label5:::p::p, space :::p, comp scrollPane1:::p:266:p, space :p:40:p}}"
 					} ) {
-						name: "panel5"
+						name: "panel4"
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label2"
 							"text": "Nombre:"
+							"font": new java.awt.Font( "Arial", 0, 14 )
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField1"
-						} )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label3"
-							"text": "Discográfica:"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField2"
-						} )
-						add( new FormComponent( "javax.swing.JComboBox" ) {
-							name: "comboBox1"
+							name: "nombre"
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label4"
 							"text": "Tipo:"
+							"font": new java.awt.Font( "Arial", 0, 14 )
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "tipo"
+							"font": new java.awt.Font( "Arial", 0, 14 )
+							"foreground": sfield java.awt.Color white
+							"background": new java.awt.Color( 0, 216, 86, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.customCreate": true
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "tipo", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button1"
-							"text": "GUARDAR"
-						} )
-						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "button2"
+							name: "bttCancion"
 							"text": "NUEVA CANCIÓN"
+							"font": new java.awt.Font( "Arial", 1, 14 )
+							"foreground": new java.awt.Color( 255, 255, 255, 255 )
+							"background": new java.awt.Color( 0, 216, 86, 255 )
+							auxiliary() {
+								"JavaCodeGenerator.customCreate": true
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttAnadirCancion", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttCancion", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "bttGuardar"
+							"text": "GUARDAR"
+							"background": new java.awt.Color( 0, 216, 86, 255 )
+							"foreground": sfield java.awt.Color white
+							"font": new java.awt.Font( "Arial", 1, 14 )
+							auxiliary() {
+								"JavaCodeGenerator.customCreate": true
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttGuardarAlbum", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "discografica"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "Discográfica:"
+							"font": new java.awt.Font( "Arial", 0, 14 )
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane1"
+							add( new FormComponent( "javax.swing.JList" ) {
+								name: "lista"
+								auxiliary() {
+									"JavaCodeGenerator.customCreate": true
+								}
+							} )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label5"
+							"text": "ÁLBUM"
+							"foreground": new java.awt.Color( 0, 216, 86, 255 )
+							"font": new java.awt.Font( "Arial", 1, 14 )
 						} )
 					}, new FormLayoutConstraints( null ) {
-						"title": "Podcast"
+						"title": "Álbum"
 					} )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 700, 500 )
+			"size": new java.awt.Dimension( 725, 500 )
 			"location": new java.awt.Point( 0, 0 )
 		} )
 	}

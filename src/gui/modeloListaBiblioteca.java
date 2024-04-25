@@ -31,4 +31,5 @@ public class modeloListaBiblioteca extends javax.swing.AbstractListModel {
 
         fireIntervalAdded(this,sizeAnterior,lista.size());
     }
+
 }
