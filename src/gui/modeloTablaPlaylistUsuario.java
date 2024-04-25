@@ -55,7 +55,7 @@ public class modeloTablaPlaylistUsuario extends javax.swing.table.AbstractTableM
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     public void setFilas(List<Elemento> elementos){

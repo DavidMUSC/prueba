@@ -20,7 +20,6 @@ public class VBiblioteca extends JFrame {
     fachadaAplicacion fa;
     String usuarioActual;
     List<Elemento> playlistsUsuario = new ArrayList<>();
-    List<String> nombresPlaylists = new ArrayList<>();
     int op;
 
     public VBiblioteca(fachadaAplicacion fa,int op, String usuarioActual) {
@@ -46,13 +45,10 @@ public class VBiblioteca extends JFrame {
         }
 
         playlistsUsuario = fa.buscarPlaylistsUsuario(usuarioActual);
-        /*for(Elemento playlistIndice: playlistsUsuario){
-            nombresPlaylists.add(playlistIndice.getNombrePlaylist());
-        }*/
 
         modeloTablaPlaylistUsuario modelo;
         modelo = (modeloTablaPlaylistUsuario) table1.getModel();
-       // modelo.setFilas(lista);
+        modelo.setFilas(playlistsUsuario);
 
     }
 
