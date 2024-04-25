@@ -4,7 +4,8 @@ public class Elemento {
     String nombre;
     String tipo;
     String artista;
-    int canciones,duracion;
+    int canciones;
+    String duracion;
 
     public Elemento(String nombre, String tipo){
         this.nombre=nombre;
@@ -14,7 +15,7 @@ public class Elemento {
         this.nombre=nombre;
         this.artista=artista;
     }
-    public Elemento(String nombre, int canciones,int duracion){
+    public Elemento(String nombre, int canciones,String duracion){
         this.nombre=nombre;
         this.canciones=canciones;
         this.duracion=duracion;
@@ -24,7 +25,7 @@ public class Elemento {
         return canciones;
     }
 
-    public int getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
@@ -32,7 +33,7 @@ public class Elemento {
         this.canciones = canciones;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 

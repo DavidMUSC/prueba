@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 
 import aplicacion.Playlist;
+import aplicacion.Elemento;
 import aplicacion.fachadaAplicacion;
 
 /**
@@ -43,10 +44,10 @@ public class VPrincipal extends JFrame {
                 break;
         }
 
-        List <Playlist> listaP = new ArrayList<>();
+        List <Elemento> listaP = new ArrayList<>();
         listaP= fa.buscarPlaylistsUsuario("spotify");
-        for(Playlist playlistIndice: listaP){
-            nombresPlaylists.add(playlistIndice.getNombrePlaylist());
+        for(Elemento playlistIndice: listaP){
+            nombresPlaylists.add(playlistIndice.getNombre());
         }
 
         modeloListaBiblioteca modelo;

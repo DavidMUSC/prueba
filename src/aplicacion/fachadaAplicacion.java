@@ -80,6 +80,9 @@ public class fachadaAplicacion {
     public List<Artista> buscarArtistas(String terminoBusqueda){
         return ga.buscarArtistas(terminoBusqueda);
     }
+    public List<Artista> buscarArtistasAutentificacion(String terminoBusqueda) {
+        return fbd.buscarArtistasAutentificacion(terminoBusqueda);
+    }
 
     //FUNCIONES ADMIN
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){

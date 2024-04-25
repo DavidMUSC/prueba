@@ -148,19 +148,32 @@ public class DAOPlaylist extends abstractDAO {
 
         con = this.getConexion();
 
-        String sql = "SELECT nombrePlaylist, FROM PLAYLIST WHERE IDOyente = ?";
+        String sql = "SELECT \n" +
+                "    P.IDPlaylist,\n" +
+                "    P.nombrePlaylist,\n" +
+                "    COUNT(F.IDCancion) AS NumeroCanciones,\n" +
+                "    TO_CHAR(INTERVAL '1 second' * SUM(EXTRACT(EPOCH FROM C.duracion)), 'HH24:MI:SS') AS DuracionTotal\n" +
+                "FROM \n" +
+                "    PLAYLIST P\n" +
+                "LEFT JOIN \n" +
+                "    FORMARPARTE F ON P.IDPlaylist = F.IDPlaylist\n" +
+                "LEFT JOIN \n" +
+                "    CANCION C ON F.IDCancion = C.IDCancion\n" +
+                "WHERE \n" +
+                "    P.IDOyente = ?\n" +
+                "GROUP BY \n" +
+                "    P.IDPlaylist, P.nombrePlaylist;";
         try {
             stmPlaylist = con.prepareStatement(sql);
             stmPlaylist.setString(1, nombreUsuario);
 
             rsPlaylist = stmPlaylist.executeQuery();
             while (rsPlaylist.next()) {
-                int idPlaylist = rsPlaylist.getInt("IDPlaylist");
                 String nombrePlaylist = rsPlaylist.getString("nombrePlaylist");
-                String creador = rsPlaylist.getString("IDOyente");
-                String fechaCreacion = rsPlaylist.getString("fechaCreacion");
+                int canciones = rsPlaylist.getInt("NumeroCanciones");
+                String duracionTotal = rsPlaylist.getString("DuracionTotal");
 
-                Playlist playlist = new Playlist(idPlaylist, nombrePlaylist, creador, fechaCreacion);
+                Elemento playlist = new Elemento(nombrePlaylist,canciones,duracionTotal);
 
                 playlistsEncontradas.add(playlist);
             }
