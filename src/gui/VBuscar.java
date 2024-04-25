@@ -63,7 +63,7 @@ public class VBuscar extends JFrame {
         List<Elemento> lista = new ArrayList<Elemento>();
         List<Artista> listaArtistas = fa.buscarArtistas(nombre);
         for(Artista a : listaArtistas){
-            Elemento e0 = new Elemento(a.getNombre(),"Artista");
+            Elemento e0 = new Elemento(a.getNombreArtistico(),"Artista");
             lista.add(e0);
         }
         List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);

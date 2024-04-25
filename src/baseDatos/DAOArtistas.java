@@ -55,7 +55,7 @@ public class DAOArtistas extends abstractDAO {
 
         con = this.getConexion();
 
-        String sql = "SELECT * FROM ARTISTA WHERE nombre LIKE ?";
+        String sql = "SELECT * FROM ARTISTA WHERE nombreArtistico LIKE ?";
         try {
             stmArtista = con.prepareStatement(sql);
             stmArtista.setString(1, "%" + terminoBusqueda + "%");

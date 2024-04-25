@@ -3,6 +3,9 @@ package baseDatos;
 import aplicacion.Album;
 
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DAOAlbum extends abstractDAO {
@@ -90,15 +93,13 @@ public class DAOAlbum extends abstractDAO {
         int nuevoIDAlbum = -1;
         Statement stmUltimoIDAlbum = null;
 
+        con = this.getConexion();
         try {
-            con = this.getConexion();
-
-            // Consulta para obtener el último ID de álbum
             String sqlUltimoIDAlbum = "SELECT MAX(IDAlbum) FROM ALBUM";
 
-            // Obtener el último ID de álbum
-            stmUltimoIDAlbum = con.createStatement();
-            rsIDAlbum = stmUltimoIDAlbum.executeQuery(sqlUltimoIDAlbum);
+            stmUltimoIDAlbum = con.prepareStatement(sqlUltimoIDAlbum);
+
+            rsIDAlbum = stmUltimoIDAlbum.executeQuery(sqlUltimoIDAlbum);            // Consulta para obtener el último ID de álbum
             if (rsIDAlbum.next()) {
                 nuevoIDAlbum = rsIDAlbum.getInt(1) + 1;
             }
@@ -152,6 +153,40 @@ public class DAOAlbum extends abstractDAO {
         }
         return nuevoIDAlbum;
 
+    }
+
+    public void registrarAlbum(Album album, int IDDiscografica, String IDArtista) {
+        Connection con;
+        PreparedStatement stmAlbum=null,stmComponer=null;
+
+        con=this.getConexion();
+
+        try {
+            stmAlbum=con.prepareStatement("INSERT INTO ALBUM (nombre, IDAlbum, tipo, añoLanzamiento, IDDiscografica) " +
+                    "VALUES (?, (SELECT MAX(IDAlbum) + 1 FROM ALBUM), ?, ?, ?);");
+
+
+            stmAlbum.setString(1, album.getNombre());
+            stmAlbum.setString(2, album.getTipo());
+            stmAlbum.setInt(3, album.getAñoLanzamiento());
+            stmAlbum.setInt(4, IDDiscografica);
+            stmAlbum.executeUpdate();
+
+
+            // Consulta para insertar en la tabla COMPONER
+            String sqlInsertComponer = "INSERT INTO COMPONER (IDAlbum, IDArtista) VALUES (SELECT MAX(IDAlbum), ?)";
+
+            // Insertar en la tabla COMPONER
+            stmComponer = con.prepareStatement(sqlInsertComponer);
+            stmComponer.setString(1, IDArtista);
+            stmComponer.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally{
+            try {stmAlbum.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
     }
 
 
