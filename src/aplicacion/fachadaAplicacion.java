@@ -96,7 +96,7 @@ public class fachadaAplicacion {
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
-    public List<Artista> buscarAdminAutentificacion(String terminoBusqueda) {
+    public List<Administrador> buscarAdminAutentificacion(String terminoBusqueda) {
         return fbd.buscarAdminAutentificacion(terminoBusqueda);
     }
 

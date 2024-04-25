@@ -58,7 +58,7 @@ public class DAOOyentes extends abstractDAO{
                 stmUsuario.setDate(4, fechaSql);
             } catch (ParseException e) {
                 // Manejar la excepción si la cadena no está en el formato esperado
-                e.printStackTrace();
+                this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
             }
 
             stmUsuario.executeUpdate();

@@ -36,6 +36,7 @@ public class VRegistrarsee extends JDialog {
                 this.dispose();
             }else {
                 fa.muestraExcepcion("Nombre de usuario no válido");
+                return;
             }
         }else {
             fa.muestraExcepcion("Nombre de usuario no válido");
