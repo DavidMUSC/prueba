@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.2.0.382" Java: "17.0.10" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.2.0.382" Java: "17.0.8" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -10,12 +10,12 @@ new FormModel {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :p:50:p, par l {comp scrollPane1:::p:400:p, comp label2:::p:248:p}, space :0:36:x}}"
-				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:49:p, comp label2:::p:28:p, space s:::p, comp scrollPane1:::p:300:p, space :::x}}"
+				"$verticalGroup": "par l {comp panel2::l:::x, seq l {space :p:45:p, comp label2:::p:28:p, space s:::p, comp scrollPane1:::p:300:p, space :::x}}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {comp bttInicio::l:::x, seq {par l {comp label1:::p::p, comp bttBuscar::l:p:212:p, comp bttBiblioteca::l:p:212:p, comp bttPublicar::l:p:212:p, comp bttAjustes::l:p:212:p, comp bttPerfil::l:p:212:p, comp bttGestion::l:p:212:p}, space :0:0:x}}"
-					"$verticalGroup": "par l {seq t {space :::p, comp label1:::p::p, space :::x, comp bttInicio:::p::p, space s:::p, comp bttBuscar:::p::p, space :p:18:p, comp bttBiblioteca:::p::p, space s:::p, comp bttPublicar:::p::p, space s:::p, comp bttGestion:::p::p, space :p:67:p, comp bttPerfil:::p::p, space :::p, comp bttAjustes:::p::p, space :p:28:p}}"
+					"$verticalGroup": "par l {seq t {space :::p, comp label1:::p::p, space ::38:x, comp bttInicio:::p::p, space s:::p, comp bttBuscar:::p::p, space :p:18:p, comp bttBiblioteca:::p::p, space s:::p, comp bttPublicar:::p::p, space s:::p, comp bttGestion:::p::p, space :p:67:p, comp bttPerfil:::p::p, space :::p, comp bttAjustes:::p::p, space :p:28:p}}"
 				} ) {
 					name: "panel2"
 					"background": new java.awt.Color( 0, 216, 86, 255 )

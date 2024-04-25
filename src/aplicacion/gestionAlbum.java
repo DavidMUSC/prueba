@@ -19,7 +19,7 @@ public class gestionAlbum {
     public String obtenerArtistaDeAlbum(String nombreAlbum){
         return fbd.obtenerArtistaDeAlbum(nombreAlbum);
     }
-    public int publicarAlbum(Album album, int IDDiscografica, int IDArtista){
+    public int publicarAlbum(Album album, int IDDiscografica, String IDArtista){
         return fbd.publicarAlbum(album, IDDiscografica, IDArtista);
     }
 }

@@ -82,7 +82,7 @@ public class DAOAlbum extends abstractDAO {
         return nombreArtista;
     }
 
-    public int publicarAlbum(Album album, int IDDiscografica, int IDArtista) {
+    public int publicarAlbum(Album album, int IDDiscografica, String IDArtista) {
         Connection con = null;
         PreparedStatement stmAlbum = null;
         PreparedStatement stmComponer = null;
@@ -122,10 +122,10 @@ public class DAOAlbum extends abstractDAO {
             // Insertar en la tabla COMPONER
             stmComponer = con.prepareStatement(sqlInsertComponer);
             stmComponer.setInt(1, nuevoIDAlbum);
-            stmComponer.setInt(2, IDArtista);
+            stmComponer.setString(2, IDArtista);
             stmComponer.executeUpdate();
 
-            return nuevoIDAlbum;
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -145,13 +145,13 @@ public class DAOAlbum extends abstractDAO {
                 if (stmComponer != null) {
                     stmComponer.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
+
         }
+        return nuevoIDAlbum;
+
     }
 
 

@@ -88,11 +88,7 @@ public class VPublicar extends JFrame {
 
 
     private void bttGuardarAlbum(ActionEvent e) {
-
-    }
-
-    private void bttNuevaCancion(ActionEvent e) {
-        //El boton está enabled solo si están los campos discografía y nombre rellenos
+//El boton está enabled solo si están los campos discografía y nombre rellenos
         if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
             fa.muestraExcepcion("Completa los campos de nombre y discográfica antes de continuar.");
         } else {
@@ -109,13 +105,17 @@ public class VPublicar extends JFrame {
                 idDiscografica = discografica1.getIDDiscografica();
             }
             Album album = new Album(-1, nombre,tipo, 0, idDiscografica);
-            //Aqui va la transaccion de crear un album
-            Integer albumID = 0;
+
+            Integer albumID = fa.publicarAlbum(album,idDiscografica,usuarioActual);
             //Abrir VanadirCancion
             VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumID);
             vc.setVisible(true);
 
         }
+    }
+
+    private void bttNuevaCancion(ActionEvent e) {
+
     }
 
 

@@ -41,6 +41,8 @@ public class VPrincipal extends JFrame {
                 bttInicio.setVisible(false);
                 bttBiblioteca.setVisible(false);
                 bttBuscar.setVisible(false);
+                list1.setVisible(false);
+                label2.setVisible(false);
                 break;
         }
 
@@ -179,7 +181,7 @@ public class VPrincipal extends JFrame {
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(label1)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                             .addComponent(bttInicio)
                             .addGap(18, 18, 18)
                             .addComponent(bttBuscar)
@@ -223,7 +225,7 @@ public class VPrincipal extends JFrame {
                 panel1Layout.createParallelGroup()
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(45, 45, 45)
                         .addComponent(label2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)

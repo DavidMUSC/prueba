@@ -1,4 +1,5 @@
 package aplicacion;
+import gui.VCancion;
 import gui.VCrearPlaylist;
 
 import java.awt.*;
@@ -30,6 +31,7 @@ public class fachadaAplicacion {
         gal = new gestionAlbum(fgui, fbd);
         gc = new gestionCancion(fgui, fbd);
         gd = new gestionDiscograficas(fgui, fbd);
+
     }
     public static void main(String args[]) {
 
@@ -53,7 +55,6 @@ public class fachadaAplicacion {
         fgui.muestraCrearPlaylist(owner,fa,op,usuarioActual);
     }
     public void muestraExcepcion(String e){
-
         fgui.muestraExcepcion(e);
     }
     public void muestraBuscar(int op, String usuarioActual){
@@ -67,6 +68,9 @@ public class fachadaAplicacion {
     }
     public void muestraPublicar(String usuarioActual) {
         fgui.muestraPublicar(usuarioActual);
+    }
+    public void muestraCancion(Cancion cancion) {
+        fgui.muestraCancion(cancion);
     }
 
     //FUNCIONES OYENTES
@@ -124,9 +128,15 @@ public class fachadaAplicacion {
     public List<Cancion> buscarCanciones(String terminoBusqueda){
         return gc.buscarCanciones(terminoBusqueda);
     }
+    public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
+        return fbd.buscarCancionesEn(terminoBusqueda);
+    }
 
     public String obtenerArtistaDeCancion(String nombreCancion){
         return gc.obtenerArtistaDeCancion(nombreCancion);
+    }
+    public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
+        return fbd.obtenerArtistasDeCancion(nombreCancion);
     }
 
     public void publicarCancion(Cancion cancion, int IDAlbum){
@@ -142,7 +152,7 @@ public class fachadaAplicacion {
         return gal.obtenerArtistaDeAlbum(nombreAlbum);
     }
 
-    public int publicarAlbum(Album album, int IDDiscografica, int IDArtista){
+    public int publicarAlbum(Album album, int IDDiscografica, String IDArtista){
         return gal.publicarAlbum(album, IDDiscografica, IDArtista);
     }
 

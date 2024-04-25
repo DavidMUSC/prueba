@@ -5,7 +5,8 @@ import aplicacion.*;
 
 public class fachadaGui {
     aplicacion.fachadaAplicacion fa;
-
+    boolean isCancion=false;
+    VCancion vca;
 
     public fachadaGui(aplicacion.fachadaAplicacion fa){
         this.fa=fa;
@@ -51,5 +52,23 @@ public class fachadaGui {
         VPublicar vp;
         vp = new VPublicar(fa, usuarioActual);
         vp.setVisible(true);
+    }
+
+    public void muestraCancion(Cancion cancion) {
+        if(isCancion){
+            vca.dispose();
+            VCancion vc;
+            vc = new VCancion(fa, cancion);
+            vc.setVisible(true);
+            vca=vc;
+            isCancion=true;
+        }else{
+            VCancion vc;
+            vc = new VCancion(fa, cancion);
+            vc.setVisible(true);
+            vca=vc;
+            isCancion=true;
+        }
+
     }
 }

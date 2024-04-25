@@ -69,24 +69,25 @@ public class VBuscar extends JFrame {
         List<Podcast> listaPodcast = fa.buscarPodcasts(nombre);
         for(Podcast a : listaPodcast){
             String artista = fa.obtenerArtistaDePodcast(a.getNombre());
-            Elemento e2 = new Elemento(a.getNombre() +" - "+artista,"Podcast");
+            Elemento e2 = new Elemento(a.getNombre() /*+" - "+artista*/,"Podcast");
             lista.add(e2);
         }
         List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
         for(Playlist a : listaPlaylist){
-            Elemento e3 = new Elemento(a.getNombrePlaylist() + " - "+a.getCreador(),"Playlist");
+            Elemento e3 = new Elemento(a.getNombrePlaylist()/* + " - "+a.getCreador()*/,"Playlist");
             lista.add(e3);
         }
         List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
         for(Cancion a : listaCanciones){
             String artista = fa.obtenerArtistaDeCancion(a.getNombre());
-            Elemento e4 = new Elemento(a.getNombre()+ " - "+artista,"Cancion");
+            Elemento e4 = new Elemento(a.getNombre()/*+ " - "+artista*/,"Cancion");
             lista.add(e4);
         }
         List<Album> listaAlbums = fa.buscarAlbum(nombre);
         for(Album a : listaAlbums){
             String artista = fa.obtenerArtistaDeAlbum(a.getNombre());
-            Elemento e5 = new Elemento(a.getNombre()+ " - "+artista,a.getTipo());
+            Elemento e5 = new Elemento(a.getNombre(),a.getTipo());
+            //+ " - "+artista
             lista.add(e5);
         }
 
@@ -100,9 +101,26 @@ public class VBuscar extends JFrame {
         this.dispose();
     }
 
+
+
     private void createUIComponents() {
         tabla = new JTable();
         tabla.setModel(new modeloTablaBuscar());
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(tabla.getValueAt(tabla.getSelectedRow(),0).equals("Cancion")){
+                    String nombreCancion = (String)tabla.getValueAt(tabla.getSelectedRow(),1);
+                    Cancion cancion=fa.buscarCancionesEn(nombreCancion).get(0);
+                    fa.muestraCancion(cancion);
+                }
+                // Obtener la fila y columna en la que se hizo clic
+                int row = tabla.rowAtPoint(e.getPoint());
+                int col = tabla.columnAtPoint(e.getPoint());
+                // Imprimir la fila y columna en la consola
+                System.out.println("Clic en la fila " + row + " y columna " + col);
+            }
+        });
     }
 
     private void panel1KeyPressed(KeyEvent e) {
