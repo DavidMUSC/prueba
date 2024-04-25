@@ -1,12 +1,9 @@
 package baseDatos;
 
 import aplicacion.Podcast;
-import java.util.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
 
 public class DAOPodcast extends abstractDAO {
     public DAOPodcast(Connection conexion, aplicacion.fachadaAplicacion fa) {
@@ -84,5 +81,46 @@ public class DAOPodcast extends abstractDAO {
         return nombreArtista;
     }
 
+    public void publicarPodcast(Podcast podcast) throws SQLException {
+        Connection con = null;
+        PreparedStatement stmPodcast = null;
+        try {
+            con = this.getConexion();
+            // Consulta para obtener el último ID de podcast
+            String sqlUltimoIDPodcast = "SELECT MAX(IDPodcast) FROM PODCAST";
+            // Obtener el último ID de podcast
+            int ultimoIDPodcast = 0;
+            Statement stmtUltimoIDPodcast = con.createStatement();
+            ResultSet rsUltimoIDPodcast = stmtUltimoIDPodcast.executeQuery(sqlUltimoIDPodcast);
+            if (rsUltimoIDPodcast.next()) {
+                ultimoIDPodcast = rsUltimoIDPodcast.getInt(1);
+            }
+            // Incrementar el último ID de podcast para obtener un nuevo ID único
+            int nuevoIDPodcast = ultimoIDPodcast + 1;
+            // Consulta para insertar el podcast
+            String sqlInsertPodcast = "INSERT INTO PODCAST (nombre, IDPodcast) " +
+                    "VALUES (?, ?)";
+            // Insertar el podcast
+            stmPodcast = con.prepareStatement(sqlInsertPodcast);
+            stmPodcast.setString(1, podcast.getNombre());
+            stmPodcast.setInt(2, nuevoIDPodcast);
+            stmPodcast.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmPodcast != null) {
+                    stmPodcast.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
 
 }
