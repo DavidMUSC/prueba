@@ -88,6 +88,9 @@ public class fachadaAplicacion {
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
+    public List<Artista> buscarAdminAutentificacion(String terminoBusqueda) {
+        return fbd.buscarAdminAutentificacion(terminoBusqueda);
+    }
 
     //FUNCIONES PLAYLIST
     public void registrarPlaylist(String nombre, String usuario) {

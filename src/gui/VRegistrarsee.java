@@ -30,16 +30,16 @@ public class VRegistrarsee extends JDialog {
         String textField1str = textField1.getText();
         if (!usuariostr.isEmpty() && !correostr.isEmpty() && !contraseñastr.isEmpty() && !textField1str.isEmpty()) {
             // Todos los campos tienen contenido
-            if(fa.buscarArtistasAutentificacion(usuariostr).isEmpty()){
+            if(fa.buscarArtistasAutentificacion(usuariostr).isEmpty() && fa.buscarAdminAutentificacion(usuariostr).isEmpty()){
                 fa.registrarOyente(usuariostr, correostr, contraseñastr, textField1str);
                 fa.registrarPlaylist("Canciones que te gustan", usuario.getText());
                 this.dispose();
             }else {
-                bttError.setVisible(true);
+                fa.muestraExcepcion("Nombre de usuario no válido");
             }
+        }else {
+            fa.muestraExcepcion("Nombre de usuario no válido");
         }
-        bttError.setVisible(true);
-
     }
 
 
