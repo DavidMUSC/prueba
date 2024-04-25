@@ -41,15 +41,15 @@ public class DAOAdministrador extends abstractDAO {
         }
         return resultado;
     }
-    public List<Artista> buscarAdminAutentificacion(String terminoBusqueda) {
+    public List<Administrador> buscarAdminAutentificacion(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmArtista=null;
         ResultSet rsArtista;
-        List<Artista> artistasEncontrados = new ArrayList<>();
+        List<Administrador> administradorArrayList = new ArrayList<>();
 
         con = this.getConexion();
 
-        String sql = "SELECT * FROM ARTISTA WHERE nombre = ?";
+        String sql = "SELECT * FROM ADMINISTRADOR WHERE nombre = ?";
         try {
             stmArtista = con.prepareStatement(sql);
             stmArtista.setString(1, terminoBusqueda);
@@ -60,13 +60,11 @@ public class DAOAdministrador extends abstractDAO {
                 String contraseña = rsArtista.getString("contraseña");
                 String email = rsArtista.getString("email");
                 Date fechaNacimiento  = rsArtista.getDate("fechaNacimiento");
-                String nombreArtistico = rsArtista.getString("nombreArtistico");
-                String paisNacimiento = rsArtista.getString("paisNacimiento");
 
 
-                Artista artista = new Artista(nombre, contraseña, email, fechaNacimiento, nombreArtistico, paisNacimiento);
+                Administrador admin = new Administrador(nombre, contraseña, email, fechaNacimiento);
 
-                artistasEncontrados.add(artista);
+                administradorArrayList.add(admin);
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());
@@ -74,6 +72,6 @@ public class DAOAdministrador extends abstractDAO {
         }finally{
             try {stmArtista.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
-        return artistasEncontrados;
+        return administradorArrayList;
     }
 }
