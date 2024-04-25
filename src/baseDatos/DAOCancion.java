@@ -1,12 +1,9 @@
 package baseDatos;
 
 import aplicacion.Cancion;
-import java.util.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
 
 public class DAOCancion extends abstractDAO {
     public DAOCancion(Connection conexion, aplicacion.fachadaAplicacion fa) {
@@ -87,6 +84,68 @@ public class DAOCancion extends abstractDAO {
             }
         }
         return nombreArtista;
+    }
+
+    public void publicarCancion(Cancion cancion, int IDAlbum) {
+        Connection con = null;
+        PreparedStatement stmCancion = null;
+        Statement stmtUltimoIDCancion = null;
+        ResultSet rsUltimoIDCancion = null;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta para insertar la canción
+            String sqlCancion = "INSERT INTO CANCION (nombre, IDCancion, duracion, idioma, nombreGenero, letra, visualizaciones, IDAlbum, explicito) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Consulta para obtener el último ID de canción
+            String sqlUltimoIDCancion = "SELECT MAX(IDCancion) FROM CANCION";
+
+            // Obtener el último ID de canción
+            stmtUltimoIDCancion = con.createStatement();
+            rsUltimoIDCancion = stmtUltimoIDCancion.executeQuery(sqlUltimoIDCancion);
+            int ultimoIDCancion = 0;
+            if (rsUltimoIDCancion.next()) {
+                ultimoIDCancion = rsUltimoIDCancion.getInt(1);
+                // Incrementar el último ID de canción para obtener un nuevo ID único
+                int nuevoIDCancion = ultimoIDCancion + 1;
+
+                // Insertar la canción
+                stmCancion = con.prepareStatement(sqlCancion);
+                stmCancion.setString(1, cancion.getNombre());
+                stmCancion.setInt(2, nuevoIDCancion);
+                stmCancion.setString(3, cancion.getDuracion());
+                stmCancion.setString(4, cancion.getIdioma());
+                stmCancion.setString(5, cancion.getNombreGenero());
+                stmCancion.setBoolean(6, cancion.isLetra());
+                stmCancion.setInt(7, cancion.getVisualizaciones());
+                stmCancion.setInt(8, IDAlbum); // Utilizar el ID de álbum proporcionado
+                stmCancion.setBoolean(9, cancion.isExplicito());
+
+                stmCancion.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (rsUltimoIDCancion != null) {
+                    rsUltimoIDCancion.close();
+                }
+                if (stmtUltimoIDCancion != null) {
+                    stmtUltimoIDCancion.close();
+                }
+                if (stmCancion != null) {
+                    stmCancion.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
     }
 
 

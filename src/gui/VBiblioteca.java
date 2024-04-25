@@ -79,6 +79,11 @@ public class VBiblioteca extends JFrame {
         fa.muestraCrearPlaylist(this,fa,op,usuarioActual);
     }
 
+    private void bttPublicar(ActionEvent e) {
+        fa.muestraPublicar(usuarioActual);
+        this.dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         createUIComponents();
@@ -155,6 +160,7 @@ public class VBiblioteca extends JFrame {
                 bttPublicar.setForeground(Color.white);
                 bttPublicar.setBorder(null);
                 bttPublicar.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttPublicar.addActionListener(e -> bttPublicar(e));
 
                 //---- bttGestion ----
                 bttGestion.setText("GESTI\u00d3N");
