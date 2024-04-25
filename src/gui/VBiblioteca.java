@@ -9,10 +9,8 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
-import aplicacion.Playlist;
+import aplicacion.*;
 
-import aplicacion.Playlist;
-import aplicacion.fachadaAplicacion;
 import net.miginfocom.swing.*;
 
 /**
@@ -21,7 +19,7 @@ import net.miginfocom.swing.*;
 public class VBiblioteca extends JFrame {
     fachadaAplicacion fa;
     String usuarioActual;
-    List<Playlist> playlistsUsuario = new ArrayList<>();
+    List<Elemento> playlistsUsuario = new ArrayList<>();
     List<String> nombresPlaylists = new ArrayList<>();
     int op;
 
@@ -48,13 +46,13 @@ public class VBiblioteca extends JFrame {
         }
 
         playlistsUsuario = fa.buscarPlaylistsUsuario(usuarioActual);
-        for(Playlist playlistIndice: playlistsUsuario){
+        /*for(Elemento playlistIndice: playlistsUsuario){
             nombresPlaylists.add(playlistIndice.getNombrePlaylist());
-        }
+        }*/
 
-        modeloListaBiblioteca modelo;
-        modelo = (modeloListaBiblioteca) list1.getModel();
-        modelo.agregarLista(nombresPlaylists);
+        modeloTablaPlaylistUsuario modelo;
+        modelo = (modeloTablaPlaylistUsuario) table1.getModel();
+       // modelo.setFilas(lista);
 
     }
 
@@ -77,8 +75,8 @@ public class VBiblioteca extends JFrame {
     }
 
     private void createUIComponents() {
-        list1 = new JList<>();
-        list1.setModel(new modeloListaBiblioteca());
+        table1 = new JTable();
+        table1.setModel(new modeloTablaPlaylistUsuario());
     }
 
     private void bttCrearPlaylist(ActionEvent e) {
@@ -210,10 +208,7 @@ public class VBiblioteca extends JFrame {
 
             //======== scrollPane1 ========
             {
-
-                //---- list1 ----
-                list1.setFont(new Font("Arial", Font.PLAIN, 14));
-                scrollPane1.setViewportView(list1);
+                scrollPane1.setViewportView(table1);
             }
 
             //---- label2 ----
@@ -301,7 +296,7 @@ public class VBiblioteca extends JFrame {
     private JButton bttPublicar;
     private JButton bttGestion;
     private JScrollPane scrollPane1;
-    private JList list1;
+    private JTable table1;
     private JLabel label2;
     private JButton bttCrearPlaylist;
     private JLabel label3;

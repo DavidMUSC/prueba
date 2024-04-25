@@ -22,8 +22,10 @@ public class VCrearPlaylist extends JDialog {
     fachadaAplicacion fa;
     String usuario;
     List<Elemento> listaElementos = new ArrayList<>();
+    Frame owner;
     public VCrearPlaylist(Frame owner, fachadaAplicacion fa, String usuario) {
         super(owner);
+        this.owner=owner;
         this.fa=fa;
         this.usuario=usuario;
         initComponents();
@@ -99,6 +101,7 @@ public class VCrearPlaylist extends JDialog {
             fa.insertarCancionEnPlaylist(elem.getNombre(),idPlaylist);
         }
         this.dispose();
+        owner.dispose();
         fa.muestraBiblioteca(1,usuario);
     }
 
