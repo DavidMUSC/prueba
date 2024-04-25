@@ -57,7 +57,17 @@ public class VPublicar extends JFrame {
         bttPerfil = new JButton();
         bttAjustes = new JButton();
         bttPublicar = new JButton();
+        tabbedPane1 = new JTabbedPane();
+        panel4 = new JPanel();
+        panel5 = new JPanel();
         label2 = new JLabel();
+        textField1 = new JTextField();
+        label3 = new JLabel();
+        textField2 = new JTextField();
+        comboBox1 = new JComboBox();
+        label4 = new JLabel();
+        button1 = new JButton();
+        button2 = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -154,10 +164,91 @@ public class VPublicar extends JFrame {
                 );
             }
 
-            //---- label2 ----
-            label2.setText("LO QUE NO TE PUEDES PERDER:");
-            label2.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
-            label2.setForeground(new Color(0x00d856));
+            //======== tabbedPane1 ========
+            {
+                tabbedPane1.setFont(new Font("Arial", Font.BOLD, 14));
+                tabbedPane1.setForeground(Color.white);
+                tabbedPane1.setBackground(new Color(0x00d856));
+
+                //======== panel4 ========
+                {
+
+                    GroupLayout panel4Layout = new GroupLayout(panel4);
+                    panel4.setLayout(panel4Layout);
+                    panel4Layout.setHorizontalGroup(
+                        panel4Layout.createParallelGroup()
+                            .addGap(0, 480, Short.MAX_VALUE)
+                    );
+                    panel4Layout.setVerticalGroup(
+                        panel4Layout.createParallelGroup()
+                            .addGap(0, 436, Short.MAX_VALUE)
+                    );
+                }
+                tabbedPane1.addTab("\u00c1lbum", panel4);
+
+                //======== panel5 ========
+                {
+
+                    //---- label2 ----
+                    label2.setText("Nombre:");
+
+                    //---- label3 ----
+                    label3.setText("Discogr\u00e1fica:");
+
+                    //---- label4 ----
+                    label4.setText("Tipo:");
+
+                    //---- button1 ----
+                    button1.setText("GUARDAR");
+
+                    //---- button2 ----
+                    button2.setText("NUEVA CANCI\u00d3N");
+
+                    GroupLayout panel5Layout = new GroupLayout(panel5);
+                    panel5.setLayout(panel5Layout);
+                    panel5Layout.setHorizontalGroup(
+                        panel5Layout.createParallelGroup()
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(panel5Layout.createSequentialGroup()
+                                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(label3)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel5Layout.createSequentialGroup()
+                                        .addComponent(label4)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(button2)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(button1)))
+                                .addContainerGap(20, Short.MAX_VALUE))
+                    );
+                    panel5Layout.setVerticalGroup(
+                        panel5Layout.createParallelGroup()
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label2)
+                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3)
+                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(23, 23, 23)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label4)
+                                    .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(button1)
+                                    .addComponent(button2))
+                                .addContainerGap(341, Short.MAX_VALUE))
+                    );
+                }
+                tabbedPane1.addTab("Podcast", panel5);
+            }
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -165,17 +256,13 @@ public class VPublicar extends JFrame {
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 188, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
-                    .addComponent(panel2, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabbedPane1)
             );
         }
 
@@ -204,6 +291,16 @@ public class VPublicar extends JFrame {
     private JButton bttPerfil;
     private JButton bttAjustes;
     private JButton bttPublicar;
+    private JTabbedPane tabbedPane1;
+    private JPanel panel4;
+    private JPanel panel5;
     private JLabel label2;
+    private JTextField textField1;
+    private JLabel label3;
+    private JTextField textField2;
+    private JComboBox comboBox1;
+    private JLabel label4;
+    private JButton button1;
+    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

@@ -63,6 +63,9 @@ public class fachadaAplicacion {
     public void muestraPrincipal(int op, String usuarioActual){
         fgui.muestraPrincipal(op, usuarioActual );
     }
+    public void muestraPublicar(String usuarioActual) {
+        fgui.muestraPublicar(usuarioActual);
+    }
 
     //FUNCIONES OYENTES
     public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
@@ -131,5 +134,6 @@ public class fachadaAplicacion {
     public String obtenerArtistaDePodcast(String nombrePodcast){
         return gpo.obtenerArtistaDePodcast(nombrePodcast);
     }
+
 
 }

@@ -70,7 +70,8 @@ public class VPrincipal extends JFrame {
     }
 
     private void bttPublicar(ActionEvent e) {
-
+        fa.muestraPublicar(usuarioActual);
+        this.dispose();
     }
 
 

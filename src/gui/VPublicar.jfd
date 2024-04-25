@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :p:50:p, comp label2:::p:248:p, space :0:188:x}}"
-				"$verticalGroup": "par l {comp panel2::l::469:x, seq l {space :p:49:p, comp label2:::p:28:p, space :::x}}"
+				"$horizontalGroup": "par l {seq l {comp panel2:::p::p, space :::p, comp tabbedPane1:::p:480:p}}"
+				"$verticalGroup": "par l {comp panel2:::::x, comp tabbedPane1::l:::x}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -76,11 +76,56 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttPublicar", true ) )
 					} )
 				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label2"
-					"text": "LO QUE NO TE PUEDES PERDER:"
-					"font": new java.awt.Font( "Franklin Gothic Demi Cond", 1, 18 )
-					"foreground": new java.awt.Color( 0, 216, 86, 255 )
+				add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+					name: "tabbedPane1"
+					"font": new java.awt.Font( "Arial", 1, 14 )
+					"foreground": new java.awt.Color( 255, 255, 255, 255 )
+					"background": new java.awt.Color( 0, 216, 86, 255 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {space :0:480:x}"
+						"$verticalGroup": "par l {space :0:436:x}"
+					} ) {
+						name: "panel4"
+					}, new FormLayoutConstraints( null ) {
+						"title": "Álbum"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, par l:::p {seq {comp label2:::p:53:p, space :::p, comp textField1:::p:140:p, space u:::p, comp label3:::p::p, space :::p, comp textField2:::p:168:p}, seq {comp label4:::p::p, space :::p, comp comboBox1:::p::p, space :::x, comp button2:::p::p, space u:::p, comp button1:::p::p}}, space ::20:x}}"
+						"$verticalGroup": "par l {seq l {space :p:20:p, par b {comp label2::b:p::p, comp textField1::b:p::p, comp label3::b:p::p, comp textField2::b:p::p}, space :p:23:p, par b {comp label4::b:p::p, comp comboBox1::b:p::p, comp button1::b:p::p, comp button2::b:p::p}, space ::341:x}}"
+					} ) {
+						name: "panel5"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "Nombre:"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField1"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "Discográfica:"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField2"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBox1"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label4"
+							"text": "Tipo:"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button1"
+							"text": "GUARDAR"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button2"
+							"text": "NUEVA CANCIÓN"
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Podcast"
+					} )
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
