@@ -12,4 +12,8 @@ public class gestionDiscograficas{
     public void insertarDiscografica(String nombreDiscografica){
         fbd.insertarDiscografica(nombreDiscografica);
     }
+    public Discografica buscarDiscografica(String nombreDiscografica){
+        return fbd.buscarDiscografica(nombreDiscografica);
+    }
+
 }
