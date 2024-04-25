@@ -23,5 +23,7 @@ public class gestionArtista {
         return fbd.buscarArtistas(terminoBusqueda);
     }
 
-
+    public int obtenerIDArtistaPorNombre(String nombreArtista){
+        return fbd.obtenerIDArtistaPorNombre(nombreArtista);
+    }
 }

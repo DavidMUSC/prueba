@@ -81,38 +81,60 @@ public class DAOPodcast extends abstractDAO {
         return nombreArtista;
     }
 
-    public void publicarPodcast(Podcast podcast) throws SQLException {
+    public void publicarPodcast(Podcast podcast, int idArtista) {
         Connection con = null;
         PreparedStatement stmPodcast = null;
+        PreparedStatement stmParticiparPodcast = null;
+        ResultSet rsUltimoIDPodcast = null;
+        Statement stmtUltimoIDPodcast = null;
+
         try {
             con = this.getConexion();
+
             // Consulta para obtener el último ID de podcast
             String sqlUltimoIDPodcast = "SELECT MAX(IDPodcast) FROM PODCAST";
+
             // Obtener el último ID de podcast
+            stmtUltimoIDPodcast = con.createStatement();
+            rsUltimoIDPodcast = stmtUltimoIDPodcast.executeQuery(sqlUltimoIDPodcast);
             int ultimoIDPodcast = 0;
-            Statement stmtUltimoIDPodcast = con.createStatement();
-            ResultSet rsUltimoIDPodcast = stmtUltimoIDPodcast.executeQuery(sqlUltimoIDPodcast);
             if (rsUltimoIDPodcast.next()) {
                 ultimoIDPodcast = rsUltimoIDPodcast.getInt(1);
             }
+
             // Incrementar el último ID de podcast para obtener un nuevo ID único
             int nuevoIDPodcast = ultimoIDPodcast + 1;
+
             // Consulta para insertar el podcast
-            String sqlInsertPodcast = "INSERT INTO PODCAST (nombre, IDPodcast) " +
-                    "VALUES (?, ?)";
-            // Insertar el podcast
+            String sqlInsertPodcast = "INSERT INTO PODCAST (nombre, IDPodcast) VALUES (?, ?)";
             stmPodcast = con.prepareStatement(sqlInsertPodcast);
             stmPodcast.setString(1, podcast.getNombre());
             stmPodcast.setInt(2, nuevoIDPodcast);
             stmPodcast.executeUpdate();
+
+            // Consulta para insertar en la tabla PARTICIPARPODCAST
+            String sqlInsertParticiparPodcast = "INSERT INTO PARTICIPARPODCAST (IDPodcast, IDArtista) VALUES (?, ?)";
+            stmParticiparPodcast = con.prepareStatement(sqlInsertParticiparPodcast);
+            stmParticiparPodcast.setInt(1, nuevoIDPodcast);
+            stmParticiparPodcast.setInt(2, idArtista);
+            stmParticiparPodcast.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         } finally {
             try {
+                if (rsUltimoIDPodcast != null) {
+                    rsUltimoIDPodcast.close();
+                }
+                if (stmtUltimoIDPodcast != null) {
+                    stmtUltimoIDPodcast.close();
+                }
                 if (stmPodcast != null) {
                     stmPodcast.close();
+                }
+                if (stmParticiparPodcast != null) {
+                    stmParticiparPodcast.close();
                 }
                 if (con != null) {
                     con.close();
@@ -122,5 +144,6 @@ public class DAOPodcast extends abstractDAO {
             }
         }
     }
+
 
 }

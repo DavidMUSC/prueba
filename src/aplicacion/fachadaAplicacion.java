@@ -16,6 +16,7 @@ public class fachadaAplicacion {
     gestionPodcast gpo;
     gestionAlbum gal;
     gestionCancion gc;
+    gestionDiscograficas gd;
 
     public fachadaAplicacion(){
         fgui=new gui.fachadaGui(this);
@@ -87,6 +88,10 @@ public class fachadaAplicacion {
         return fbd.buscarArtistasAutentificacion(terminoBusqueda);
     }
 
+    public int obtenerIDArtistaPorNombre(String nombreArtista){
+        return ga.obtenerIDArtistaPorNombre(nombreArtista);
+    }
+
     //FUNCIONES ADMIN
     public Administrador comprobarAutentificacionAdministrador(String nombre, String contrasena){
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
@@ -123,6 +128,10 @@ public class fachadaAplicacion {
         return gc.obtenerArtistaDeCancion(nombreCancion);
     }
 
+    public void publicarCancion(Cancion cancion, int IDAlbum){
+        gc.publicarCancion(cancion, IDAlbum);
+    }
+
     //FUNCIONES ALBUM
     public List<Album> buscarAlbum(String terminoBusqueda){
         return gal.buscarAlbumes(terminoBusqueda);
@@ -130,6 +139,10 @@ public class fachadaAplicacion {
 
     public String obtenerArtistaDeAlbum(String nombreAlbum){
         return gal.obtenerArtistaDeAlbum(nombreAlbum);
+    }
+
+    public int publicarAlbum(Album album, int IDDiscografica, int IDArtista){
+        return gal.publicarAlbum(album, IDDiscografica, IDArtista);
     }
 
     //FUNCIONES PODCAST
@@ -141,5 +154,13 @@ public class fachadaAplicacion {
         return gpo.obtenerArtistaDePodcast(nombrePodcast);
     }
 
+    public void publicarPodcast(Podcast podcast, int idArtista){
+        gpo.publicarPodcast(podcast, idArtista);
+    }
+
+    //FUNCIONES DISCOGRAFICA
+    public void insertarDiscografica(String nombreDiscografica){
+        gd.insertarDiscografica(nombreDiscografica);
+    }
 
 }

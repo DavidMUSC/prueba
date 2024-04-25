@@ -20,4 +20,8 @@ public class gestionCancion {
         return fbd.obtenerArtistaDeCancion(nombreCancion);
     }
 
+    public void publicarCancion(Cancion cancion, int IDAlbum){
+        fbd.publicarCancion(cancion, IDAlbum);
+    }
+
 }

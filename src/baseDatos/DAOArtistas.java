@@ -161,5 +161,49 @@ public class DAOArtistas extends abstractDAO {
         return artistasEncontrados;
     }
 
+    public int obtenerIDArtistaPorNombre(String nombreArtista) {
+        Connection con = null;
+        PreparedStatement stmArtista = null;
+        ResultSet rsArtista = null;
+        int idArtista = -1;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para obtener el ID del artista por su nombre
+            String sqlObtenerIDArtista = "SELECT nombre, IDArtista FROM ARTISTA WHERE nombre = ?";
+
+            // Preparar la consulta
+            stmArtista = con.prepareStatement(sqlObtenerIDArtista);
+            stmArtista.setString(1, nombreArtista); // Asignar el parámetro nombre
+
+            // Ejecutar la consulta
+            rsArtista = stmArtista.executeQuery();
+
+            // Verificar si se encontró algún artista
+            if (rsArtista.next()) {
+                // Obtener el ID del artista encontrado
+                idArtista = rsArtista.getInt("IDArtista");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (rsArtista != null) {
+                    rsArtista.close();
+                }
+                if (stmArtista != null) {
+                    stmArtista.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return idArtista;
+    }
 
 }

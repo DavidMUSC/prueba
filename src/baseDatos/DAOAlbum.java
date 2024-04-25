@@ -82,9 +82,10 @@ public class DAOAlbum extends abstractDAO {
         return nombreArtista;
     }
 
-    public int publicarAlbum(Album album, int IDDiscografica) {
+    public int publicarAlbum(Album album, int IDDiscografica, int IDArtista) {
         Connection con = null;
         PreparedStatement stmAlbum = null;
+        PreparedStatement stmComponer = null;
         ResultSet rsIDAlbum = null;
         int nuevoIDAlbum = -1;
         Statement stmUltimoIDAlbum = null;
@@ -113,8 +114,16 @@ public class DAOAlbum extends abstractDAO {
             stmAlbum.setString(3, album.getTipo());
             stmAlbum.setInt(4, album.getAñoLanzamiento());
             stmAlbum.setInt(5, IDDiscografica);
-
             stmAlbum.executeUpdate();
+
+            // Consulta para insertar en la tabla COMPONER
+            String sqlInsertComponer = "INSERT INTO COMPONER (IDAlbum, IDArtista) VALUES (?, ?)";
+
+            // Insertar en la tabla COMPONER
+            stmComponer = con.prepareStatement(sqlInsertComponer);
+            stmComponer.setInt(1, nuevoIDAlbum);
+            stmComponer.setInt(2, IDArtista);
+            stmComponer.executeUpdate();
 
             return nuevoIDAlbum;
 
@@ -133,6 +142,9 @@ public class DAOAlbum extends abstractDAO {
                 if (stmAlbum != null) {
                     stmAlbum.close();
                 }
+                if (stmComponer != null) {
+                    stmComponer.close();
+                }
                 if (con != null) {
                     con.close();
                 }
@@ -141,5 +153,6 @@ public class DAOAlbum extends abstractDAO {
             }
         }
     }
+
 
 }

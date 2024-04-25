@@ -34,8 +34,8 @@ public class DAODiscografica extends abstractDAO {
                 // Construir y devolver el objeto Discografica
                 int IDDiscografica = rsDiscografica.getInt("IDDiscografica");
                 String nombre = rsDiscografica.getString("nombre");
-                String pais = rsDiscografica.getString("pais");
-                return new Discografica(IDDiscografica, nombre, pais);
+                //String pais = rsDiscografica.getString("pais");
+                return new Discografica(IDDiscografica, nombre);//, pais);
             } else {
                 // Si no se encuentra ninguna discográfica, devolver null
                 return null;
@@ -61,5 +61,40 @@ public class DAODiscografica extends abstractDAO {
             }
         }
     }
+
+    public void insertarDiscografica(String nombreDiscografica) {
+        Connection con = null;
+        PreparedStatement stmDiscografica = null;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta SQL para insertar una nueva discográfica
+            String sqlInsertDiscografica = "INSERT INTO DISCOGRAFICA (IDDiscografica, nombre) " +
+                    "SELECT COALESCE(MAX(IDDiscografica), 0) + 1, ? " +
+                    "FROM DISCOGRAFICA";
+
+            // Insertar la discográfica
+            stmDiscografica = con.prepareStatement(sqlInsertDiscografica);
+            stmDiscografica.setString(1, nombreDiscografica); // Asignar el parámetro nombre
+
+            stmDiscografica.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmDiscografica != null) {
+                    stmDiscografica.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+
 
 }
