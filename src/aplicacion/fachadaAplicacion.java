@@ -29,6 +29,7 @@ public class fachadaAplicacion {
         gpo = new gestionPodcast(fgui, fbd);
         gal = new gestionAlbum(fgui, fbd);
         gc = new gestionCancion(fgui, fbd);
+        gd = new gestionDiscograficas(fgui, fbd);
     }
     public static void main(String args[]) {
 
