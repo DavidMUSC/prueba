@@ -83,6 +83,42 @@ public class DAOArtistas extends abstractDAO {
         return artistasEncontrados;
     }
 
+    public List<Artista> buscarArtistasAutentificacion(String terminoBusqueda) {
+        Connection con;
+        PreparedStatement stmArtista=null;
+        ResultSet rsArtista;
+        List<Artista> artistasEncontrados = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT * FROM ARTISTA WHERE nombre = ?";
+        try {
+            stmArtista = con.prepareStatement(sql);
+            stmArtista.setString(1, "%" + terminoBusqueda + "%");
+
+            rsArtista = stmArtista.executeQuery();
+            while (rsArtista.next()) {
+                String nombre = rsArtista.getString("nombre");
+                String contraseña = rsArtista.getString("contraseña");
+                String email = rsArtista.getString("email");
+                Date fechaNacimiento  = rsArtista.getDate("fechaNacimiento");
+                String nombreArtistico = rsArtista.getString("nombreArtistico");
+                String paisNacimiento = rsArtista.getString("paisNacimiento");
+
+
+                Artista artista = new Artista(nombre, contraseña, email, fechaNacimiento, nombreArtistico, paisNacimiento);
+
+                artistasEncontrados.add(artista);
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+            try {stmArtista.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return artistasEncontrados;
+    }
+
     public List<Artista> buscarArtistasMismoGenero(String nombreArtista) {
         Connection con;
         PreparedStatement stmArtistas = null;
