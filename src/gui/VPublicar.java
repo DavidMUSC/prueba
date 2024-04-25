@@ -1,83 +1,53 @@
 /*
- * Created by JFormDesigner on Tue Apr 23 16:35:33 CEST 2024
+ * Created by JFormDesigner on Thu Apr 25 12:26:21 CEST 2024
  */
 
 package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
-
-import aplicacion.Playlist;
 import aplicacion.fachadaAplicacion;
 
+
 /**
- * @author davra
+ * @author Uni
  */
-public class VPrincipal extends JFrame {
-    private fachadaAplicacion fa;
-    private String usuarioActual;
-    List<String> nombresPlaylists = new ArrayList<>();
-    int op;
-    public VPrincipal(fachadaAplicacion fa, int op, String usuarioActual) {
+public class VPublicar extends JFrame {
+    fachadaAplicacion fa;
+    String usuarioActual;
+    public VPublicar(fachadaAplicacion fa, String usuarioActual) {
         this.fa = fa;
-        this.op=op;
-        this.usuarioActual=usuarioActual;
+        this.usuarioActual = usuarioActual;
         initComponents();
-        switch(op){
-            case 1:
-                bttGestion.setVisible(false);
-                bttPublicar.setVisible(false);
-                break;
-            case 2:
-                bttGestion.setVisible(false);
-                break;
-            case 3:
-                bttPublicar.setVisible(false);
-                bttInicio.setVisible(false);
-                bttBiblioteca.setVisible(false);
-                bttBuscar.setVisible(false);
-                break;
-        }
-
-        List <Playlist> listaP = new ArrayList<>();
-        listaP= fa.buscarPlaylistsUsuario("spotify");
-        for(Playlist playlistIndice: listaP){
-            nombresPlaylists.add(playlistIndice.getNombrePlaylist());
-        }
-
-        modeloListaBiblioteca modelo;
-        modelo = (modeloListaBiblioteca) list1.getModel();
-        modelo.agregarLista(nombresPlaylists);
     }
+
     private void bttBuscar(ActionEvent e) {
-        fa.muestraBuscar(op, usuarioActual);
+        fa.muestraBuscar(2, usuarioActual);
         this.dispose();
     }
 
     private void bttBiblioteca(ActionEvent e) {
-        fa.muestraBiblioteca(op, usuarioActual);
+        fa.muestraBiblioteca(2, usuarioActual);
         this.dispose();
-    }
-
-    private void createUIComponents() {
-        list1 = new JList<>();
-        list1.setModel(new modeloListaBiblioteca());
     }
 
     private void bttPublicar(ActionEvent e) {
 
     }
 
+    private void createUIComponents() {
+        // TODO: add custom component creation code here
+    }
 
+    private void bttInicio(ActionEvent e) {
+        fa.muestraPrincipal(2, usuarioActual);
+        this.dispose();
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        createUIComponents();
-
         panel1 = new JPanel();
         panel2 = new JPanel();
         label1 = new JLabel();
@@ -87,8 +57,6 @@ public class VPrincipal extends JFrame {
         bttPerfil = new JButton();
         bttAjustes = new JButton();
         bttPublicar = new JButton();
-        bttGestion = new JButton();
-        scrollPane1 = new JScrollPane();
         label2 = new JLabel();
 
         //======== this ========
@@ -110,6 +78,7 @@ public class VPrincipal extends JFrame {
                 bttInicio.setForeground(Color.white);
                 bttInicio.setBorder(null);
                 bttInicio.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttInicio.addActionListener(e -> bttInicio(e));
 
                 //---- bttBuscar ----
                 bttBuscar.setText("BUSCAR");
@@ -149,13 +118,6 @@ public class VPrincipal extends JFrame {
                 bttPublicar.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
                 bttPublicar.addActionListener(e -> bttPublicar(e));
 
-                //---- bttGestion ----
-                bttGestion.setText("GESTI\u00d3N");
-                bttGestion.setBackground(new Color(0x00d856));
-                bttGestion.setForeground(Color.white);
-                bttGestion.setBorder(null);
-                bttGestion.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
-
                 GroupLayout panel2Layout = new GroupLayout(panel2);
                 panel2.setLayout(panel2Layout);
                 panel2Layout.setHorizontalGroup(
@@ -168,8 +130,7 @@ public class VPrincipal extends JFrame {
                                 .addComponent(bttBiblioteca, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(bttPublicar, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(bttAjustes, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bttPerfil, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bttGestion, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bttPerfil, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
                             .addGap(0, 0, Short.MAX_VALUE))
                 );
                 panel2Layout.setVerticalGroup(
@@ -185,19 +146,12 @@ public class VPrincipal extends JFrame {
                             .addComponent(bttBiblioteca)
                             .addGap(18, 18, 18)
                             .addComponent(bttPublicar)
-                            .addGap(18, 18, 18)
-                            .addComponent(bttGestion)
-                            .addGap(67, 67, 67)
+                            .addGap(113, 113, 113)
                             .addComponent(bttPerfil)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(bttAjustes)
                             .addGap(28, 28, 28))
                 );
-            }
-
-            //======== scrollPane1 ========
-            {
-                scrollPane1.setViewportView(list1);
             }
 
             //---- label2 ----
@@ -212,19 +166,15 @@ public class VPrincipal extends JFrame {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 36, Short.MAX_VALUE))
+                        .addComponent(label2, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 188, Short.MAX_VALUE))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
-                    .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel2, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(label2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
         }
@@ -254,9 +204,6 @@ public class VPrincipal extends JFrame {
     private JButton bttPerfil;
     private JButton bttAjustes;
     private JButton bttPublicar;
-    private JButton bttGestion;
-    private JScrollPane scrollPane1;
-    private JList list1;
     private JLabel label2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
