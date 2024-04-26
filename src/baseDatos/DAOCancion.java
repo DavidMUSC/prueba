@@ -162,6 +162,39 @@ public class DAOCancion extends abstractDAO {
         return artistas;
     }
 
+    public void valorarCancion(String usuarioActual,int cancion,int valor){
+        Connection con = null;
+        PreparedStatement stmCancion = null;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta para insertar la canción
+            String sqlCancion = "INSERT INTO VALORAR (IDOyente,IDCancion,valor) " +
+                    "VALUES (?, ?, ?)";
+
+
+            // Obtener el último ID de canción
+                stmCancion = con.prepareStatement(sqlCancion);
+                stmCancion.setString(1, usuarioActual);
+                stmCancion.setInt(2, cancion);
+                stmCancion.setInt(3,valor);
+
+                stmCancion.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmCancion != null) {
+                    stmCancion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+
 
     public void publicarCancion(Cancion cancion, int IDAlbum) {
         Connection con = null;
@@ -215,9 +248,6 @@ public class DAOCancion extends abstractDAO {
                 }
                 if (stmCancion != null) {
                     stmCancion.close();
-                }
-                if (con != null) {
-                    con.close();
                 }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");

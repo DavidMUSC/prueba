@@ -59,17 +59,17 @@ public class fachadaGui {
         vp.setVisible(true);
     }
 
-    public void muestraCancion(Cancion cancion) {
+    public void muestraCancion(Cancion cancion,String usuarioActual) {
         if(isCancion){
             vca.dispose();
             VCancion vc;
-            vc = new VCancion(fa, cancion);
+            vc = new VCancion(fa, cancion,usuarioActual);
             vc.setVisible(true);
             vca=vc;
             isCancion=true;
         }else{
             VCancion vc;
-            vc = new VCancion(fa, cancion);
+            vc = new VCancion(fa, cancion,usuarioActual);
             vc.setVisible(true);
             vca=vc;
             isCancion=true;

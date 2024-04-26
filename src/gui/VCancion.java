@@ -5,6 +5,7 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import aplicacion.*;
@@ -15,10 +16,12 @@ import aplicacion.Artista;
 public class VCancion extends JFrame {
     fachadaAplicacion fa;
     Cancion cancion;
+    String usuarioActual;
     //static
-    public VCancion(fachadaAplicacion fa,Cancion cancion) {
+    public VCancion(fachadaAplicacion fa,Cancion cancion,String usuarioActual) {
         this.fa=fa;
         this.cancion=cancion;
+        this.usuarioActual=usuarioActual;
         initComponents();
         labelCancion.setText(cancion.getNombre());
         String strArtistas="";
@@ -35,6 +38,35 @@ public class VCancion extends JFrame {
         labelDuracion.setText(cancion.getDuracion());
     }
 
+    private void bttValorar(ActionEvent e) {
+
+    }
+
+    private void bttValorar5(ActionEvent e) {
+        fa.valorarCancion(usuarioActual,cancion.getIDCancion(),1);
+    }
+
+    private void bttValorar6(ActionEvent e) {
+        fa.valorarCancion(usuarioActual,cancion.getIDCancion(),2);
+    }
+
+    private void bttValorar7(ActionEvent e) {
+        fa.valorarCancion(usuarioActual,cancion.getIDCancion(),3);
+    }
+
+    private void bttValorar8(ActionEvent e) {
+        fa.valorarCancion(usuarioActual,cancion.getIDCancion(),4);
+    }
+
+    private void bttValorar9(ActionEvent e) {
+        fa.valorarCancion(usuarioActual,cancion.getIDCancion(),5);
+    }
+
+    private void bttLike(ActionEvent e) {
+        int idPlaylist = fa.buscarIDPlaylists("Canciones que te gustan",usuarioActual);
+        fa.insertarCancionEnPlaylist(cancion.getNombre(),idPlaylist);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         panel1 = new JPanel();
@@ -48,6 +80,14 @@ public class VCancion extends JFrame {
         button1 = new JButton();
         label9 = new JLabel();
         labelDuracion = new JLabel();
+        bttLike = new JButton();
+        label1 = new JLabel();
+        bttValorar5 = new JButton();
+        bttValorar6 = new JButton();
+        bttValorar7 = new JButton();
+        bttValorar8 = new JButton();
+        bttValorar9 = new JButton();
+        label2 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -78,7 +118,7 @@ public class VCancion extends JFrame {
                         .addGroup(panel2Layout.createSequentialGroup()
                             .addGap(129, 129, 129)
                             .addComponent(label6)
-                            .addContainerGap(169, Short.MAX_VALUE))
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 panel2Layout.setVerticalGroup(
                     panel2Layout.createParallelGroup()
@@ -108,54 +148,147 @@ public class VCancion extends JFrame {
             labelDuracion.setText("text");
             labelDuracion.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
 
+            //---- bttLike ----
+            bttLike.setIcon(new ImageIcon(getClass().getResource("/fotos/coraz (1).png")));
+            bttLike.setForeground(new Color(0x00d856));
+            bttLike.setBorderPainted(false);
+            bttLike.addActionListener(e -> bttLike(e));
+
+            //---- label1 ----
+            label1.setText("Dar me gusta");
+            label1.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
+
+            //---- bttValorar5 ----
+            bttValorar5.setBorderPainted(false);
+            bttValorar5.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar5.addActionListener(e -> {
+			bttValorar(e);
+			bttValorar5(e);
+		});
+
+            //---- bttValorar6 ----
+            bttValorar6.setBorderPainted(false);
+            bttValorar6.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar6.addActionListener(e -> {
+			bttValorar(e);
+			bttValorar6(e);
+		});
+
+            //---- bttValorar7 ----
+            bttValorar7.setBorderPainted(false);
+            bttValorar7.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar7.addActionListener(e -> {
+			bttValorar(e);
+			bttValorar7(e);
+		});
+
+            //---- bttValorar8 ----
+            bttValorar8.setBorderPainted(false);
+            bttValorar8.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar8.addActionListener(e -> {
+			bttValorar(e);
+			bttValorar8(e);
+		});
+
+            //---- bttValorar9 ----
+            bttValorar9.setBorderPainted(false);
+            bttValorar9.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar9.addActionListener(e -> {
+			bttValorar(e);
+			bttValorar9(e);
+		});
+
+            //---- label2 ----
+            label2.setText("Valorar canci\u00f3n");
+            label2.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 12));
+
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panel1Layout.createSequentialGroup()
+                    .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(label9)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(label9)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panel1Layout.createParallelGroup()
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addComponent(label3)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(32, 32, 32)
                                         .addComponent(label4)
-                                        .addGap(37, 37, 37)
+                                        .addGap(29, 29, 29)
                                         .addComponent(label5))
-                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addGroup(panel1Layout.createParallelGroup()
+                                            .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panel1Layout.createParallelGroup()
+                                            .addGroup(panel1Layout.createSequentialGroup()
+                                                .addGap(56, 56, 56)
+                                                .addComponent(label1))
+                                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(bttLike)
+                                                .addGap(19, 19, 19))))))
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
                                 .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(26, Short.MAX_VALUE))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(label2)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(bttValorar5)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bttValorar6, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bttValorar7)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bttValorar8, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bttValorar9))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(2, 2, 2))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel1Layout.createParallelGroup()
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addComponent(bttLike, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label1))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addComponent(label3)
-                                    .addComponent(label5)
-                                    .addComponent(label4))
+                                    .addComponent(label4)
+                                    .addComponent(label5))
                                 .addGap(18, 18, 18)
                                 .addComponent(button1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label9)
-                            .addComponent(labelDuracion))
-                        .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(labelDuracion)
+                            .addComponent(label9))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel1Layout.createParallelGroup()
+                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                .addComponent(label2)
+                                .addContainerGap())
+                            .addComponent(bttValorar5)
+                            .addComponent(bttValorar6)
+                            .addComponent(bttValorar7)
+                            .addComponent(bttValorar8)
+                            .addComponent(bttValorar9)))
             );
         }
 
@@ -186,5 +319,13 @@ public class VCancion extends JFrame {
     private JButton button1;
     private JLabel label9;
     private JLabel labelDuracion;
+    private JButton bttLike;
+    private JLabel label1;
+    private JButton bttValorar5;
+    private JButton bttValorar6;
+    private JButton bttValorar7;
+    private JButton bttValorar8;
+    private JButton bttValorar9;
+    private JLabel label2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

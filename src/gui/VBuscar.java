@@ -112,7 +112,7 @@ public class VBuscar extends JFrame {
                 if(tabla.getValueAt(tabla.getSelectedRow(),0).equals("Cancion")){
                     String nombreCancion = (String)tabla.getValueAt(tabla.getSelectedRow(),1);
                     Cancion cancion=fa.buscarCancionesEn(nombreCancion).get(0);
-                    fa.muestraCancion(cancion);
+                    fa.muestraCancion(cancion,usuarioActual);
                 }
                 // Obtener la fila y columna en la que se hizo clic
                 int row = tabla.rowAtPoint(e.getPoint());

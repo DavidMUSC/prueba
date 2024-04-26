@@ -15,6 +15,9 @@ public class gestionCancion {
     public List<Cancion> buscarCanciones(String terminoBusqueda){
         return fbd.buscarCanciones(terminoBusqueda);
     }
+    public void valorarCancion(String usuarioActual,int cancion,int valor){
+        fbd.valorarCancion(usuarioActual,cancion,valor);
+    }
 
     public String obtenerArtistaDeCancion(String nombreCancion){
         return fbd.obtenerArtistaDeCancion(nombreCancion);

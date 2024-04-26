@@ -69,8 +69,8 @@ public class fachadaAplicacion {
     public void muestraPublicar(String usuarioActual) {
         fgui.muestraPublicar(usuarioActual);
     }
-    public void muestraCancion(Cancion cancion) {
-        fgui.muestraCancion(cancion);
+    public void muestraCancion(Cancion cancion,String usuarioActual) {
+        fgui.muestraCancion(cancion,usuarioActual);
     }
     public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
         fgui.muestraAnadirCancion(usuarioActual,albumID,owner);
@@ -133,6 +133,9 @@ public class fachadaAplicacion {
     }
     public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
         return fbd.buscarCancionesEn(terminoBusqueda);
+    }
+    public void valorarCancion(String usuarioActual,int cancion,int valor){
+        gc.valorarCancion(usuarioActual,cancion,valor);
     }
 
     public String obtenerArtistaDeCancion(String nombreCancion){
