@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {comp panel4:::p::p, space :0:0:x}, seq l {space :p:20:p, par l {seq {comp label2:::p:48:p, space :p:2:p, par l {comp label3::l:p:46:p, seq {comp buscadorNombre:::p:146:p, space :::x, par l {seq l {comp label7:::p::p, space :::p, comp comboBox1:::p::p}, seq l {comp label8:::p::p, space u:::p, comp scrollPane1:::p:138:p}}, space :p:92:p}}}, seq {par l {seq l {comp label4:::p::p, space :::p, comp buscadorCancion:::p:140:p}, seq l {comp label6:::p::p, par l {seq {space s:::p, comp checkBox1:::p::p}, seq l {space :p:14:p, comp comboBox2:::p::p}}}}, space :0:0:x}}, space :::p}, seq l {space :p:192:p, comp bttAnadir:::p::p, space :::x}}"
-				"$verticalGroup": "par l {seq l {comp panel4:::p::p, space :p:31:p, par b {comp label2::b:p::p, comp buscadorNombre::b:p::p, comp label7::b:p::p, comp comboBox1::b:p::p}, space :p:11:p, comp label3:::p::p, space s:::p, par l:::p {seq {par b {comp label4::b:p::p, comp buscadorCancion::b:p::p, comp label8::b:p::p}, space :p:32:p, par b {comp label6::b:p::p, comp comboBox2::b:p::p}, space :p:32:p, comp checkBox1:::p::p}, comp scrollPane1:::::x}, space s:::p, comp bttAnadir:::p::p, space ::21:x}}"
+				"$horizontalGroup": "par l {seq l {comp panel4:::p::p, space :0:0:x}, seq l {space :p:20:p, par l {seq {comp label2:::p:48:p, space :p:2:p, par l {comp label3::l:p:46:p, seq {comp buscadorNombre:::p:146:p, space :::x, par l {seq l {comp label7:::p::p, space :::p, comp comboBoxIdioma:::p::p}, seq l {comp label8:::p::p, space u:::p, comp scrollPane1:::p:138:p}}, space :p:92:p}}}, seq {par l {seq l {comp label4:::p::p, space :::p, comp buscadorDuracion:::p:140:p}, seq l {comp label6:::p::p, par l {seq {space s:::p, comp checkBoxExplicito:::p::p}, seq l {space :p:14:p, comp comboBoxGenero:::p::p}}}}, space :0:0:x}}, space :::p}, seq l {space :p:192:p, comp bttAnadir:::p::p, space :::x}}"
+				"$verticalGroup": "par l {seq l {comp panel4:::p::p, space :p:31:p, par b {comp label2::b:p::p, comp buscadorNombre::b:p::p, comp label7::b:p::p, comp comboBoxIdioma::b:p::p}, space :p:11:p, comp label3:::p::p, space s:::p, par l:::p {seq {par b {comp label4::b:p::p, comp buscadorDuracion::b:p::p, comp label8::b:p::p}, space :p:32:p, par b {comp label6::b:p::p, comp comboBoxGenero::b:p::p}, space :p:32:p, comp checkBoxExplicito:::p::p}, comp scrollPane1:::::x}, space s:::p, comp bttAnadir:::p::p, space :::x}}"
 			} ) {
 				name: "panel3"
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -25,7 +25,7 @@ new FormModel {
 					name: "buscadorNombre"
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "buscadorCancion"
+					name: "buscadorDuracion"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "bttAnadir"
@@ -64,19 +64,22 @@ new FormModel {
 					"font": new java.awt.Font( "Arial", 0, 12 )
 				} )
 				add( new FormComponent( "javax.swing.JCheckBox" ) {
-					name: "checkBox1"
+					name: "checkBoxExplicito"
 					"text": "Explícito"
 					"font": new java.awt.Font( "Arial", 0, 12 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkBoxExplicito", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox1"
+					name: "comboBoxIdioma"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "idioma", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label7"
 					"text": "Idioma:"
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
-					name: "comboBox2"
+					name: "comboBoxGenero"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genero", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label8"
@@ -86,7 +89,7 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane1"
 					add( new FormComponent( "javax.swing.JTextArea" ) {
-						name: "textArea1"
+						name: "letraCancion"
 					} )
 				} )
 			} )

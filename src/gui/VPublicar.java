@@ -80,9 +80,16 @@ public class VPublicar extends JFrame {
 
     private void tipo(ActionEvent e) {
         // añadir los tipos de album que se pueden crear. Por ejemplo EP, Album y Single al JcomboBox
+        // Definir los tipos de álbum disponibles
+        String[] tiposAlbum = {"EP", "Album", "Single"};
 
+        // Limpiar el JComboBox antes de añadir los nuevos tipos
+        tipo.removeAllItems();
 
-
+        // Añadir los tipos de álbum al JComboBox
+        for (String a : tiposAlbum) {
+            tipo.addItem(a);
+        }
     }
 
 
