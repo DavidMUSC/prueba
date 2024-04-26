@@ -9,8 +9,8 @@ new FormModel {
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {comp panel2::l:::x, seq t {space :p:22:p, comp label9:::p::p, space u:::p, par l {seq l {space :0:0:x, par l {seq l {comp label3:::p::p, space :p:32:p, comp label4:::p::p, space :p:29:p, comp label5:::p::p}, seq l {par l {comp labelArtistas::l:p:169:p, comp labelCancion::l:p:169:p}, par l {seq {space :p:56:p, comp label1:::p::p}, seq t {space :::p, comp bttLike:::p::p, space :p:19:p}}}}}, seq l {par l {seq {comp label2:::p::p, space :p:32:p, comp bttValorar5:::p::p, space u:::p, comp bttValorar6:::p:24:p, space u:::p, comp bttValorar7:::p::p, space u:::p, comp bttValorar8:::p:25:p, space :::p, comp bttValorar9:::p::p}, seq {comp button1:::p:225:p, space :p:25:p, comp labelDuracion:::p:62:p}}, space :0:0:x}}, space :p:2:p}}"
-				"$verticalGroup": "par l {seq l {comp panel2:::p::p, space :::p, par l {seq {comp bttLike:::p:38:p, space :::p, comp label1:::p::p}, seq {comp labelCancion:::p:30:p, space :::p, comp labelArtistas:::p:26:p}}, space :p:18:p, par t {seq {par l {comp label3::l:p::p, comp label4::l:p::p, comp label5::l:p::p}, space :p:18:p, comp button1:::p:10:p}, comp labelDuracion:::p::p, comp label9:::p::p}, space :::p, par l {seq t {comp label2:::p::p, space :::p}, comp bttValorar5::l:p::p, comp bttValorar6::l:p::p, comp bttValorar7::l:p::p, comp bttValorar8::l:p::p, comp bttValorar9::l:p::p}}}"
+				"$horizontalGroup": "par l {comp panel2::l:::x, seq t {space :p:22:p, comp label9:::p::p, space u:::p, par l {seq l {space :0:0:x, par l {seq l {comp label3:::p::p, space :p:32:p, comp label4:::p::p, space :p:29:p, comp label5:::p::p}, seq l {par l {comp labelArtistas::l:p:169:p, comp labelCancion::l:p:169:p}, space :p:56:p, comp bttLike:::p::p}}, space :p:32:p}, seq l {par l {seq {comp button1:::p:225:p, space :p:25:p, comp labelDuracion:::p:62:p}, seq l {space :p:20:p, comp label2:::p::p, space s:::p, comp bttValorar5:::p::p, space u:::p, comp bttValorar6:::p:24:p, space u:::p, comp bttValorar7:::p::p, space u:::p, par l {seq {comp bttValorar8:::p:25:p, space u:::p, comp bttValorar9:::p::p}, comp label1:::p::p}}}, space :0:2:x}}}}"
+				"$verticalGroup": "par l {seq l {comp panel2:::p::p, space :::p, par l {comp bttLike:::p:38:p, seq {comp labelCancion:::p:30:p, space :::p, par b {comp labelArtistas::b:p:26:p, comp label1::b:p::p}}}, space :p:18:p, par t {seq {par l {comp label3::l:p::p, comp label4::l:p::p, comp label5::l:p::p}, space :p:18:p, comp button1:::p:10:p}, comp labelDuracion:::p::p, comp label9:::p::p}, space :::p, par l {comp bttValorar9::l:p::p, comp bttValorar8::l:p::p, comp bttValorar7::l:p::p, comp bttValorar6::l:p::p, comp bttValorar5::l:p::p, comp label2::t:p::p}}}"
 			} ) {
 				name: "panel1"
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -76,6 +76,8 @@ new FormModel {
 					name: "bttValorar5"
 					"borderPainted": false
 					"icon": &SwingIcon0 new com.jformdesigner.model.SwingIcon( 0, "/fotos/estrella (1).png" )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"background": new java.awt.Color( 242, 242, 242, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar5", true ) )
 				} )
@@ -83,6 +85,8 @@ new FormModel {
 					name: "bttValorar6"
 					"borderPainted": false
 					"icon": #SwingIcon0
+					"background": new java.awt.Color( 242, 242, 242, 255 )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar6", true ) )
 				} )
@@ -90,6 +94,8 @@ new FormModel {
 					name: "bttValorar7"
 					"borderPainted": false
 					"icon": #SwingIcon0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"background": new java.awt.Color( 242, 242, 242, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar7", true ) )
 				} )
@@ -97,6 +103,8 @@ new FormModel {
 					name: "bttValorar8"
 					"borderPainted": false
 					"icon": #SwingIcon0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"background": new java.awt.Color( 242, 242, 242, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar8", true ) )
 				} )
@@ -104,6 +112,8 @@ new FormModel {
 					name: "bttValorar9"
 					"borderPainted": false
 					"icon": #SwingIcon0
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"background": new java.awt.Color( 242, 242, 242, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar", true ) )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttValorar9", true ) )
 				} )

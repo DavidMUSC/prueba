@@ -17,6 +17,8 @@ public class VCancion extends JFrame {
     fachadaAplicacion fa;
     Cancion cancion;
     String usuarioActual;
+
+    boolean like=false;
     //static
     public VCancion(fachadaAplicacion fa,Cancion cancion,String usuarioActual) {
         this.fa=fa;
@@ -34,6 +36,10 @@ public class VCancion extends JFrame {
                 strArtistas+=","+artistas.get(i).getNombreArtistico();
             }
         }
+        int idFavoritos = fa.buscarIDPlaylists("Canciones que te gustan",usuarioActual);
+        /*if(){
+
+        }*/
         labelArtistas.setText(strArtistas);
         labelDuracion.setText(cancion.getDuracion());
     }
@@ -161,6 +167,8 @@ public class VCancion extends JFrame {
             //---- bttValorar5 ----
             bttValorar5.setBorderPainted(false);
             bttValorar5.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar5.setBorder(null);
+            bttValorar5.setBackground(new Color(0xf2f2f2));
             bttValorar5.addActionListener(e -> {
 			bttValorar(e);
 			bttValorar5(e);
@@ -169,6 +177,8 @@ public class VCancion extends JFrame {
             //---- bttValorar6 ----
             bttValorar6.setBorderPainted(false);
             bttValorar6.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar6.setBackground(new Color(0xf2f2f2));
+            bttValorar6.setBorder(null);
             bttValorar6.addActionListener(e -> {
 			bttValorar(e);
 			bttValorar6(e);
@@ -177,6 +187,8 @@ public class VCancion extends JFrame {
             //---- bttValorar7 ----
             bttValorar7.setBorderPainted(false);
             bttValorar7.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar7.setBorder(null);
+            bttValorar7.setBackground(new Color(0xf2f2f2));
             bttValorar7.addActionListener(e -> {
 			bttValorar(e);
 			bttValorar7(e);
@@ -185,6 +197,8 @@ public class VCancion extends JFrame {
             //---- bttValorar8 ----
             bttValorar8.setBorderPainted(false);
             bttValorar8.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar8.setBorder(null);
+            bttValorar8.setBackground(new Color(0xf2f2f2));
             bttValorar8.addActionListener(e -> {
 			bttValorar(e);
 			bttValorar8(e);
@@ -193,6 +207,8 @@ public class VCancion extends JFrame {
             //---- bttValorar9 ----
             bttValorar9.setBorderPainted(false);
             bttValorar9.setIcon(new ImageIcon(getClass().getResource("/fotos/estrella (1).png")));
+            bttValorar9.setBorder(null);
+            bttValorar9.setBackground(new Color(0xf2f2f2));
             bttValorar9.addActionListener(e -> {
 			bttValorar(e);
 			bttValorar9(e);
@@ -225,34 +241,32 @@ public class VCancion extends JFrame {
                                         .addGroup(panel1Layout.createParallelGroup()
                                             .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
                                             .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panel1Layout.createParallelGroup()
-                                            .addGroup(panel1Layout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addComponent(label1))
-                                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(bttLike)
-                                                .addGap(19, 19, 19))))))
+                                        .addGap(56, 56, 56)
+                                        .addComponent(bttLike)))
+                                .addGap(32, 32, 32))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
                                         .addComponent(label2)
-                                        .addGap(32, 32, 32)
+                                        .addGap(18, 18, 18)
                                         .addComponent(bttValorar5)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(bttValorar6, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(bttValorar7)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bttValorar8, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bttValorar9))
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(25, 25, 25)
-                                        .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(2, 2, 2))
+                                        .addGroup(panel1Layout.createParallelGroup()
+                                            .addGroup(panel1Layout.createSequentialGroup()
+                                                .addComponent(bttValorar8, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(bttValorar9))
+                                            .addComponent(label1))))
+                                .addGap(0, 2, Short.MAX_VALUE))))
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
@@ -260,14 +274,13 @@ public class VCancion extends JFrame {
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(bttLike, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label1))
+                            .addComponent(bttLike, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label1))))
                         .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addGroup(panel1Layout.createSequentialGroup()
@@ -281,14 +294,12 @@ public class VCancion extends JFrame {
                             .addComponent(label9))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                .addComponent(label2)
-                                .addContainerGap())
-                            .addComponent(bttValorar5)
-                            .addComponent(bttValorar6)
-                            .addComponent(bttValorar7)
+                            .addComponent(bttValorar9)
                             .addComponent(bttValorar8)
-                            .addComponent(bttValorar9)))
+                            .addComponent(bttValorar7)
+                            .addComponent(bttValorar6)
+                            .addComponent(bttValorar5)
+                            .addComponent(label2, GroupLayout.Alignment.TRAILING)))
             );
         }
 

@@ -103,6 +103,7 @@ public class DAOPlaylist extends abstractDAO {
         return idPlaylist;
     }
 
+
     public List<Playlist> buscarPlaylists(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmPlaylist = null;
