@@ -14,6 +14,54 @@ public class DAOAlbum extends abstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
+    public List<String> obtenerCancionesPorAlbum(String nombreAlbum, String artistaAlbum) {
+        List<String> canciones = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmCanciones = null,stmId;
+        ResultSet rsCanciones = null,rsId;
+        int id=0;
+        try {
+            con = getConexion();
+            String sqlId = "SELECT IDAlbum FROM COMPONER WHERE IDArtista = (SELECT nombre from Artista where nombreArtistico = ?) " +
+                    "AND IDAlbum IN (SELECT a.IDAlbum from ALBUM a WHERE a.nombre=?)\n";
+            stmId = con.prepareStatement(sqlId);
+            stmId.setString(1, artistaAlbum);
+            stmId.setString(2, nombreAlbum);
+            rsId = stmId.executeQuery();
+            if (rsId.next()) {
+                id=rsId.getInt("IDAlbum");
+            }
+
+            // Consulta para obtener todas las canciones de un álbum dado
+            String sql = "SELECT nombre FROM CANCION " +
+                    "WHERE IDAlbum = ?";
+            stmCanciones = con.prepareStatement(sql);
+            stmCanciones.setInt(1, id);
+            rsCanciones = stmCanciones.executeQuery();
+
+            // Iterar sobre el resultado y agregar el nombre de cada canción a la lista
+            while (rsCanciones.next()) {
+                canciones.add(rsCanciones.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            // Manejar la excepción apropiadamente
+        } finally {
+            try {
+                if (rsCanciones != null) {
+                    rsCanciones.close();
+                }
+                if (stmCanciones != null) {
+                    stmCanciones.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+
+        return canciones;
+    }
+
     public List<Album> buscarAlbumes(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmAlbum = null;
@@ -21,6 +69,7 @@ public class DAOAlbum extends abstractDAO {
         List<Album> albumesEncontrados = new ArrayList<>();
 
         con = this.getConexion();
+
 
         String sql = "SELECT * FROM ALBUM WHERE nombre LIKE ?";
         try {
@@ -51,11 +100,11 @@ public class DAOAlbum extends abstractDAO {
         return albumesEncontrados;
     }
 
-    public String obtenerArtistaDeAlbum(String nombreAlbum) {
+    public List<String> obtenerArtistaDeAlbum(String nombreAlbum) {
         Connection con;
         PreparedStatement stmArtista = null;
         ResultSet rsArtista;
-        String nombreArtista = null;
+        List<String> nombreArtista = new ArrayList<>();
 
         con = this.getConexion();
 
@@ -69,8 +118,8 @@ public class DAOAlbum extends abstractDAO {
             stmArtista.setString(1, nombreAlbum);
 
             rsArtista = stmArtista.executeQuery();
-            if (rsArtista.next()) {
-                nombreArtista = rsArtista.getString("nombreArtistico");
+            while (rsArtista.next()) {
+                nombreArtista.add(rsArtista.getString("nombreArtistico"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

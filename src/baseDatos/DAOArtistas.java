@@ -2,6 +2,7 @@ package baseDatos;
 
 import aplicacion.Artista;
 import aplicacion.Oyente;
+import aplicacion.Playlist;
 
 import java.sql.Date;
 import java.util.*;
@@ -82,6 +83,8 @@ public class DAOArtistas extends abstractDAO {
         }
         return artistas;
     }
+
+
 
     public List<Artista> buscarArtistas(String terminoBusqueda) {
         Connection con;

@@ -1,6 +1,4 @@
 package aplicacion;
-import gui.VCancion;
-import gui.VCrearPlaylist;
 
 import java.awt.*;
 import java.util.List;
@@ -75,6 +73,9 @@ public class fachadaAplicacion {
     public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
         fgui.muestraAnadirCancion(usuarioActual,albumID,owner);
     }
+    public void muestraLista(List<Elemento> canciones, String titulo, String aritsta, String usuarioActual){
+        fgui.muestraLista(canciones,titulo,aritsta,usuarioActual);
+    }
 
     //FUNCIONES OYENTES
     public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
@@ -126,6 +127,15 @@ public class fachadaAplicacion {
     public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist){
         fbd.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
     }
+    public int buscarCancionEnPlaylists(int idcancion,int idplaylist) {
+        return fbd.buscarCancionEnPlaylists(idcancion,idplaylist);
+    }
+    public int comprobarValoracionCancion(int idcancion,String usuario) {
+        return gc.comprobarValoracionCancion(idcancion,usuario);
+    }
+    public double mediaValoraciones(int idCancion, String usuario) {
+        return gc.mediaValoraciones(idCancion,usuario);
+    }
 
     //FUNCIONES CANCION
     public List<Cancion> buscarCanciones(String terminoBusqueda){
@@ -157,12 +167,15 @@ public class fachadaAplicacion {
         return gal.buscarAlbumes(terminoBusqueda);
     }
 
-    public String obtenerArtistaDeAlbum(String nombreAlbum){
+    public List<String> obtenerArtistaDeAlbum(String nombreAlbum){
         return gal.obtenerArtistaDeAlbum(nombreAlbum);
     }
 
     public int publicarAlbum(Album album, int IDDiscografica, String IDArtista){
         return gal.publicarAlbum(album, IDDiscografica, IDArtista);
+    }
+    public List<String> obtenerCancionesPorAlbum(String nombreAlbum, String artistaAlbum) {
+        return gal.obtenerCancionesPorAlbum(nombreAlbum,artistaAlbum);
     }
     public int obtenerIDnuevo() {
         return gal.obtenerIDnuevo();

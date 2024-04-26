@@ -102,6 +102,36 @@ public class DAOPlaylist extends abstractDAO {
         }
         return idPlaylist;
     }
+    public int buscarCancionEnPlaylists(int idcancion,int idplaylist) {
+        Connection con;
+        PreparedStatement stmPlaylist = null;
+        ResultSet rsPlaylist;
+        List<Playlist> playlistsEncontradas = new ArrayList<>();
+        int idPlaylist=0;
+        con = this.getConexion();
+        int resultado = 0;
+
+        String sql = "SELECT IDPlaylist,IDCancion FROM FORMARPARTE WHERE IDPlaylist = ? and IDCancion = ?";
+        try {
+            stmPlaylist = con.prepareStatement(sql);
+            stmPlaylist.setInt(2, idcancion);
+            stmPlaylist.setInt(1, idplaylist);
+            rsPlaylist = stmPlaylist.executeQuery();
+            while (rsPlaylist.next()) {
+                resultado = 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmPlaylist.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
 
 
     public List<Playlist> buscarPlaylists(String terminoBusqueda) {

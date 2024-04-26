@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.util.List;
+
 import aplicacion.*;
 
 public class fachadaGui {
@@ -57,6 +59,11 @@ public class fachadaGui {
         VPublicar vp;
         vp = new VPublicar(fa, usuarioActual);
         vp.setVisible(true);
+    }
+    public void muestraLista(List<Elemento> canciones, String titulo, String aritsta, String usuarioActual){
+        VLista vl;
+        vl = new VLista(fa,canciones,titulo,aritsta,usuarioActual);
+        vl.setVisible(true);
     }
 
     public void muestraCancion(Cancion cancion,String usuarioActual) {

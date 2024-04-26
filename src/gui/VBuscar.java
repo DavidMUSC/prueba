@@ -85,7 +85,7 @@ public class VBuscar extends JFrame {
         }
         List<Album> listaAlbums = fa.buscarAlbum(nombre);
         for(Album a : listaAlbums){
-            String artista = fa.obtenerArtistaDeAlbum(a.getNombre());
+            String artista = fa.obtenerArtistaDeAlbum(a.getNombre()).get(0);
             Elemento e5 = new Elemento(a.getNombre(),a.getTipo());
             //+ " - "+artista
             lista.add(e5);
@@ -114,11 +114,27 @@ public class VBuscar extends JFrame {
                     Cancion cancion=fa.buscarCancionesEn(nombreCancion).get(0);
                     fa.muestraCancion(cancion,usuarioActual);
                 }
-                // Obtener la fila y columna en la que se hizo clic
-                int row = tabla.rowAtPoint(e.getPoint());
-                int col = tabla.columnAtPoint(e.getPoint());
-                // Imprimir la fila y columna en la consola
-                System.out.println("Clic en la fila " + row + " y columna " + col);
+                String type = (String)tabla.getValueAt(tabla.getSelectedRow(),0);
+
+                if(type.equals("EP")||type.equals("Album")||type.equals("Single")){
+                    String titulo = (String)tabla.getValueAt(tabla.getSelectedRow(),1);
+                        String artista = "";
+                        java.util.List<String> artistas = fa.obtenerArtistaDeAlbum((String)tabla.getValueAt(tabla.getSelectedRow(),1));
+                        if(!artistas.isEmpty()){
+                            artista+=artistas.get(0);
+                        }
+                        for(int i=0;i<artistas.size();i++){
+                            if(i>0){
+                                artista+=","+artistas;
+                            }
+
+                        }
+                        List<Elemento> elems = new ArrayList<>();
+                        for(String cancion: fa.obtenerCancionesPorAlbum(titulo,artistas.get(0))){
+                            elems.add(new Elemento(cancion,artista,0));
+                        }
+                        fa.muestraLista(elems,titulo,artista,usuarioActual);
+                }
             }
         });
     }

@@ -11,6 +11,78 @@ public class DAOCancion extends abstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
+
+    public int comprobarValoracionCancion(int idcancion,String usuario) {
+        Connection con;
+        PreparedStatement stmPlaylist = null;
+        ResultSet rsPlaylist;
+        int idPlaylist=0;
+        con = this.getConexion();
+        int resultado = 0;
+
+        String sql = "SELECT * FROM VALORAR WHERE IDOyente = ? and IDCancion = ?";
+        try {
+            stmPlaylist = con.prepareStatement(sql);
+            stmPlaylist.setInt(2, idcancion);
+            stmPlaylist.setString(1, usuario);
+            rsPlaylist = stmPlaylist.executeQuery();
+            while (rsPlaylist.next()) {
+                resultado = 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmPlaylist.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return resultado;
+    }
+
+
+    public double mediaValoraciones(int idCancion, String usuario) {
+        Connection con = null;
+        PreparedStatement stmValor = null;
+        ResultSet rsValor = null;
+        double media = 0;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta para calcular la media de las valoraciones para una canción específica y un usuario dado
+            String sql = "SELECT AVG(valor) AS media FROM VALORAR WHERE IDCancion = ? AND IDOyente = ?";
+            stmValor = con.prepareStatement(sql);
+            stmValor.setInt(1, idCancion);
+            stmValor.setString(2, usuario);
+            rsValor = stmValor.executeQuery();
+
+            // Verificar si se encontraron valoraciones para la canción y el usuario dados
+            if (rsValor.next()) {
+                media = rsValor.getDouble("media");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (rsValor != null) {
+                    rsValor.close();
+                }
+                if (stmValor != null) {
+                    stmValor.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+
+        return media;
+    }
+
+
     public List<Cancion> buscarCanciones(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmCancion = null;
@@ -125,6 +197,7 @@ public class DAOCancion extends abstractDAO {
         }
         return nombreArtista;
     }
+
 
     public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
         Connection con;

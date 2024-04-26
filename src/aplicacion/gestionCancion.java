@@ -18,6 +18,12 @@ public class gestionCancion {
     public void valorarCancion(String usuarioActual,int cancion,int valor){
         fbd.valorarCancion(usuarioActual,cancion,valor);
     }
+    public int comprobarValoracionCancion(int idcancion,String usuario) {
+        return fbd.comprobarValoracionCancion(idcancion,usuario);
+    }
+    public double mediaValoraciones(int idCancion, String usuario) {
+        return fbd.mediaValoraciones(idCancion,usuario);
+    }
 
     public String obtenerArtistaDeCancion(String nombreCancion){
         return fbd.obtenerArtistaDeCancion(nombreCancion);

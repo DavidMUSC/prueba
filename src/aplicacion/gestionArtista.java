@@ -16,6 +16,7 @@ public class gestionArtista {
         return fbd.obtenerArtistasDePodcast(nombrePodcast);
     }
 
+
     public Artista comprobarAutentificacionArtista(String nombre, String contrasena){
         Artista a;
         a=fbd.validarArtista(nombre, contrasena);
