@@ -12,6 +12,9 @@ public class gestionArtista {
         this.fgui = fgui;
         this.fbd = fbd;
     }
+    public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
+        return fbd.obtenerArtistasDePodcast(nombrePodcast);
+    }
 
     public Artista comprobarAutentificacionArtista(String nombre, String contrasena){
         Artista a;

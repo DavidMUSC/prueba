@@ -20,6 +20,11 @@ public class fachadaGui {
         va.setVisible(true);
     }
 
+    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
+        VanadirCancion vc = new VanadirCancion(owner, fa, usuarioActual, albumID);
+        vc.setVisible(true);
+    }
+
     public void muestraExcepcion(String e){
         VAviso v;
         v = new VAviso(e);

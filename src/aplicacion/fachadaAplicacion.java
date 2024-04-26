@@ -72,6 +72,9 @@ public class fachadaAplicacion {
     public void muestraCancion(Cancion cancion) {
         fgui.muestraCancion(cancion);
     }
+    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
+        fgui.muestraAnadirCancion(usuarioActual,albumID,owner);
+    }
 
     //FUNCIONES OYENTES
     public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
@@ -138,6 +141,9 @@ public class fachadaAplicacion {
     public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
         return fbd.obtenerArtistasDeCancion(nombreCancion);
     }
+    public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
+        return ga.obtenerArtistasDePodcast(nombrePodcast);
+    }
 
     public void publicarCancion(Cancion cancion, int IDAlbum){
         gc.publicarCancion(cancion, IDAlbum);
@@ -154,6 +160,9 @@ public class fachadaAplicacion {
 
     public int publicarAlbum(Album album, int IDDiscografica, String IDArtista){
         return gal.publicarAlbum(album, IDDiscografica, IDArtista);
+    }
+    public int obtenerIDnuevo() {
+        return gal.obtenerIDnuevo();
     }
 
     //FUNCIONES PODCAST

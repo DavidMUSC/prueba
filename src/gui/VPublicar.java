@@ -104,12 +104,12 @@ public class VPublicar extends JFrame {
             }else{
                 idDiscografica = discografica1.getIDDiscografica();
             }
-            Album album = new Album(-1, nombre,tipo, 0, idDiscografica);
+            int idAlbum = fa.obtenerIDnuevo();
+            Album album = new Album(idAlbum, nombre,tipo, 0, idDiscografica);
 
             Integer albumID = fa.publicarAlbum(album,idDiscografica,usuarioActual);
             //Abrir VanadirCancion
-            VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumID);
-            vc.setVisible(true);
+            fa.muestraAnadirCancion(usuarioActual,idAlbum,this);
 
         }
     }

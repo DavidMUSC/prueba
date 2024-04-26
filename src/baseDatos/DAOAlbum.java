@@ -85,75 +85,38 @@ public class DAOAlbum extends abstractDAO {
         return nombreArtista;
     }
 
-    public int publicarAlbum(Album album, int IDDiscografica, String IDArtista) {
-        Connection con = null;
-        PreparedStatement stmAlbum = null;
-        PreparedStatement stmComponer = null;
-        ResultSet rsIDAlbum = null;
-        int nuevoIDAlbum = -1;
-        Statement stmUltimoIDAlbum = null;
+    public int obtenerIDnuevo() {
+        Connection con;
+        PreparedStatement stmArtista = null;
+        ResultSet rsArtista;
+        int ID = -1;
 
         con = this.getConexion();
+
+        String sql = "SELECT MAX(IDAlbum) + 1 as numeroNuevo FROM ALBUM";
         try {
-            String sqlUltimoIDAlbum = "SELECT MAX(IDAlbum) FROM ALBUM";
+            stmArtista = con.prepareStatement(sql);
 
-            stmUltimoIDAlbum = con.prepareStatement(sqlUltimoIDAlbum);
-
-            rsIDAlbum = stmUltimoIDAlbum.executeQuery(sqlUltimoIDAlbum);            // Consulta para obtener el último ID de álbum
-            if (rsIDAlbum.next()) {
-                nuevoIDAlbum = rsIDAlbum.getInt(1) + 1;
+            rsArtista = stmArtista.executeQuery();
+            if (rsArtista.next()) {
+                ID = rsArtista.getInt("numeroNuevo");
             }
-
-            // Consulta para insertar el álbum
-            String sqlInsertAlbum = "INSERT INTO ALBUM (nombre, IDAlbum, tipo, añoLanzamiento, IDDiscografica) " +
-                    "VALUES (?, ?, ?, ?, ?)";
-
-            // Insertar el álbum
-            stmAlbum = con.prepareStatement(sqlInsertAlbum);
-            stmAlbum.setString(1, album.getNombre());
-            stmAlbum.setInt(2, nuevoIDAlbum);
-            stmAlbum.setString(3, album.getTipo());
-            stmAlbum.setInt(4, album.getAñoLanzamiento());
-            stmAlbum.setInt(5, IDDiscografica);
-            stmAlbum.executeUpdate();
-
-            // Consulta para insertar en la tabla COMPONER
-            String sqlInsertComponer = "INSERT INTO COMPONER (IDAlbum, IDArtista) VALUES (?, ?)";
-
-            // Insertar en la tabla COMPONER
-            stmComponer = con.prepareStatement(sqlInsertComponer);
-            stmComponer.setInt(1, nuevoIDAlbum);
-            stmComponer.setString(2, IDArtista);
-            stmComponer.executeUpdate();
-
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-            return -1; // Si ocurre una excepción, devuelve un ID inválido
         } finally {
             try {
-                if (rsIDAlbum != null) {
-                    rsIDAlbum.close();
+                if (stmArtista != null) {
+                    stmArtista.close();
                 }
-                if (stmUltimoIDAlbum != null) {
-                    stmUltimoIDAlbum.close();
-                }
-                if (stmAlbum != null) {
-                    stmAlbum.close();
-                }
-                if (stmComponer != null) {
-                    stmComponer.close();
-                }
-            } catch (SQLException e) {
+            }catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
-
         }
-        return nuevoIDAlbum;
-
+        return ID;
     }
+
+
 
     public void registrarAlbum(Album album, int IDDiscografica, String IDArtista) {
         Connection con;
@@ -162,23 +125,26 @@ public class DAOAlbum extends abstractDAO {
         con=this.getConexion();
 
         try {
+            int IDAlbumNuevo = obtenerIDnuevo();
             stmAlbum=con.prepareStatement("INSERT INTO ALBUM (nombre, IDAlbum, tipo, añoLanzamiento, IDDiscografica) " +
-                    "VALUES (?, (SELECT MAX(IDAlbum) + 1 FROM ALBUM), ?, ?, ?);");
+                    "VALUES (?, ?, ?, ?, ?);");
 
 
             stmAlbum.setString(1, album.getNombre());
-            stmAlbum.setString(2, album.getTipo());
-            stmAlbum.setInt(3, album.getAñoLanzamiento());
-            stmAlbum.setInt(4, IDDiscografica);
+            stmAlbum.setInt(2, IDAlbumNuevo);
+            stmAlbum.setString(3, album.getTipo());
+            stmAlbum.setInt(4, album.getAñoLanzamiento());
+            stmAlbum.setInt(5, IDDiscografica);
             stmAlbum.executeUpdate();
 
 
             // Consulta para insertar en la tabla COMPONER
-            String sqlInsertComponer = "INSERT INTO COMPONER (IDAlbum, IDArtista) VALUES (SELECT MAX(IDAlbum), ?)";
+            String sqlInsertComponer = "INSERT INTO COMPONER (IDAlbum, IDArtista) VALUES (?, ?)";
 
             // Insertar en la tabla COMPONER
             stmComponer = con.prepareStatement(sqlInsertComponer);
-            stmComponer.setString(1, IDArtista);
+            stmComponer.setInt(1, IDAlbumNuevo);
+            stmComponer.setString(2, IDArtista);
             stmComponer.executeUpdate();
 
         } catch (SQLException e){

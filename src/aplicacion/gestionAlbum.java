@@ -22,4 +22,7 @@ public class gestionAlbum {
     public int publicarAlbum(Album album, int IDDiscografica, String IDArtista){
         return fbd.publicarAlbum(album, IDDiscografica, IDArtista);
     }
+    public int obtenerIDnuevo() {
+        return fbd.obtenerIDnuevo();
+    }
 }

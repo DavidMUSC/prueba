@@ -53,9 +53,6 @@ public class DAODiscografica extends abstractDAO {
                 if (stmDiscografica != null) {
                     stmDiscografica.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
@@ -101,9 +98,6 @@ public class DAODiscografica extends abstractDAO {
                 }
                 if (stmDiscografica != null) {
                     stmDiscografica.close();
-                }
-                if (con != null) {
-                    con.close();
                 }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");

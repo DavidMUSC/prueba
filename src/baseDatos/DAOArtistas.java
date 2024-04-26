@@ -47,6 +47,42 @@ public class DAOArtistas extends abstractDAO {
         return resultado;
     }
 
+    public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
+        Connection con;
+        PreparedStatement stmArtista = null;
+        ResultSet rsArtista;
+        List<Artista>  artistas = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT a.* " +
+                "FROM ARTISTA a " +
+                "INNER JOIN PARTICIPARPODCAST c ON a.nombre = c.IDArtista " +
+                "INNER JOIN PODCAST p ON c.IDPodcast = p.IDPodcast" +
+                "WHERE p.nombre = ?";
+        try {
+            stmArtista = con.prepareStatement(sql);
+            stmArtista.setString(1, nombrePodcast);
+
+            rsArtista = stmArtista.executeQuery();
+            while (rsArtista.next()) {
+                artistas.add(new Artista(rsArtista.getString("nombre"),rsArtista.getString("contraseña"),
+                        rsArtista.getString("email"),rsArtista.getDate("fechaNacimiento"),
+                        rsArtista.getString("nombreArtistico"),rsArtista.getString("paisNacimiento")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmArtista.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return artistas;
+    }
+
     public List<Artista> buscarArtistas(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmArtista=null;
