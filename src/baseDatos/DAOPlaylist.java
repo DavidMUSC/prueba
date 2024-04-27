@@ -183,14 +183,14 @@ public class DAOPlaylist extends abstractDAO {
         String res="";
         con = this.getConexion();
 
-        String sql = "SELECT IDUsuario FROM PLAYLIST WHERE nombrePlaylist = ?";
+        String sql = "SELECT IDoyente FROM PLAYLIST WHERE nombrePlaylist = ?";
         try {
             stmPlaylist = con.prepareStatement(sql);
             stmPlaylist.setString(1, nombrePlaylist);
 
             rsPlaylist = stmPlaylist.executeQuery();
             while (rsPlaylist.next()) {
-               res=rsPlaylist.getString("IDUsuario");
+               res=rsPlaylist.getString("IDoyente");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

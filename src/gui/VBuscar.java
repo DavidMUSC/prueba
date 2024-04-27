@@ -142,9 +142,11 @@ public class VBuscar extends JFrame {
                     String autor = "Playlist creada por ";
                     autor += fa.buscarCreadorPlaylist((String)tabla.getValueAt(tabla.getSelectedRow(),1));
                     List<Elemento> elems = new ArrayList<>();
-                    /*for(String cancion: fa.){
-                        elems.add(new Elemento(cancion,artista,0));
-                    }*/
+                    List<Cancion> canciones= fa.obtenerCancionesDePlaylist(titulo);
+                    for(Cancion cancion: canciones){
+                        elems.add(new Elemento(cancion.getNombre(),fa.obtenerArtistaDeCancion(cancion.getNombre()),0));
+                    }
+                    fa.muestraLista(elems,titulo,autor,usuarioActual);
                 }
             }
         });

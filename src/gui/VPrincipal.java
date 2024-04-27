@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
+import aplicacion.Cancion;
 import aplicacion.Playlist;
 import aplicacion.Elemento;
 import aplicacion.fachadaAplicacion;
@@ -69,6 +70,23 @@ public class VPrincipal extends JFrame {
     private void createUIComponents() {
         list1 = new JList<>();
         list1.setModel(new modeloListaBiblioteca());
+        list1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+
+                    String titulo = (String)list1.getSelectedValue();
+                    String autor = "Playlist creada por ";
+                    autor += fa.buscarCreadorPlaylist(titulo);
+                    List<Elemento> elems = new ArrayList<>();
+                    List<Cancion> canciones= fa.obtenerCancionesDePlaylist(titulo);
+                    for(Cancion cancion: canciones){
+                        elems.add(new Elemento(cancion.getNombre(),fa.obtenerArtistaDeCancion(cancion.getNombre()),0));
+                    }
+                    fa.muestraLista(elems,titulo,autor,usuarioActual);
+
+            }
+        });
     }
 
     private void bttPublicar(ActionEvent e) {
