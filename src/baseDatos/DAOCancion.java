@@ -297,7 +297,7 @@ public class DAOCancion extends abstractDAO {
                 ultimoIDCancion = rsUltimoIDCancion.getInt(1);
                 // Incrementar el último ID de canción para obtener un nuevo ID único
                 int nuevoIDCancion = ultimoIDCancion + 1;
-                SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat formato = new SimpleDateFormat("mm:ss");
 
                 try {
                     Date date = formato.parse(cancion.getDuracion());

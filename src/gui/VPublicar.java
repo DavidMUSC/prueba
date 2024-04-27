@@ -44,13 +44,11 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
     @Override
     public void pasarCancion(Cancion c) {
         //añadir la cancion al arrayList de canciones
-        Cancion cancion = c;
-        canciones.add(cancion);
         //pasar la lista de canciones a strings con los nombres de las canciones
         List<String> nombres = new ArrayList<>();
-        for(Cancion ca: canciones){
-            nombres.add(ca.getNombre());
-        }
+        canciones.add(c);
+        nombres.add(c.getNombre());
+
 
         //Añadir las canciones de lista a la lista de la ventana
         modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
