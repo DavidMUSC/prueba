@@ -4,6 +4,10 @@ import aplicacion.Cancion;
 import aplicacion.Artista;
 import java.sql.*;
 import java.util.*;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DAOCancion extends abstractDAO {
     public DAOCancion(Connection conexion, aplicacion.fachadaAplicacion fa) {
@@ -284,7 +288,7 @@ public class DAOCancion extends abstractDAO {
 
             // Consulta para obtener el último ID de canción
             String sqlUltimoIDCancion = "SELECT MAX(IDCancion) FROM CANCION";
-
+            Time tiempo=null;
             // Obtener el último ID de canción
             stmtUltimoIDCancion = con.createStatement();
             rsUltimoIDCancion = stmtUltimoIDCancion.executeQuery(sqlUltimoIDCancion);
@@ -293,12 +297,19 @@ public class DAOCancion extends abstractDAO {
                 ultimoIDCancion = rsUltimoIDCancion.getInt(1);
                 // Incrementar el último ID de canción para obtener un nuevo ID único
                 int nuevoIDCancion = ultimoIDCancion + 1;
+                SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
 
+                try {
+                    Date date = formato.parse(cancion.getDuracion());
+                    tiempo = new Time(date.getTime());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 // Insertar la canción
                 stmCancion = con.prepareStatement(sqlCancion);
                 stmCancion.setString(1, cancion.getNombre());
                 stmCancion.setInt(2, nuevoIDCancion);
-                stmCancion.setString(3, cancion.getDuracion());
+                stmCancion.setTime(3, tiempo);
                 stmCancion.setString(4, cancion.getIdioma());
                 stmCancion.setString(5, cancion.getNombreGenero());
                 stmCancion.setBoolean(6, cancion.isLetra());

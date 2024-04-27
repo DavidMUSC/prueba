@@ -48,28 +48,29 @@ public class DAOArtistas extends abstractDAO {
         return resultado;
     }
 
-    public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
+    public String obtenerArtistasDePodcast(String nombrePodcast) {
         Connection con;
         PreparedStatement stmArtista = null;
         ResultSet rsArtista;
-        List<Artista>  artistas = new ArrayList<>();
+        String  artistas = "";
 
         con = this.getConexion();
 
         String sql = "SELECT a.* " +
                 "FROM ARTISTA a " +
                 "INNER JOIN PARTICIPARPODCAST c ON a.nombre = c.IDArtista " +
-                "INNER JOIN PODCAST p ON c.IDPodcast = p.IDPodcast" +
+                "INNER JOIN PODCAST p ON c.IDPodcast = p.IDPodcast " +
                 "WHERE p.nombre = ?";
         try {
             stmArtista = con.prepareStatement(sql);
             stmArtista.setString(1, nombrePodcast);
 
             rsArtista = stmArtista.executeQuery();
+            if (rsArtista.next()) {
+                artistas += rsArtista.getString("nombreArtistico");
+            }
             while (rsArtista.next()) {
-                artistas.add(new Artista(rsArtista.getString("nombre"),rsArtista.getString("contraseña"),
-                        rsArtista.getString("email"),rsArtista.getDate("fechaNacimiento"),
-                        rsArtista.getString("nombreArtistico"),rsArtista.getString("paisNacimiento")));
+                artistas += ","+rsArtista.getString("nombreArtistico");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

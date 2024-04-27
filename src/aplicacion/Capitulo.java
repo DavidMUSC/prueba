@@ -3,11 +3,11 @@ package aplicacion;
 public class Capitulo {
     private String nombre;
     private int IDCapitulo;
-    private int duracion;
+    private String duracion;
     private boolean explicito;
     private int IDPodcast;
 
-    public Capitulo(String nombre, int IDCapitulo, int duracion, boolean explicito, int IDPodcast) {
+    public Capitulo(String nombre, int IDCapitulo, String duracion, boolean explicito, int IDPodcast) {
         this.nombre = nombre;
         this.IDCapitulo = IDCapitulo;
         this.duracion = duracion;
@@ -31,11 +31,11 @@ public class Capitulo {
         this.IDCapitulo = IDCapitulo;
     }
 
-    public int getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
