@@ -4,11 +4,12 @@
 
 package gui;
 
-import aplicacion.Artista;
-import aplicacion.Podcast;
-import aplicacion.fachadaAplicacion;
+import aplicacion.*;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -19,28 +20,36 @@ import javax.swing.GroupLayout;
 public class VPodcast extends JFrame {
     fachadaAplicacion fa;
     Podcast podcast;
-    public VPodcast(fachadaAplicacion fa,Podcast podcast) {
+    List<Capitulo> capitulos;
+    public VPodcast(fachadaAplicacion fa,Podcast podcast, List<Capitulo> capitulos) {
         this.fa=fa;
         this.podcast=podcast;
+        this.capitulos=capitulos;
         initComponents();
-        label1.setText(podcast.getNombre());
-        String strArtistas="";
-        java.util.List<Artista> artistas = fa.obtenerArtistasDePodcast(podcast.getNombre());
-        if(!artistas.isEmpty()){
-            strArtistas+=artistas.get(0).getNombreArtistico();
-        }
-        for(int i=0;i<artistas.size();i++){
-            if(i>0){
-                strArtistas+=","+artistas.get(i).getNombreArtistico();
-            }
-        }
-        /*List<Capitulo>
+        labelPodcast.setText(podcast.getNombre());
+        String strArtistas=fa.obtenerArtistasDePodcast(podcast.getNombre());
         labelArtistas.setText(strArtistas);
-        labelDuracion.setText(cancion.getDuracion());*/
+        if(!capitulos.isEmpty()){
+            labelCapitulo.setText(String.valueOf(capitulos.get(0).getDuracion()));
+        }
+        List<String> nombresCaps = new ArrayList<>();
+        for(Capitulo c: capitulos){
+            nombresCaps.add(c.getNombre());
+        }
+        modeloListaBiblioteca modelo;
+        modelo = (modeloListaBiblioteca) lista.getModel();
+        modelo.agregarLista(nombresCaps);
     }
 
     private void createUIComponents() {
-        // TODO: add custom component creation code here
+        lista = new JList();
+        lista.setModel(new modeloListaBiblioteca());
+        lista.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                labelCapitulo.setText((String)lista.getSelectedValue());
+            }
+        });
     }
 
     private void initComponents() {
@@ -53,8 +62,8 @@ public class VPodcast extends JFrame {
         label5 = new JLabel();
         panel2 = new JPanel();
         label6 = new JLabel();
-        label1 = new JLabel();
-        labelCancion = new JLabel();
+        labelPodcast = new JLabel();
+        labelCapitulo = new JLabel();
         labelArtistas = new JLabel();
         button1 = new JButton();
         label9 = new JLabel();
@@ -84,9 +93,9 @@ public class VPodcast extends JFrame {
                 //---- label6 ----
                 label6.setIcon(new ImageIcon(getClass().getResource("/fotos/spotipify100.png")));
 
-                //---- label1 ----
-                label1.setText("text");
-                label1.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 24));
+                //---- labelPodcast ----
+                labelPodcast.setText("text");
+                labelPodcast.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 24));
 
                 GroupLayout panel2Layout = new GroupLayout(panel2);
                 panel2.setLayout(panel2Layout);
@@ -94,7 +103,7 @@ public class VPodcast extends JFrame {
                     panel2Layout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                             .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPodcast, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(label6)
                             .addGap(54, 54, 54))
@@ -105,14 +114,14 @@ public class VPodcast extends JFrame {
                             .addContainerGap(10, Short.MAX_VALUE)
                             .addGroup(panel2Layout.createParallelGroup()
                                 .addComponent(label6)
-                                .addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(labelPodcast, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addContainerGap())
                 );
             }
 
-            //---- labelCancion ----
-            labelCancion.setText("text");
-            labelCancion.setFont(new Font("Franklin Gothic Demi", labelCancion.getFont().getStyle() | Font.BOLD, 16));
+            //---- labelCapitulo ----
+            labelCapitulo.setText("oops, no hay cap\u00edtulos");
+            labelCapitulo.setFont(new Font("Franklin Gothic Demi", labelCapitulo.getFont().getStyle() | Font.BOLD, 16));
 
             //---- labelArtistas ----
             labelArtistas.setText("text");
@@ -134,7 +143,7 @@ public class VPodcast extends JFrame {
 
                 //======== scrollPane1 ========
                 {
-                    scrollPane1.setViewportView(table1);
+                    scrollPane1.setViewportView(lista);
                 }
 
                 GroupLayout panel3Layout = new GroupLayout(panel3);
@@ -157,11 +166,11 @@ public class VPodcast extends JFrame {
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(label9)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(label9)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addComponent(label3)
@@ -169,14 +178,11 @@ public class VPodcast extends JFrame {
                                         .addComponent(label4)
                                         .addGap(37, 37, 37)
                                         .addComponent(label5))
-                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelCapitulo, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33))
@@ -191,7 +197,7 @@ public class VPodcast extends JFrame {
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGroup(panel1Layout.createParallelGroup()
                                     .addGroup(panel1Layout.createSequentialGroup()
-                                        .addComponent(labelCancion, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(labelCapitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
                                         .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -233,14 +239,14 @@ public class VPodcast extends JFrame {
     private JLabel label5;
     private JPanel panel2;
     private JLabel label6;
-    private JLabel label1;
-    private JLabel labelCancion;
+    private JLabel labelPodcast;
+    private JLabel labelCapitulo;
     private JLabel labelArtistas;
     private JButton button1;
     private JLabel label9;
     private JLabel labelDuracion;
     private JPanel panel3;
     private JScrollPane scrollPane1;
-    private JTable table1;
+    private JList lista;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

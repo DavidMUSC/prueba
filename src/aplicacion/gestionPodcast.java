@@ -20,6 +20,9 @@ public class gestionPodcast {
     public String obtenerArtistaDePodcast(String nombrePodcast){
         return fbd.obtenerArtistaDePodcast(nombrePodcast);
     }
+    public Podcast obtenerIDPodcast(String terminoBusqueda) {
+        return fbd.obtenerIDPodcast(terminoBusqueda);
+    }
 
     public void publicarPodcast(Podcast podcast, int idArtista){
         fbd.publicarPodcast(podcast, idArtista);

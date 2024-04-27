@@ -60,6 +60,10 @@ public class fachadaAplicacion {
     public void muestraBuscar(int op, String usuarioActual){
         fgui.muestraBuscar(this,op, usuarioActual);
     }
+    public void muestraPodcast(Podcast podcast, List<Capitulo> caps){
+        fgui.muestraPodcast(podcast,caps);
+    }
+
     public void muestraBiblioteca(int op, String usuarioActual) {
         fgui.muestraBiblioteca(op, usuarioActual);
     }
@@ -162,7 +166,7 @@ public class fachadaAplicacion {
     public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
         return gc.obtenerArtistasDeCancion(nombreCancion);
     }
-    public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
+    public String obtenerArtistasDePodcast(String nombrePodcast) {
         return ga.obtenerArtistasDePodcast(nombrePodcast);
     }
 
@@ -200,6 +204,9 @@ public class fachadaAplicacion {
     //FUNCIONES PODCAST
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return gpo.buscarPodcasts(terminoBusqueda);
+    }
+    public Podcast obtenerIDPodcast(String terminoBusqueda) {
+        return gpo.obtenerIDPodcast(terminoBusqueda);
     }
 
     public String obtenerArtistaDePodcast(String nombrePodcast){

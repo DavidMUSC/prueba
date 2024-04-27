@@ -65,6 +65,11 @@ public class fachadaGui {
         vl = new VLista(fa,canciones,titulo,aritsta,usuarioActual);
         vl.setVisible(true);
     }
+    public void muestraPodcast(Podcast podcast, List<Capitulo> caps){
+        VPodcast vpo;
+        vpo = new VPodcast(fa,podcast,caps);
+        vpo.setVisible(true);
+    }
 
     public void muestraCancion(Cancion cancion,String usuarioActual) {
         if(isCancion){
