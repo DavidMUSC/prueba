@@ -71,6 +71,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "comboBoxIdioma"
+					"foreground": sfield java.awt.Color white
 					auxiliary() {
 						"JavaCodeGenerator.customCreate": true
 					}
@@ -83,6 +84,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "comboBoxGenero"
+					"foreground": sfield java.awt.Color white
 					auxiliary() {
 						"JavaCodeGenerator.customCreate": true
 					}

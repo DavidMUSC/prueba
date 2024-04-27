@@ -227,6 +227,7 @@ public class VanadirCancion extends JDialog {
             checkBoxExplicito.addActionListener(e -> checkBoxExplicito(e));
 
             //---- comboBoxIdioma ----
+            comboBoxIdioma.setForeground(Color.white);
             comboBoxIdioma.addActionListener(e -> idioma(e));
 
             //---- label7 ----
@@ -234,6 +235,7 @@ public class VanadirCancion extends JDialog {
             label7.setFont(new Font("Arial", label7.getFont().getStyle() | Font.BOLD, label7.getFont().getSize()));
 
             //---- comboBoxGenero ----
+            comboBoxGenero.setForeground(Color.white);
             comboBoxGenero.addActionListener(e -> genero(e));
 
             //---- label8 ----
