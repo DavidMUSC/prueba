@@ -281,9 +281,8 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
 
 
             //TODO:ponr bien esto
-            //buscar id usuario por su id
-            //int idArtista = fa.obtenerIDArtistaPorNombre(usuarioActual);
-            //fa.publicarPodcast(podcast,usuarioActual );
+
+            fa.publicarPodcast(podcast,usuarioActual);
             //limpiar el campo de nombre
             nombrePodcast.setText("");
             //añadir a la list1
