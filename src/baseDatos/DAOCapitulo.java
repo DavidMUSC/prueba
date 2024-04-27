@@ -100,7 +100,7 @@ public class DAOCapitulo extends abstractDAO {
 
         con = this.getConexion();
 
-        //String sqlID = "SELECT IDPodcats FROM PODCAST WHERE nombre LIKE ?"
+        //String sqlID = "SELECT IDPodcast FROM PODCAST WHERE nombre LIKE ?"
         /*stmId = con.prepareStatement(sqlId);
         stmId.setString(1, nombrePodcast);
         rsId = stmId.executeQuery();
