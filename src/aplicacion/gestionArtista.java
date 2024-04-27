@@ -30,4 +30,8 @@ public class gestionArtista {
     public int obtenerIDArtistaPorNombre(String nombreArtista){
         return fbd.obtenerIDArtistaPorNombre(nombreArtista);
     }
+    public List<Artista> buscarArtistasAutentificacion(String terminoBusqueda) {
+        return fbd.buscarArtistasAutentificacion(terminoBusqueda);
+    }
+
 }

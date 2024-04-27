@@ -235,9 +235,6 @@ public class DAOArtistas extends abstractDAO {
                 if (stmArtista != null) {
                     stmArtista.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }

@@ -94,7 +94,7 @@ public class fachadaAplicacion {
         return ga.buscarArtistas(terminoBusqueda);
     }
     public List<Artista> buscarArtistasAutentificacion(String terminoBusqueda) {
-        return fbd.buscarArtistasAutentificacion(terminoBusqueda);
+        return ga.buscarArtistasAutentificacion(terminoBusqueda);
     }
 
     public int obtenerIDArtistaPorNombre(String nombreArtista){
@@ -106,7 +106,7 @@ public class fachadaAplicacion {
         return gadmin.comprobarAutentificacionAdministrador(nombre, contrasena);
     }
     public List<Administrador> buscarAdminAutentificacion(String terminoBusqueda) {
-        return fbd.buscarAdminAutentificacion(terminoBusqueda);
+        return gadmin.buscarAdminAutentificacion(terminoBusqueda);
     }
 
     //FUNCIONES PLAYLIST
@@ -124,11 +124,25 @@ public class fachadaAplicacion {
     public int buscarIDPlaylists(String terminoBusqueda,String usuario) {
         return gp.buscarIDPlaylists(terminoBusqueda,usuario);
     }
-    public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist){
-        fbd.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
+    public List<Cancion> obtenerCancionesDePlaylist(String nombrePlaylist){
+        return gp.obtenerCancionesDePlaylist(nombrePlaylist);
     }
     public int buscarCancionEnPlaylists(int idcancion,int idplaylist) {
-        return fbd.buscarCancionEnPlaylists(idcancion,idplaylist);
+        return gp.buscarCancionEnPlaylists(idcancion,idplaylist);
+    }
+    public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist){
+        gp.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
+    }
+
+    //FUNCIONES CANCION
+    public List<Cancion> buscarCanciones(String terminoBusqueda){
+        return gc.buscarCanciones(terminoBusqueda);
+    }
+    public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
+        return gc.buscarCancionesEn(terminoBusqueda);
+    }
+    public void valorarCancion(String usuarioActual,int cancion,int valor){
+        gc.valorarCancion(usuarioActual,cancion,valor);
     }
     public int comprobarValoracionCancion(int idcancion,String usuario) {
         return gc.comprobarValoracionCancion(idcancion,usuario);
@@ -137,22 +151,11 @@ public class fachadaAplicacion {
         return gc.mediaValoraciones(idCancion,usuario);
     }
 
-    //FUNCIONES CANCION
-    public List<Cancion> buscarCanciones(String terminoBusqueda){
-        return gc.buscarCanciones(terminoBusqueda);
-    }
-    public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
-        return fbd.buscarCancionesEn(terminoBusqueda);
-    }
-    public void valorarCancion(String usuarioActual,int cancion,int valor){
-        gc.valorarCancion(usuarioActual,cancion,valor);
-    }
-
     public String obtenerArtistaDeCancion(String nombreCancion){
         return gc.obtenerArtistaDeCancion(nombreCancion);
     }
     public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
-        return fbd.obtenerArtistasDeCancion(nombreCancion);
+        return gc.obtenerArtistasDeCancion(nombreCancion);
     }
     public List<Artista> obtenerArtistasDePodcast(String nombrePodcast) {
         return ga.obtenerArtistasDePodcast(nombrePodcast);
@@ -161,6 +164,10 @@ public class fachadaAplicacion {
     public void publicarCancion(Cancion cancion, int IDAlbum){
         gc.publicarCancion(cancion, IDAlbum);
     }
+    public List<Cancion> obtenerUltimasCanciones(int numCanciones){
+        return gc.obtenerUltimasCanciones(numCanciones);
+    }
+
 
     //FUNCIONES ALBUM
     public List<Album> buscarAlbum(String terminoBusqueda){

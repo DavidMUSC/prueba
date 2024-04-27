@@ -33,4 +33,13 @@ public class gestionCancion {
         fbd.publicarCancion(cancion, IDAlbum);
     }
 
+    public List<Artista> obtenerArtistasDeCancion(String nombreCancion) {
+        return fbd.obtenerArtistasDeCancion(nombreCancion);
+    }
+    public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
+        return fbd.buscarCancionesEn(terminoBusqueda);
+    }
+    public List<Cancion> obtenerUltimasCanciones(int numCanciones){
+        return fbd.obtenerUltimasCanciones(numCanciones);
+    }
 }

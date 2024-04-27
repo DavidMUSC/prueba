@@ -328,6 +328,50 @@ public class DAOCancion extends abstractDAO {
         }
     }
 
+    public List<Cancion> obtenerUltimasCanciones(int numCanciones) {
+        Connection con = null;
+        PreparedStatement stmCanciones = null;
+        ResultSet rsCanciones = null;
+        List<Cancion> canciones = new ArrayList<>();
+
+        try {
+            con = this.getConexion();
+            String sql = "SELECT * FROM CANCION WHERE IDCancion >= ((SELECT MAX(IDCancion) FROM CANCION) - ?) AND IDCancion <= (SELECT MAX(IDCancion) FROM CANCION) ORDER BY IDCancion DESC";
+            stmCanciones = con.prepareStatement(sql);
+            stmCanciones.setInt(1, numCanciones);
+            rsCanciones = stmCanciones.executeQuery();
+
+            while (rsCanciones.next()) {
+                // Obtener los datos de la canción
+                String nombre = rsCanciones.getString("nombre");
+                int IDCancion = rsCanciones.getInt("IDCancion");
+                String duracion = rsCanciones.getString("duracion");
+                String idioma = rsCanciones.getString("idioma");
+                String nombreGenero = rsCanciones.getString("nombreGenero");
+                boolean letra = rsCanciones.getBoolean("letra");
+                int visualizaciones = rsCanciones.getInt("visualizaciones");
+                int IDalbum = rsCanciones.getInt("IDalbum");
+                boolean explicito = rsCanciones.getBoolean("explicito");
+
+                // Crear el objeto Cancion y añadirlo a la lista
+                Cancion cancion = new Cancion(nombre, IDCancion, duracion, idioma, nombreGenero, letra, visualizaciones, IDalbum, explicito);
+                canciones.add(cancion);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rsCanciones != null) rsCanciones.close();
+                if (stmCanciones != null) stmCanciones.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return canciones;
+    }
+
 
 }
 
