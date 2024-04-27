@@ -26,6 +26,7 @@ public class VPodcast extends JFrame {
         this.podcast=podcast;
         this.capitulos=capitulos;
         initComponents();
+        label9.setVisible(false);
         labelPodcast.setText(podcast.getNombre());
         String strArtistas=fa.obtenerArtistasDePodcast(podcast.getNombre());
         labelArtistas.setText(strArtistas);
@@ -102,7 +103,7 @@ public class VPodcast extends JFrame {
                 panel2Layout.setHorizontalGroup(
                     panel2Layout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap(45, Short.MAX_VALUE)
                             .addComponent(labelPodcast, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(label6)
@@ -135,7 +136,6 @@ public class VPodcast extends JFrame {
             label9.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
 
             //---- labelDuracion ----
-            labelDuracion.setText("text");
             labelDuracion.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
 
             //======== panel3 ========
@@ -152,12 +152,12 @@ public class VPodcast extends JFrame {
                     panel3Layout.createParallelGroup()
                         .addGroup(panel3Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addGap(14, 14, 14))
+                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addContainerGap())
                 );
                 panel3Layout.setVerticalGroup(
                     panel3Layout.createParallelGroup()
-                        .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                        .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 );
             }
 
@@ -178,14 +178,14 @@ public class VPodcast extends JFrame {
                                         .addComponent(label4)
                                         .addGap(37, 37, 37)
                                         .addComponent(label5))
-                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelCapitulo, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(button1, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
+                                .addComponent(labelDuracion, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(labelArtistas, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                                .addComponent(labelCapitulo, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
+                        .addGap(25, 25, 25)
+                        .addComponent(panel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(panel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
             panel1Layout.setVerticalGroup(
@@ -194,26 +194,23 @@ public class VPodcast extends JFrame {
                         .addComponent(panel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup()
+                            .addComponent(panel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGroup(panel1Layout.createParallelGroup()
+                                .addComponent(labelCapitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelDuracion)
                                     .addGroup(panel1Layout.createSequentialGroup()
-                                        .addComponent(labelCapitulo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(labelArtistas, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(panel1Layout.createParallelGroup()
+                                            .addComponent(label3)
+                                            .addComponent(label5)
+                                            .addComponent(label4))
                                         .addGap(18, 18, 18)
-                                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                            .addGroup(panel1Layout.createSequentialGroup()
-                                                .addGroup(panel1Layout.createParallelGroup()
-                                                    .addComponent(label3)
-                                                    .addComponent(label5)
-                                                    .addComponent(label4))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(button1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(label9)))
-                                    .addComponent(labelDuracion, GroupLayout.Alignment.TRAILING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
+                                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(label9))
+                                .addContainerGap(30, Short.MAX_VALUE))))
             );
         }
 
@@ -221,7 +218,7 @@ public class VPodcast extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(panel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                .addComponent(panel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()

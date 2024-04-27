@@ -151,9 +151,9 @@ public class VBuscar extends JFrame {
                 if(type.equals("Podcast")){
                     //TODO df
                     String titulo = (String)tabla.getValueAt(tabla.getSelectedRow(),1);
-                    String autor = fa.obtenerArtistasDePodcast(titulo);
                     Podcast podcast = fa.obtenerIDPodcast(titulo);
                     List<Capitulo> elems = new ArrayList<>();
+                    elems = fa.buscarCapitulosPodcast(podcast.getIdPodcast());
                     fa.muestraPodcast(podcast,elems);
                 }
             }

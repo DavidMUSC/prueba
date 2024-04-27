@@ -127,7 +127,7 @@ public class VPublicar extends JFrame {
     }
 
     private void bttNuevaCancion(ActionEvent e) {
-        VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumActual.getIdAlbum());
+        /*VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumActual.getIdAlbum());
         vc.setVisible(true);
 
         //coger el contador
@@ -143,7 +143,7 @@ public class VPublicar extends JFrame {
 
         //Añadir las canciones de lista a la lista de la ventana
         modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
-        modelo.agregarLista(nombres);
+        modelo.agregarLista(nombres);*/
     }
 
 
