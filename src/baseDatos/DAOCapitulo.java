@@ -22,9 +22,8 @@ public class DAOCapitulo extends abstractDAO {
             con = getConexion();
 
             // Consulta para obtener el último ID de capítulo para el podcast dado
-            String sqlUltimoIDCapitulo = "SELECT MAX(IDCapitulo) FROM Capitulo WHERE IDPodcast = ?";
+            String sqlUltimoIDCapitulo = "SELECT MAX(IDCapitulo) FROM Capitulo";
             PreparedStatement stmUltimoIDCapitulo = con.prepareStatement(sqlUltimoIDCapitulo);
-            stmUltimoIDCapitulo.setInt(1, capitulo.getIDPodcast());
             ResultSet rsUltimoIDCapitulo = stmUltimoIDCapitulo.executeQuery();
 
             int ultimoIDCapitulo = 0;
