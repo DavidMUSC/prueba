@@ -207,6 +207,9 @@ public class fachadaAplicacion {
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return gpo.buscarPodcasts(terminoBusqueda);
     }
+    public List<Podcast> buscarPodcastsPorNombre(String terminoBusqueda) {
+        return gpo.buscarPodcastsPorNombre(terminoBusqueda);
+    }
     public Podcast obtenerIDPodcast(String terminoBusqueda) {
         return gpo.obtenerIDPodcast(terminoBusqueda);
     }
