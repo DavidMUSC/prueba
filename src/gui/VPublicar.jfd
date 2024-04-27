@@ -90,8 +90,8 @@ new FormModel {
 						"title": "Podcast"
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq t {space :::p, par l {seq {comp label2:::::x, space :::p, comp nombre:::p:140:p, space s:::p}, seq l {comp label4:::p::p, space :6:6:p, comp tipo:::p::p, space :p:103:p}}, par l:::p {seq {comp bttNuevaCancion:::p::p, space :p::p, comp bttGuardar:::p::p}, seq {comp label3:::p::p, space :::p, comp discografica:::::x}}, space :p:51:p}, seq {par l {seq l {space :p:96:p, comp scrollPane1:::p:303:p}, seq l {space :p:203:p, comp label5:::p::p}}, space :::x}}"
-						"$verticalGroup": "par l {seq l {space :p:17:p, par b {comp label2::b:p::p, comp nombre::b:p::p, comp label3::b:p::p, comp discografica::b:p::p}, space u:::p, par l {seq l {space :5:5:p, comp label4:::p::p}, comp tipo:::p::p, par b:t {comp bttNuevaCancion::b:p::p, comp bttGuardar::b:p::p}}, space ::27:x, comp label5:::p::p, space :::p, comp scrollPane1:::p:266:p, space :p:40:p}}"
+						"$horizontalGroup": "par l {seq t {par l {seq {space :::p, comp label2:::::x, space :::p, comp nombre:::p:140:p, space s:::p}, seq l {space :p:10:p, comp label4:::p::p, space :::p, comp tipo:::p::p, space :::x}}, par t {seq {comp label3:::p::p, space :::p, comp discografica:::p:166:p}, comp button1:::p::p}, space :p:35:p}, seq {par l {seq {space :p:27:p, comp scrollPane1:::p:275:p, space s:::p, par l {comp bttGuardar:::p::p, comp bttNuevaCancion:::p::p}}, seq l {space :p:99:p, comp txtAlbum:::p::p, space :::p, comp txtDisco:::p::p}}, space :::x}}"
+						"$verticalGroup": "par l {seq l {par l {seq l {space :p:17:p, par b {comp label2::b:p::p, comp nombre::b:p::p, comp label3::b:p::p, comp discografica::b:p::p}, space :::x}, seq {space ::64:x, par b {comp tipo::b:p::p, comp label4::b:p::p, comp button1::b:p::p}, space :p:18:p}}, par b {comp txtAlbum::b:p::p, comp txtDisco::b:p::p}, space :::p, par l {seq {comp scrollPane1:::p:266:p, space :p:40:p}, seq t {comp bttNuevaCancion:::p::p, space u:::p, comp bttGuardar:::p::p, space :p:50:p}}}}"
 					} ) {
 						name: "panel4"
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -143,10 +143,10 @@ new FormModel {
 							} )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label5"
+							name: "txtAlbum"
 							"text": "ÁLBUM"
-							"foreground": new java.awt.Color( 0, 216, 86, 255 )
-							"font": new java.awt.Font( "Arial", 1, 14 )
+							"foreground": &Color1 new java.awt.Color( 0, 216, 86, 255 )
+							"font": &Font1 new java.awt.Font( "Arial", 1, 14 )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "bttNuevaCancion"
@@ -156,6 +156,20 @@ new FormModel {
 							"font": new java.awt.Font( "Arial", 1, 14 )
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttNuevaCancion", true ) )
 							addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "bttNuevaCancionStateChanged", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "txtDisco"
+							"text": "- Discográfica"
+							"foreground": #Color1
+							"font": #Font1
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button1"
+							"text": "CREAR ÁLBUM"
+							"background": new java.awt.Color( 0, 216, 86, 255 )
+							"font": new java.awt.Font( "Arial", 1, 14 )
+							"foreground": sfield java.awt.Color white
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttNuevoAlbum", true ) )
 						} )
 					}, new FormLayoutConstraints( null ) {
 						"title": "Álbum"

@@ -21,10 +21,19 @@ import aplicacion.fachadaAplicacion;
 public class VPublicar extends JFrame {
     fachadaAplicacion fa;
     String usuarioActual;
+    Album albumActual;
+    boolean flagDisco;
+
+
     public VPublicar(fachadaAplicacion fa, String usuarioActual) {
         this.fa = fa;
         this.usuarioActual = usuarioActual;
+        this.flagDisco = false;
+        this.albumActual =null;
         initComponents();
+        //poner botones bttNuevaCancion y bttGuardar a false
+        bttNuevaCancion.setEnabled(false);
+        bttGuardar.setEnabled(false);
     }
 
     private void bttBuscar(ActionEvent e) {
@@ -66,9 +75,7 @@ public class VPublicar extends JFrame {
         lista = new JList();
         lista.setModel(new modeloListaBiblioteca());
 
-        //poner en enabled false bttGuardar y bttCancion
-        //bttGuardar.setEnabled(false);
-        //bttCancion.setEnabled(false);
+
     }
 
     private void bttInicio(ActionEvent e) {
@@ -79,57 +86,101 @@ public class VPublicar extends JFrame {
 
 
     private void tipo(ActionEvent e) {
-        // añadir los tipos de album que se pueden crear. Por ejemplo EP, Album y Single al JcomboBox
-        // Definir los tipos de álbum disponibles
-        String[] tiposAlbum = {"EP", "Album", "Single"};
-
-        // Limpiar el JComboBox antes de añadir los nuevos tipos
-        tipo.removeAllItems();
-
-        // Añadir los tipos de álbum al JComboBox
-        for (String a : tiposAlbum) {
-            tipo.addItem(a);
-        }
     }
 
 
 
     private void bttGuardarAlbum(ActionEvent e) {
-//El boton está enabled solo si están los campos discografía y nombre rellenos
-        if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
-            fa.muestraExcepcion("Completa los campos de nombre y discográfica antes de continuar.");
-        } else {
-            //TODO:Crear ventana nueva cancion
-            String discografica = this.discografica.getText();
-            String nombre = this.nombre.getText();
-            String tipo = (String) this.tipo.getSelectedItem();
-            Integer idDiscografica = -1;
-            Discografica discografica1 = fa.buscarDiscografica(discografica);
+        int tam = lista.getModel().getSize();
+        //switch con tam
+        switch(tam){
+            case 0:
+                fa.muestraExcepcion("El álbum está vacío. Añade alguna canción para poder guardarlo.");
+                break;
+            case 1:
+                //Para poder guardarlo tienes que tener la opcion single en tipo
+                if(tipo.getSelectedItem().equals("Single")){
+                    salirAlbum();
+                }else fa.muestraExcepcion("Un album de una sola canción tiene que ser un single.");
 
-            if(discografica1 == null){
-                idDiscografica = fa.insertarDiscografica(discografica);
-            }else{
-                idDiscografica = discografica1.getIDDiscografica();
-            }
-            int idAlbum = fa.obtenerIDnuevo();
-            Album album = new Album(idAlbum, nombre,tipo, 0, idDiscografica);
-
-            Integer albumID = fa.publicarAlbum(album,idDiscografica,usuarioActual);
-            //Abrir VanadirCancion
-            fa.muestraAnadirCancion(usuarioActual,idAlbum,this);
-
+                break;
+            default:
+                salirAlbum();
         }
     }
 
-    private void bttNuevaCancion(ActionEvent e) {
-
+    private void salirAlbum(){
+        //limpia la clase
+        flagDisco=false;
+        albumActual = null;
+        //poner los textfield a vacio
+        nombre.setText("");
+        discografica.setText("");
+        //poner txtAlbum y txtDisco a ÁLBUM y -Discográfica
+        txtAlbum.setText("ÁLBUM");
+        txtDisco.setText("- Discográfica");
+        //poner botones bttNuevaCancion y bttGuardar a false
+        bttNuevaCancion.setEnabled(false);
     }
+
+    private void bttNuevaCancion(ActionEvent e) {
+        //Abrir VanadirCancion
+        fa.muestraAnadirCancion(usuarioActual,albumActual.getIdAlbum(),this);
+    }
+
+
 
 
 
     private void bttNuevaCancionStateChanged(ChangeEvent e) {
         // TODO add your code here
     }
+
+    private void crearAlbum(){
+        String discografica = this.discografica.getText();
+        String nombre = this.nombre.getText();
+        String tipo = (String) this.tipo.getSelectedItem();
+        Integer idDiscografica = -1;
+        Discografica discografica1 = fa.buscarDiscografica(discografica);
+
+        if(discografica1 == null){
+            idDiscografica = fa.insertarDiscografica(discografica);
+            //Si no existe y salimos de la ventana lo eliminamos
+            flagDisco = true;
+        }else{
+            idDiscografica = discografica1.getIDDiscografica();
+        }
+        int idAlbum = fa.obtenerIDnuevo();
+        albumActual = new Album(idAlbum, nombre,tipo, 0, idDiscografica);
+
+        fa.publicarAlbum(albumActual,idDiscografica,usuarioActual);
+
+        //Ponemos la informacion del nuevo Album encima de la lista
+        txtAlbum.setText(albumActual.getNombre());
+        txtDisco.setText(discografica);
+
+        //poner botones bttNuevaCancion y bttGuardar a false
+        bttNuevaCancion.setEnabled(true);
+        bttGuardar.setEnabled(true);
+    }
+
+
+    //TODO: PONER ALGO PARA COMPROBAR QUE LAS LISTAS SE MANTENGAN
+    private void bttNuevoAlbum(ActionEvent e) {
+        //El boton está enabled solo si están los campos discografía y nombre rellenos
+        if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
+            fa.muestraExcepcion("Completa los campos de nombre y discográfica antes de continuar.");
+        } else {
+            if(albumActual == null){
+                crearAlbum();
+            }else{
+                //TODO:Eliminar album actual y despues discografica
+                crearAlbum();
+            }
+        }
+    }
+
+
 
 
 
@@ -156,8 +207,10 @@ public class VPublicar extends JFrame {
         discografica = new JTextField();
         label3 = new JLabel();
         scrollPane1 = new JScrollPane();
-        label5 = new JLabel();
+        txtAlbum = new JLabel();
         bttNuevaCancion = new JButton();
+        txtDisco = new JLabel();
+        button1 = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -309,10 +362,10 @@ public class VPublicar extends JFrame {
                         scrollPane1.setViewportView(lista);
                     }
 
-                    //---- label5 ----
-                    label5.setText("\u00c1LBUM");
-                    label5.setForeground(new Color(0x00d856));
-                    label5.setFont(new Font("Arial", Font.BOLD, 14));
+                    //---- txtAlbum ----
+                    txtAlbum.setText("\u00c1LBUM");
+                    txtAlbum.setForeground(new Color(0x00d856));
+                    txtAlbum.setFont(new Font("Arial", Font.BOLD, 14));
 
                     //---- bttNuevaCancion ----
                     bttNuevaCancion.setText("NUEVA CANCI\u00d3N");
@@ -322,66 +375,91 @@ public class VPublicar extends JFrame {
                     bttNuevaCancion.addActionListener(e -> bttNuevaCancion(e));
                     bttNuevaCancion.addChangeListener(e -> bttNuevaCancionStateChanged(e));
 
+                    //---- txtDisco ----
+                    txtDisco.setText("- Discogr\u00e1fica");
+                    txtDisco.setForeground(new Color(0x00d856));
+                    txtDisco.setFont(new Font("Arial", Font.BOLD, 14));
+
+                    //---- button1 ----
+                    button1.setText("CREAR \u00c1LBUM");
+                    button1.setBackground(new Color(0x00d856));
+                    button1.setFont(new Font("Arial", Font.BOLD, 14));
+                    button1.setForeground(Color.white);
+                    button1.addActionListener(e -> bttNuevoAlbum(e));
+
                     GroupLayout panel4Layout = new GroupLayout(panel4);
                     panel4.setLayout(panel4Layout);
                     panel4Layout.setHorizontalGroup(
                         panel4Layout.createParallelGroup()
                             .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(panel4Layout.createParallelGroup()
                                     .addGroup(panel4Layout.createSequentialGroup()
+                                        .addContainerGap()
                                         .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(nombre, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18))
                                     .addGroup(panel4Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
                                         .addComponent(label4)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(103, 103, 103)))
-                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(panel4Layout.createSequentialGroup()
-                                        .addComponent(bttNuevaCancion)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bttGuardar))
+                                        .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addGroup(panel4Layout.createSequentialGroup()
                                         .addComponent(label3)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(discografica)))
-                                .addGap(51, 51, 51))
+                                        .addComponent(discografica, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(button1))
+                                .addGap(35, 35, 35))
                             .addGroup(panel4Layout.createSequentialGroup()
                                 .addGroup(panel4Layout.createParallelGroup()
                                     .addGroup(panel4Layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
-                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE))
+                                        .addGap(27, 27, 27)
+                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 275, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(panel4Layout.createParallelGroup()
+                                            .addComponent(bttGuardar)
+                                            .addComponent(bttNuevaCancion)))
                                     .addGroup(panel4Layout.createSequentialGroup()
-                                        .addGap(203, 203, 203)
-                                        .addComponent(label5)))
+                                        .addGap(99, 99, 99)
+                                        .addComponent(txtAlbum)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDisco)))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     );
                     panel4Layout.setVerticalGroup(
                         panel4Layout.createParallelGroup()
                             .addGroup(panel4Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label2)
-                                    .addComponent(nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3)
-                                    .addComponent(discografica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panel4Layout.createParallelGroup()
                                     .addGroup(panel4Layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addComponent(label4))
-                                    .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bttNuevaCancion)
-                                        .addComponent(bttGuardar)))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                                .addComponent(label5)
+                                        .addGap(17, 17, 17)
+                                        .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(label2)
+                                            .addComponent(nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label3)
+                                            .addComponent(discografica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addContainerGap(64, Short.MAX_VALUE)
+                                        .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                            .addComponent(tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(label4)
+                                            .addComponent(button1))
+                                        .addGap(18, 18, 18)))
+                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtAlbum)
+                                    .addComponent(txtDisco))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40))
+                                .addGroup(panel4Layout.createParallelGroup()
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(40, 40, 40))
+                                    .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
+                                        .addComponent(bttNuevaCancion)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bttGuardar)
+                                        .addGap(50, 50, 50))))
                     );
                 }
                 tabbedPane1.addTab("\u00c1lbum", panel4);
@@ -440,7 +518,9 @@ public class VPublicar extends JFrame {
     private JLabel label3;
     private JScrollPane scrollPane1;
     private JList lista;
-    private JLabel label5;
+    private JLabel txtAlbum;
     private JButton bttNuevaCancion;
+    private JLabel txtDisco;
+    private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
