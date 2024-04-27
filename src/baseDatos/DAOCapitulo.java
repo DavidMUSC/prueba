@@ -93,14 +93,26 @@ public class DAOCapitulo extends abstractDAO {
     public List<Capitulo> buscarCapitulosPodcast(int IDPodcast) {
         Connection con;
         PreparedStatement stmCapitulo = null;
+        //PreparedStatement stmID = null;
         ResultSet rsCapitulo;
+        //ResultSet rsID;
         List<Capitulo> capitulosEncontrados = new ArrayList<>();
 
         con = this.getConexion();
 
+        //String sqlID = "SELECT IDPodcast FROM PODCAST WHERE nombre LIKE ?"
+        /*stmId = con.prepareStatement(sqlId);
+        stmId.setString(1, nombrePodcast);
+        rsId = stmId.executeQuery();
+        int id = 0;
+        if (rsId.next()) {
+            id=rsId.getInt("IDAlbum");
+        }*/
+
         String sql = "SELECT * FROM CAPITULO WHERE IDPodcast = ?";
         try {
             stmCapitulo = con.prepareStatement(sql);
+            //stmCapitulo.setInt(1, id);
             stmCapitulo.setInt(1, IDPodcast);
 
             rsCapitulo = stmCapitulo.executeQuery();
