@@ -1,6 +1,7 @@
 package baseDatos;
 
 import aplicacion.Playlist;
+import aplicacion.Cancion;
 import aplicacion.Elemento;
 import java.util.*;
 import java.time.LocalDate;
@@ -221,6 +222,62 @@ public class DAOPlaylist extends abstractDAO {
         return playlistsEncontradas;
     }
 
+    public List<Cancion> obtenerCancionesDePlaylist(String nombrePlaylist) {
+        Connection con = null;
+        PreparedStatement stmCanciones = null;
+        ResultSet rsCanciones = null;
+        List<Cancion> cancionesDePlaylist = new ArrayList<>();
+
+        try {
+            con = this.getConexion();
+
+            // Consulta para obtener las canciones de una playlist a partir del nombre de la playlist
+            String sqlObtenerCanciones = "SELECT c.* FROM CANCION c " +
+                    "JOIN CANCION_PLAYLIST cp ON c.IDCancion = cp.IDCancion " +
+                    "JOIN PLAYLIST p ON cp.IDPlaylist = p.IDPlaylist " +
+                    "WHERE p.nombre = ?";
+
+            // Obtener las canciones de la playlist
+            stmCanciones = con.prepareStatement(sqlObtenerCanciones);
+            stmCanciones.setString(1, nombrePlaylist);
+            rsCanciones = stmCanciones.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos de tipo Cancion
+            while (rsCanciones.next()) {
+                Cancion cancion = new Cancion(
+                        rsCanciones.getString("nombre"),
+                        rsCanciones.getInt("IDCancion"),
+                        rsCanciones.getString("duracion"),
+                        rsCanciones.getString("idioma"),
+                        rsCanciones.getString("nombreGenero"),
+                        rsCanciones.getBoolean("letra"),
+                        rsCanciones.getInt("visualizaciones"),
+                        rsCanciones.getInt("IDalbum"),
+                        rsCanciones.getBoolean("explicito")
+                );
+                cancionesDePlaylist.add(cancion);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (rsCanciones != null) {
+                    rsCanciones.close();
+                }
+                if (stmCanciones != null) {
+                    stmCanciones.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+
+        return cancionesDePlaylist;
+    }
 
 
 }
