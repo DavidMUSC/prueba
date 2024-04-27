@@ -26,6 +26,13 @@ public class VanadirCancion extends JDialog {
         this.idAlbum = idAlbum;
     }
 
+    public int getContador(){
+        return contador;
+    }
+
+    public void setContador(int contador){
+        this.contador = contador;
+    }
     private void button2(ActionEvent e) {
         // TODO add your code here
     }
