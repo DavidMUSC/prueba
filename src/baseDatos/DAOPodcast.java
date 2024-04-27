@@ -136,9 +136,6 @@ public class DAOPodcast extends abstractDAO {
                 if (stmParticiparPodcast != null) {
                     stmParticiparPodcast.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }

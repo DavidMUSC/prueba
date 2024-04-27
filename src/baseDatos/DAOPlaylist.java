@@ -269,9 +269,6 @@ public class DAOPlaylist extends abstractDAO {
                 if (stmCanciones != null) {
                     stmCanciones.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
