@@ -167,6 +167,10 @@ public class fachadaAplicacion {
     public void publicarCancion(Cancion cancion, int IDAlbum){
         gc.publicarCancion(cancion, IDAlbum);
     }
+    public List<Cancion> obtenerUltimasCanciones(int numCanciones){
+        return gc.obtenerUltimasCanciones(numCanciones);
+    }
+
 
     //FUNCIONES ALBUM
     public List<Album> buscarAlbum(String terminoBusqueda){

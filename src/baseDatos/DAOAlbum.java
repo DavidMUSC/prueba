@@ -227,9 +227,10 @@ public class DAOAlbum extends abstractDAO {
                 if (stmAlbum != null) {
                     stmAlbum.close();
                 }
+                /*
                 if (con != null) {
                     con.close();
-                }
+                }*/
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
