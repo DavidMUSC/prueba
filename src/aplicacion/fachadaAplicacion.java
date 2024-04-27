@@ -181,6 +181,10 @@ public class fachadaAplicacion {
         return gal.obtenerIDnuevo();
     }
 
+    public void eliminarAlbum(int idAlbum){
+        gal.eliminarAlbum(idAlbum);
+    }
+
     //FUNCIONES PODCAST
     public List<Podcast> buscarPodcasts(String terminoBusqueda){
         return gpo.buscarPodcasts(terminoBusqueda);
@@ -200,6 +204,9 @@ public class fachadaAplicacion {
     }
     public Discografica buscarDiscografica(String nombreDiscografica){
         return gd.buscarDiscografica(nombreDiscografica);
+    }
+    public void eliminarDiscografica(int idDiscografica){
+        gd.eliminarDiscografica(idDiscografica);
     }
 
 }

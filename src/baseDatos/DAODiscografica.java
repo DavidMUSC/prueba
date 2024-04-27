@@ -108,4 +108,37 @@ public class DAODiscografica extends abstractDAO {
         return nuevoIDDiscografica;
     }
 
+    public void eliminarDiscografica(int idDiscografica) {
+        Connection con = null;
+        PreparedStatement stmDiscografica = null;
+
+        try {
+            con = this.getConexion();
+
+            // Consulta para eliminar la discográfica
+            String sqlEliminarDiscografica = "DELETE FROM DISCOGRAFICA WHERE IDDiscografica = ?";
+
+            // Eliminar la discográfica
+            stmDiscografica = con.prepareStatement(sqlEliminarDiscografica);
+            stmDiscografica.setInt(1, idDiscografica);
+            stmDiscografica.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmDiscografica != null) {
+                    stmDiscografica.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+
+
 }

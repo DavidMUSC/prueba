@@ -28,4 +28,8 @@ public class gestionAlbum {
     public int obtenerIDnuevo() {
         return fbd.obtenerIDnuevo();
     }
+
+    public void eliminarAlbum(int idAlbum){
+        fbd.eliminarAlbum(idAlbum);
+    }
 }

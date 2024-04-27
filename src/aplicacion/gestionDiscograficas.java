@@ -20,5 +20,8 @@ public class gestionDiscograficas{
     public Discografica buscarDiscografica(String nombreDiscografica){
         return fbd.buscarDiscografica(nombreDiscografica);
     }
+    public void eliminarDiscografica(int idDiscografica){
+        fbd.eliminarDiscografica(idDiscografica);
+    }
 
 }
