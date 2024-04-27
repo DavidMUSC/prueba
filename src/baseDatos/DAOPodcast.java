@@ -19,10 +19,10 @@ public class DAOPodcast extends abstractDAO {
 
         con = this.getConexion();
 
-        String sql = "SELECT * FROM PODCAST WHERE nombre LIKE ?";
+        String sql = "SELECT r.IDPodcast,r.nombre FROM PODCAST r WHERE r.IDPodcast IN (SELECT p.IDPodcast FROM PARTICIPARPODCAST p WHERE p.IDArtista = ?)";
         try {
             stmPodcast = con.prepareStatement(sql);
-            stmPodcast.setString(1, "%" + terminoBusqueda + "%");
+            stmPodcast.setString(1,  terminoBusqueda);
 
             rsPodcast = stmPodcast.executeQuery();
             while (rsPodcast.next()) {
