@@ -17,17 +17,13 @@ public class VanadirCancion extends JDialog {
     fachadaAplicacion fa;
     String usuarioActual;
     Integer idAlbum;
-    boolean explicito;
-    Integer contador;
+    boolean explicito = false;
     public VanadirCancion(Frame owner, fachadaAplicacion fa, String usuarioActual, Integer idAlbum) {
         super(owner);
         this.fa= fa;
-        this.explicito = false;
-        this.contador = 0;
         initComponents();
         this.usuarioActual = usuarioActual;
         this.idAlbum = idAlbum;
-
     }
 
     public int getContador(){
@@ -55,81 +51,40 @@ public class VanadirCancion extends JDialog {
             //Cambiar DAO para que no necesite el idAlbum porque ya se le mete al crear la cancion a insertar
             Cancion cancion = new Cancion(nombreCancion, -1, duracionCancion, idiomaCancion,generoCancion, letra, 0, idAlbum, explicito);
             fa.publicarCancion(cancion, idAlbum);
-
-            contador++;
-
-            //limpiar campos
-            buscadorNombre.setText("");
-            buscadorDuracion.setText("");
-            letraCancion.setText("");
-            comboBoxGenero.setSelectedIndex(0);
-            comboBoxIdioma.setSelectedIndex(0);
-            checkBoxExplicito.setSelected(false);
         }
     }
 
+    private void idioma(ActionEvent e) {
+        // Definir los tipos de álbum disponibles
+        String[] idiomas = {"Español", "Chino", "Gallego", "Portugues", "Ingles", "Cromañon", "Frances", "Italiano"};
 
+        // Limpiar el JComboBox antes de añadir los nuevos tipos
+        comboBoxIdioma.removeAllItems();
 
-    
+        // Añadir los tipos de álbum al JComboBox
+        for (String a : idiomas) {
+            comboBoxIdioma.addItem(a);
+        }
+    }
+
+    private void genero(ActionEvent e) {
+        String[] generos = {"Pop", "Rock", "Rap", "Reggaeton", "Indie", "Techno", "Clasica"};
+
+        // Limpiar el JComboBox antes de añadir los nuevos tipos
+        comboBoxGenero.removeAllItems();
+
+        // Añadir los tipos de álbum al JComboBox
+        for (String a : generos) {
+            comboBoxGenero.addItem(a);
+        }
+    }
 
     private void checkBoxExplicito(ActionEvent e) {
         explicito = checkBoxExplicito.isSelected();
     }
 
     private void createUIComponents() {
-        comboBoxIdioma = new JComboBox();
-        // Definir los tipos de álbum disponibles
-        String[] idiomas = {"Español", "Chino", "Gallego", "Portugues", "Ingles", "Cromañon", "Frances", "Italiano"};
-        
-        // Añadir los tipos de álbum al JComboBox
-        for (String a : idiomas) {
-            comboBoxIdioma.addItem(a);
-        }
-        //el color de fondo de la pestaña es #00d856
-        comboBoxIdioma.setBackground(new Color(0, 216, 86));
-        // Configuración del color de selección a un verde más oscuro
-        comboBoxIdioma.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
-                                                          boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (isSelected) {
-                    c.setBackground(new Color(0, 153, 76)); // Un verde más oscuro, #00994C
-                    c.setForeground(Color.WHITE); // Color de texto blanco para mejor contraste
-                }
-                return c;
-            }
-        });
-        
-        comboBoxGenero = new JComboBox();
-        // Definir los tipos de álbum disponibles
-        String[] generos = {"Pop", "Rock", "Rap", "Reggaeton", "Indie", "Techno", "Clasica"};
-        for (String a : generos) {
-            comboBoxGenero.addItem(a);
-        }
-        //el color de fondo de la pestaña es #00d856
-        comboBoxGenero.setBackground(new Color(0, 216, 86));
-        // Configuración del color de selección a un verde más oscuro
-        comboBoxGenero.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
-                                                          boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (isSelected) {
-                    c.setBackground(new Color(0, 153, 76)); // Un verde más oscuro, #00994C
-                    c.setForeground(Color.WHITE); // Color de texto blanco para mejor contraste
-                }
-                return c;
-            }
-        });
-    }
-
-    private void genero(ActionEvent e) {
-        // TODO add your code here
-    }
-
-    private void idioma(ActionEvent e) {
-        // TODO add your code here
+        // TODO: add custom component creation code here
     }
 
     private void initComponents() {

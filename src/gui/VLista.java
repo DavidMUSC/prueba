@@ -80,15 +80,11 @@ public class VLista extends JFrame {
             panel1Layout.setHorizontalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup()
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(118, 118, 118)
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addComponent(labelAutor, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(95, 95, 95)
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(labelAutor, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                         .addGap(85, 85, 85))
             );
             panel1Layout.setVerticalGroup(
@@ -98,7 +94,7 @@ public class VLista extends JFrame {
                         .addComponent(labelTitulo, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(labelAutor, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
             );
