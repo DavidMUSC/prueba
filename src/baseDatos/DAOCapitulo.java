@@ -1,5 +1,6 @@
 package baseDatos;
 
+import aplicacion.Cancion;
 import aplicacion.Capitulo;
 import aplicacion.Podcast;
 import aplicacion.Artista;
@@ -42,7 +43,7 @@ public class DAOCapitulo extends abstractDAO {
             stmCapitulo = con.prepareStatement(sqlInsertCapitulo);
             stmCapitulo.setString(1, capitulo.getNombre());
             stmCapitulo.setInt(2, nuevoIDCapitulo);
-            stmCapitulo.setInt(3, capitulo.getDuracion());
+            stmCapitulo.setString(3, capitulo.getDuracion());
             stmCapitulo.setBoolean(4, capitulo.isExplicito());
             stmCapitulo.setInt(5, capitulo.getIDPodcast());
             stmCapitulo.executeUpdate();
@@ -89,5 +90,41 @@ public class DAOCapitulo extends abstractDAO {
         }
     }
 
+    public List<Capitulo> buscarCapitulosPodcast(int IDPodcast) {
+        Connection con;
+        PreparedStatement stmCapitulo = null;
+        ResultSet rsCapitulo;
+        List<Capitulo> capitulosEncontrados = new ArrayList<>();
+
+        con = this.getConexion();
+
+        String sql = "SELECT * FROM CAPITULO WHERE IDPodcast = ?";
+        try {
+            stmCapitulo = con.prepareStatement(sql);
+            stmCapitulo.setInt(1, IDPodcast);
+
+            rsCapitulo = stmCapitulo.executeQuery();
+            while (rsCapitulo.next()) {
+                String nombre = rsCapitulo.getString("nombre");
+                int idCapitulo = rsCapitulo.getInt("IDCapitulo");
+                String duracion = rsCapitulo.getString("duracion");
+                //int IDPodcast = rsCapitulo.getInt("IDPodcast");
+                boolean explicito = rsCapitulo.getBoolean("explicito");
+
+                Capitulo capitulo = new Capitulo(nombre, idCapitulo, duracion, explicito, IDPodcast);
+                capitulosEncontrados.add(capitulo);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmCapitulo.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return capitulosEncontrados;
+    }
 
 }

@@ -6,11 +6,14 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.event.*;
 
 import aplicacion.Album;
+import aplicacion.Cancion;
 import aplicacion.Discografica;
 import aplicacion.fachadaAplicacion;
 
@@ -124,8 +127,23 @@ public class VPublicar extends JFrame {
     }
 
     private void bttNuevaCancion(ActionEvent e) {
-        //Abrir VanadirCancion
-        fa.muestraAnadirCancion(usuarioActual,albumActual.getIdAlbum(),this);
+        VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumActual.getIdAlbum());
+        vc.setVisible(true);
+
+        //coger el contador
+        Integer contador = vc.getContador();
+        vc.setContador(0);
+
+        //pasar la lista de canciones a strings con los nombres de las canciones
+        List<Cancion> canciones = fa.obtenerUltimasCanciones(contador);
+        List<String> nombres = new ArrayList<>();
+        for(Cancion c: canciones){
+            nombres.add(c.getNombre());
+        }
+
+        //Añadir las canciones de lista a la lista de la ventana
+        modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
+        modelo.agregarLista(nombres);
     }
 
 
