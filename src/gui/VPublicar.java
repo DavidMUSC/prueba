@@ -316,9 +316,9 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
         List<Capitulo> capitulos = fa.buscarCapitulosPodcast(podcasts.get(0).getIdPodcast());
         //añadir a la list2
         modeloListaBiblioteca modelo2 = (modeloListaBiblioteca) list2.getModel();
-        for(Capitulo c: capitulos){
+        /*for(Capitulo c: capitulos){
             modelo2.agregarElemento(c.getNombre());
-        }
+        }*/
     }
 
     //listener para la lista de podcast

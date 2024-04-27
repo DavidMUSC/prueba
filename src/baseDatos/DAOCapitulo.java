@@ -5,7 +5,10 @@ import aplicacion.Capitulo;
 import aplicacion.Podcast;
 import aplicacion.Artista;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class DAOCapitulo extends abstractDAO {
 
@@ -33,7 +36,14 @@ public class DAOCapitulo extends abstractDAO {
 
             // Incrementar el último ID de capítulo para obtener un nuevo ID único
             int nuevoIDCapitulo = ultimoIDCapitulo + 1;
-
+            SimpleDateFormat formato = new SimpleDateFormat("mm:ss");
+            Time dur=null;
+            try {
+                Date date = formato.parse(capitulo.getDuracion());
+                dur = new Time(date.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             // Consulta para insertar el capítulo
             String sqlInsertCapitulo = "INSERT INTO Capitulo (nombre, IDCapitulo, duracion, explicito, IDPodcast) " +
                     "VALUES (?, ?, ?, ?, ?)";
@@ -42,7 +52,7 @@ public class DAOCapitulo extends abstractDAO {
             stmCapitulo = con.prepareStatement(sqlInsertCapitulo);
             stmCapitulo.setString(1, capitulo.getNombre());
             stmCapitulo.setInt(2, nuevoIDCapitulo);
-            stmCapitulo.setString(3, capitulo.getDuracion());
+            stmCapitulo.setTime(3, dur);
             stmCapitulo.setBoolean(4, capitulo.isExplicito());
             stmCapitulo.setInt(5, capitulo.getIDPodcast());
             stmCapitulo.executeUpdate();
