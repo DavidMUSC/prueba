@@ -22,8 +22,8 @@ public class fachadaGui {
         va.setVisible(true);
     }
 
-    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
-        VanadirCancion vc = new VanadirCancion(owner, fa, usuarioActual, albumID);
+    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner, PasarCancionCallback callback){
+        VanadirCancion vc = new VanadirCancion(owner, fa, usuarioActual, albumID, callback);
         vc.setVisible(true);
     }
 

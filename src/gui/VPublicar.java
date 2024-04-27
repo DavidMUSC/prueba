@@ -21,30 +21,62 @@ import aplicacion.fachadaAplicacion;
 /**
  * @author Uni
  */
-public class VPublicar extends JFrame {
+public class VPublicar extends JFrame implements PasarCancionCallback{
     fachadaAplicacion fa;
     String usuarioActual;
     Album albumActual;
     boolean flagDisco;
-
+    ArrayList<Cancion> canciones;
 
     public VPublicar(fachadaAplicacion fa, String usuarioActual) {
         this.fa = fa;
         this.usuarioActual = usuarioActual;
         this.flagDisco = false;
         this.albumActual =null;
+        this.canciones = new ArrayList<>();
         initComponents();
         //poner botones bttNuevaCancion y bttGuardar a false
         bttNuevaCancion.setEnabled(false);
         bttGuardar.setEnabled(false);
+
+    }
+
+    @Override
+    public void pasarCancion(Cancion c) {
+        //añadir la cancion al arrayList de canciones
+        Cancion cancion = c;
+        canciones.add(cancion);
+        //pasar la lista de canciones a strings con los nombres de las canciones
+        List<String> nombres = new ArrayList<>();
+        for(Cancion ca: canciones){
+            nombres.add(ca.getNombre());
+        }
+
+        //Añadir las canciones de lista a la lista de la ventana
+        modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
+        modelo.agregarLista(nombres);
     }
 
     private void bttBuscar(ActionEvent e) {
+        if(albumActual!= null){
+            fa.eliminarAlbum(albumActual.getIdAlbum());
+            if(flagDisco){
+                fa.eliminarDiscografica(albumActual.getIDDiscografica());
+                flagDisco=false;
+            }
+        }
         fa.muestraBuscar(2, usuarioActual);
         this.dispose();
     }
 
     private void bttBiblioteca(ActionEvent e) {
+        if(albumActual!= null){
+            fa.eliminarAlbum(albumActual.getIdAlbum());
+            if(flagDisco){
+                fa.eliminarDiscografica(albumActual.getIDDiscografica());
+                flagDisco=false;
+            }
+        }
         fa.muestraBiblioteca(2, usuarioActual);
         this.dispose();
     }
@@ -82,6 +114,13 @@ public class VPublicar extends JFrame {
     }
 
     private void bttInicio(ActionEvent e) {
+        if(albumActual!= null){
+            fa.eliminarAlbum(albumActual.getIdAlbum());
+            if(flagDisco){
+                fa.eliminarDiscografica(albumActual.getIDDiscografica());
+                flagDisco=false;
+            }
+        }
         fa.muestraPrincipal(2, usuarioActual);
         this.dispose();
     }
@@ -113,6 +152,13 @@ public class VPublicar extends JFrame {
     }
 
     private void salirAlbum(){
+        //guardar las canciones del arraylsist en la base de datos
+        for(Cancion ca: canciones){
+            fa.publicarCancion(ca, albumActual.getIdAlbum());
+        }
+        //vaciar el arraylist
+        canciones.clear();
+
         //limpia la clase
         flagDisco=false;
         albumActual = null;
@@ -127,23 +173,8 @@ public class VPublicar extends JFrame {
     }
 
     private void bttNuevaCancion(ActionEvent e) {
-        VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumActual.getIdAlbum());
+        VanadirCancion vc = new VanadirCancion(this, fa, usuarioActual, albumActual.getIdAlbum(), this);
         vc.setVisible(true);
-
-        //coger el contador
-        Integer contador = vc.getContador();
-        vc.setContador(0);
-
-        //pasar la lista de canciones a strings con los nombres de las canciones
-        List<Cancion> canciones = fa.obtenerUltimasCanciones(contador);
-        List<String> nombres = new ArrayList<>();
-        for(Cancion c: canciones){
-            nombres.add(c.getNombre());
-        }
-
-        //Añadir las canciones de lista a la lista de la ventana
-        modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
-        modelo.agregarLista(nombres);
     }
 
 
@@ -183,7 +214,7 @@ public class VPublicar extends JFrame {
     }
 
 
-    //TODO: PONER ALGO PARA COMPROBAR QUE LAS LISTAS SE MANTENGAN
+
     private void bttNuevoAlbum(ActionEvent e) {
         //El boton está enabled solo si están los campos discografía y nombre rellenos
         if (discografica.getText().isEmpty() || nombre.getText().isEmpty()) {
@@ -192,8 +223,37 @@ public class VPublicar extends JFrame {
             if(albumActual == null){
                 crearAlbum();
             }else{
-                //TODO:Eliminar album actual y despues discografica
+                fa.eliminarAlbum(albumActual.getIdAlbum());
+                if(flagDisco){
+                    fa.eliminarDiscografica(albumActual.getIDDiscografica());
+                    flagDisco=false;
+                }
                 crearAlbum();
+            }
+        }
+    }
+
+    private void bttBorrarCancion(ActionEvent e) {
+        //Comprobar que la lista tiene un valor seleccionado
+        if(lista.getSelectedIndex() == -1) {
+            fa.muestraExcepcion("Selecciona una canción para poder borrarla.");
+        }
+        else {
+            //Borrar la cancion de la lista
+            int index = lista.getSelectedIndex();
+            canciones.remove(index);
+            modeloListaBiblioteca modelo = (modeloListaBiblioteca) lista.getModel();
+            modelo.vaciarLista();
+            //pasar la lista de canciones a strings con los nombres de las canciones
+            if(!canciones.isEmpty()){
+                List<String> nombres = new ArrayList<>();
+                for(Cancion ca: canciones){
+                    nombres.add(ca.getNombre());
+                }
+
+                //Añadir las canciones de lista a la lista de la ventana
+
+                modelo.agregarLista(nombres);
             }
         }
     }
@@ -246,6 +306,7 @@ public class VPublicar extends JFrame {
         bttNuevaCancion = new JButton();
         txtDisco = new JLabel();
         button1 = new JButton();
+        bttBorrarCancion = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -552,6 +613,13 @@ public class VPublicar extends JFrame {
                     button1.setForeground(Color.white);
                     button1.addActionListener(e -> bttNuevoAlbum(e));
 
+                    //---- bttBorrarCancion ----
+                    bttBorrarCancion.setText("BORRAR CANCI\u00d3N");
+                    bttBorrarCancion.setFont(new Font("Arial", Font.BOLD, 14));
+                    bttBorrarCancion.setForeground(Color.white);
+                    bttBorrarCancion.setBackground(new Color(0x00d856));
+                    bttBorrarCancion.addActionListener(e -> bttBorrarCancion(e));
+
                     GroupLayout panel4Layout = new GroupLayout(panel4);
                     panel4.setLayout(panel4Layout);
                     panel4Layout.setHorizontalGroup(
@@ -585,7 +653,8 @@ public class VPublicar extends JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(panel4Layout.createParallelGroup()
                                             .addComponent(bttGuardar)
-                                            .addComponent(bttNuevaCancion)))
+                                            .addComponent(bttNuevaCancion)
+                                            .addComponent(bttBorrarCancion)))
                                     .addGroup(panel4Layout.createSequentialGroup()
                                         .addGap(99, 99, 99)
                                         .addComponent(txtAlbum)
@@ -616,11 +685,13 @@ public class VPublicar extends JFrame {
                                     .addComponent(txtAlbum)
                                     .addComponent(txtDisco))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel4Layout.createParallelGroup()
+                                .addGroup(panel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel4Layout.createSequentialGroup()
                                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE)
                                         .addGap(40, 40, 40))
-                                    .addGroup(GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
+                                    .addGroup(panel4Layout.createSequentialGroup()
+                                        .addComponent(bttBorrarCancion)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bttNuevaCancion)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(bttGuardar)
@@ -704,5 +775,6 @@ public class VPublicar extends JFrame {
     private JButton bttNuevaCancion;
     private JLabel txtDisco;
     private JButton button1;
+    private JButton bttBorrarCancion;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

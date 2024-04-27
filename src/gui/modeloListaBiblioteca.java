@@ -32,4 +32,12 @@ public class modeloListaBiblioteca extends javax.swing.AbstractListModel {
         fireIntervalAdded(this,sizeAnterior,lista.size());
     }
 
+    //Método para vaciar la lista
+    public void vaciarLista(){
+        int sizeAnterior = lista.size();
+        lista.clear();
+        fireIntervalRemoved(this,0,sizeAnterior);
+    }
+
+
 }

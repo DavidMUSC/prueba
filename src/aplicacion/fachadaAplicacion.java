@@ -1,5 +1,7 @@
 package aplicacion;
 
+import gui.PasarCancionCallback;
+
 import java.awt.*;
 import java.util.List;
 
@@ -72,8 +74,8 @@ public class fachadaAplicacion {
     public void muestraCancion(Cancion cancion,String usuarioActual) {
         fgui.muestraCancion(cancion,usuarioActual);
     }
-    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner){
-        fgui.muestraAnadirCancion(usuarioActual,albumID,owner);
+    public void muestraAnadirCancion(String usuarioActual, int albumID,Frame owner, PasarCancionCallback callback){
+        fgui.muestraAnadirCancion(usuarioActual,albumID,owner, callback);
     }
     public void muestraLista(List<Elemento> canciones, String titulo, String aritsta, String usuarioActual){
         fgui.muestraLista(canciones,titulo,aritsta,usuarioActual);
