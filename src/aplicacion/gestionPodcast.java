@@ -24,7 +24,7 @@ public class gestionPodcast {
         return fbd.obtenerIDPodcast(terminoBusqueda);
     }
 
-    public void publicarPodcast(Podcast podcast, int idArtista){
+    public void publicarPodcast(Podcast podcast, String idArtista){
         fbd.publicarPodcast(podcast, idArtista);
     }
 }

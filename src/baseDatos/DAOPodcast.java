@@ -151,7 +151,7 @@ public class DAOPodcast extends abstractDAO {
         return nombreArtista;
     }
 
-    public void publicarPodcast(Podcast podcast, int idArtista) {
+    public void publicarPodcast(Podcast podcast, String idArtista) {
         Connection con = null;
         PreparedStatement stmPodcast = null;
         PreparedStatement stmParticiparPodcast = null;
@@ -186,7 +186,7 @@ public class DAOPodcast extends abstractDAO {
             String sqlInsertParticiparPodcast = "INSERT INTO PARTICIPARPODCAST (IDPodcast, IDArtista) VALUES (?, ?)";
             stmParticiparPodcast = con.prepareStatement(sqlInsertParticiparPodcast);
             stmParticiparPodcast.setInt(1, nuevoIDPodcast);
-            stmParticiparPodcast.setInt(2, idArtista);
+            stmParticiparPodcast.setString(2, idArtista);
             stmParticiparPodcast.executeUpdate();
 
         } catch (SQLException e) {

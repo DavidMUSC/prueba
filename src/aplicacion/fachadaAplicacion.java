@@ -215,7 +215,7 @@ public class fachadaAplicacion {
         return gpo.obtenerArtistaDePodcast(nombrePodcast);
     }
 
-    public void publicarPodcast(Podcast podcast, int idArtista){
+    public void publicarPodcast(Podcast podcast, String idArtista){
         gpo.publicarPodcast(podcast, idArtista);
     }
 
