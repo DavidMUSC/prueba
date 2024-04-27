@@ -73,6 +73,22 @@ public class VBiblioteca extends JFrame {
     private void createUIComponents() {
         table1 = new JTable();
         table1.setModel(new modeloTablaPlaylistUsuario());
+        table1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                    String titulo = (String)table1.getValueAt(table1.getSelectedRow(),0);
+                    String autor = "Playlist creada por ";
+                    autor += fa.buscarCreadorPlaylist((String)table1.getValueAt(table1.getSelectedRow(),0));
+                    List<Elemento> elems = new ArrayList<>();
+                    List<Cancion> canciones= fa.obtenerCancionesDePlaylist(titulo);
+                    for(Cancion cancion: canciones){
+                        elems.add(new Elemento(cancion.getNombre(),fa.obtenerArtistaDeCancion(cancion.getNombre()),0));
+                    }
+                    fa.muestraLista(elems,titulo,autor,usuarioActual);
+
+            }
+        });
     }
 
     private void bttCrearPlaylist(ActionEvent e) {
