@@ -31,7 +31,7 @@ public class VPodcast extends JFrame {
         String strArtistas=fa.obtenerArtistasDePodcast(podcast.getNombre());
         labelArtistas.setText(strArtistas);
         if(!capitulos.isEmpty()){
-            labelCapitulo.setText(String.valueOf(capitulos.get(0).getDuracion()));
+            labelCapitulo.setText(String.valueOf(capitulos.get(0).getNombre()));
         }
         List<String> nombresCaps = new ArrayList<>();
         for(Capitulo c: capitulos){
