@@ -173,8 +173,16 @@ public class VPublicar extends JFrame {
         } else {
             if(albumActual == null){
                 crearAlbum();
-            }else{
-                //TODO:Eliminar album actual y despues discografica
+            }else if(discografica.getText().equals(txtDisco.getText()) && nombre.getText().equals(txtAlbum.getText())){
+                fa.muestraExcepcion("El álbum ya existe. Si deseas añadir canciones a este álbum, selecciona la opción 'Nueva canción'.");
+            }
+            else{
+                fa.eliminarAlbum(albumActual.getIdAlbum());
+                if(flagDisco){
+                    fa.eliminarDiscografica(albumActual.getIDDiscografica());
+                    flagDisco = false;
+                }
+                albumActual = null;
                 crearAlbum();
             }
         }
@@ -199,6 +207,23 @@ public class VPublicar extends JFrame {
         bttPublicar = new JButton();
         tabbedPane1 = new JTabbedPane();
         panel5 = new JPanel();
+        label5 = new JLabel();
+        nombrePodcast = new JTextField();
+        button2 = new JButton();
+        label6 = new JLabel();
+        scrollPane2 = new JScrollPane();
+        list1 = new JList();
+        label7 = new JLabel();
+        scrollPane3 = new JScrollPane();
+        list2 = new JList();
+        label8 = new JLabel();
+        label9 = new JLabel();
+        textField1 = new JTextField();
+        label10 = new JLabel();
+        textField2 = new JTextField();
+        checkBox1 = new JCheckBox();
+        button3 = new JButton();
+        button4 = new JButton();
         panel4 = new JPanel();
         label2 = new JLabel();
         nombre = new JTextField();
@@ -316,15 +341,145 @@ public class VPublicar extends JFrame {
                 //======== panel5 ========
                 {
 
+                    //---- label5 ----
+                    label5.setText("Nombre:");
+                    label5.setFont(new Font("Arial", Font.PLAIN, 12));
+
+                    //---- button2 ----
+                    button2.setText("NUEVO PODCAST");
+                    button2.setBackground(new Color(0x00d856));
+                    button2.setFont(new Font("Arial", Font.BOLD, 14));
+                    button2.setForeground(Color.white);
+
+                    //---- label6 ----
+                    label6.setText("TUS PODCAST");
+                    label6.setBackground(new Color(0x00d856));
+                    label6.setForeground(new Color(0x00d856));
+                    label6.setFont(new Font("Arial", Font.BOLD, 14));
+
+                    //======== scrollPane2 ========
+                    {
+                        scrollPane2.setViewportView(list1);
+                    }
+
+                    //---- label7 ----
+                    label7.setText("CAP\u00cdTULOS");
+                    label7.setFont(new Font("Arial", Font.BOLD, 14));
+                    label7.setBackground(new Color(0x00d856));
+                    label7.setForeground(new Color(0x00d856));
+
+                    //======== scrollPane3 ========
+                    {
+                        scrollPane3.setViewportView(list2);
+                    }
+
+                    //---- label8 ----
+                    label8.setText("PODCAST");
+                    label8.setFont(new Font("Arial", Font.BOLD, 14));
+                    label8.setForeground(new Color(0x00d856));
+
+                    //---- label9 ----
+                    label9.setText("Nombre:");
+
+                    //---- label10 ----
+                    label10.setText("Duraci\u00f3n:");
+
+                    //---- checkBox1 ----
+                    checkBox1.setText("Expl\u00edcito");
+                    checkBox1.setFont(new Font("Arial", Font.PLAIN, 12));
+
+                    //---- button3 ----
+                    button3.setText("A\u00d1ADIR CAP\u00cdTULO");
+                    button3.setFont(new Font("Arial", Font.BOLD, 14));
+                    button3.setForeground(Color.white);
+                    button3.setBackground(new Color(0x00d856));
+
+                    //---- button4 ----
+                    button4.setText("ELIMINAR CAP\u00cdTULO");
+                    button4.setFont(new Font("Arial", Font.BOLD, 14));
+                    button4.setForeground(Color.white);
+                    button4.setBackground(new Color(0x00d856));
+
                     GroupLayout panel5Layout = new GroupLayout(panel5);
                     panel5.setLayout(panel5Layout);
                     panel5Layout.setHorizontalGroup(
                         panel5Layout.createParallelGroup()
-                            .addGap(0, 505, Short.MAX_VALUE)
+                            .addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(label6)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(label7)
+                                .addGap(116, 116, 116))
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(label5)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombrePodcast, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(button2)
+                                .addGap(89, 89, 89))
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel5Layout.createParallelGroup()
+                                    .addGroup(panel5Layout.createSequentialGroup()
+                                        .addGroup(panel5Layout.createParallelGroup()
+                                            .addComponent(label8)
+                                            .addComponent(checkBox1))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
+                                        .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                            .addGroup(panel5Layout.createSequentialGroup()
+                                                .addComponent(button3)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(button4))
+                                            .addGroup(panel5Layout.createSequentialGroup()
+                                                .addComponent(label9)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(textField1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(label10)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(58, 58, 58))
+                                    .addGroup(panel5Layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61)))
+                                .addContainerGap())
                     );
                     panel5Layout.setVerticalGroup(
                         panel5Layout.createParallelGroup()
-                            .addGap(0, 436, Short.MAX_VALUE)
+                            .addGroup(panel5Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label5)
+                                    .addComponent(nombrePodcast, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(button2))
+                                .addGap(18, 18, 18)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label6)
+                                    .addComponent(label7))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panel5Layout.createParallelGroup()
+                                    .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                    .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label8)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label9)
+                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label10)
+                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBox1)
+                                .addGap(24, 24, 24)
+                                .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(button3)
+                                    .addComponent(button4))
+                                .addGap(30, 30, 30))
                     );
                 }
                 tabbedPane1.addTab("Podcast", panel5);
@@ -508,6 +663,23 @@ public class VPublicar extends JFrame {
     private JButton bttPublicar;
     private JTabbedPane tabbedPane1;
     private JPanel panel5;
+    private JLabel label5;
+    private JTextField nombrePodcast;
+    private JButton button2;
+    private JLabel label6;
+    private JScrollPane scrollPane2;
+    private JList list1;
+    private JLabel label7;
+    private JScrollPane scrollPane3;
+    private JList list2;
+    private JLabel label8;
+    private JLabel label9;
+    private JTextField textField1;
+    private JLabel label10;
+    private JTextField textField2;
+    private JCheckBox checkBox1;
+    private JButton button3;
+    private JButton button4;
     private JPanel panel4;
     private JLabel label2;
     private JTextField nombre;
