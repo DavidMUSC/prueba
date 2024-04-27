@@ -39,4 +39,7 @@ public class gestionCancion {
     public List<Cancion> buscarCancionesEn(String terminoBusqueda) {
         return fbd.buscarCancionesEn(terminoBusqueda);
     }
+    public List<Cancion> obtenerUltimasCanciones(int numCanciones){
+        return fbd.obtenerUltimasCanciones(numCanciones);
+    }
 }
