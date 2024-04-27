@@ -386,6 +386,10 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
         }
     }
 
+    private void bttAjustes(ActionEvent e) {
+        fa.muestraAjustes(this);
+    }
+
 
 
 
@@ -489,6 +493,7 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                 bttAjustes.setForeground(Color.white);
                 bttAjustes.setBorder(null);
                 bttAjustes.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttAjustes.addActionListener(e -> bttAjustes(e));
 
                 //---- bttPublicar ----
                 bttPublicar.setText("PUBLICAR");

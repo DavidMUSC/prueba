@@ -5,16 +5,30 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.net.URI;
 import javax.swing.*;
 import javax.swing.GroupLayout;
+import aplicacion.*;
 
 /**
  * @author davra
  */
-public class VAajustes extends JDialog {
-    public VAajustes(Window owner) {
+public class VAjustes extends JDialog {
+    private fachadaAplicacion fa;
+    public VAjustes(Window owner, fachadaAplicacion fa) {
         super(owner);
+        this.fa=fa;
         initComponents();
+    }
+
+    private void button1(ActionEvent e) {
+        // abre un enlace para recuperar la contraseña
+        try {
+            Desktop.getDesktop().browse(new URI("https://support.spotify.com"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void initComponents() {
@@ -64,6 +78,7 @@ public class VAajustes extends JDialog {
             button1.setFont(new Font("Arial", Font.BOLD, 12));
             button1.setBackground(new Color(0x00d856));
             button1.setBorder(null);
+            button1.addActionListener(e -> button1(e));
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -76,11 +91,11 @@ public class VAajustes extends JDialog {
                                 .addComponent(label1))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
-                                .addGroup(panel1Layout.createParallelGroup()
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addComponent(label2)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(slider1, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(slider1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addComponent(checkBox1)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -94,10 +109,10 @@ public class VAajustes extends JDialog {
                         .addGap(19, 19, 19)
                         .addComponent(label1)
                         .addGap(18, 18, 18)
-                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(label2)
-                            .addComponent(slider1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label2, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                            .addComponent(slider1, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup()
                             .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
                             .addComponent(checkBox1))

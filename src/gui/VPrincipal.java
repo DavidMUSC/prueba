@@ -94,6 +94,10 @@ public class VPrincipal extends JFrame {
         this.dispose();
     }
 
+    private void bttAjustes(ActionEvent e) {
+        fa.muestraAjustes(this);
+    }
+
 
 
     private void initComponents() {
@@ -162,6 +166,7 @@ public class VPrincipal extends JFrame {
                 bttAjustes.setForeground(Color.white);
                 bttAjustes.setBorder(null);
                 bttAjustes.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 18));
+                bttAjustes.addActionListener(e -> bttAjustes(e));
 
                 //---- bttPublicar ----
                 bttPublicar.setText("PUBLICAR");

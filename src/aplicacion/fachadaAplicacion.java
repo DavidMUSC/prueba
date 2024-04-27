@@ -53,6 +53,9 @@ public class fachadaAplicacion {
     public void iniciaInterfazUsuario(){
         fgui.iniciaVista();
     }
+    public void muestraAjustes(Frame owner){
+        fgui.muestraAjustes(owner);
+    }
     public void muestraCrearPlaylist(Frame owner, fachadaAplicacion fa, int op, String usuarioActual){
         fgui.muestraCrearPlaylist(owner,fa,op,usuarioActual);
     }

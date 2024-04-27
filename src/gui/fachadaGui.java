@@ -27,6 +27,12 @@ public class fachadaGui {
         vc.setVisible(true);
     }
 
+    public void muestraAjustes(Frame owner){
+        VAjustes va;
+        va = new VAjustes(owner, fa);
+        va.setVisible(true);
+    }
+
     public void muestraExcepcion(String e){
         VAviso v;
         v = new VAviso(e);
