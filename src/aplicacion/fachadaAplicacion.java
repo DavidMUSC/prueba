@@ -228,4 +228,7 @@ public class fachadaAplicacion {
     public void eliminarCapitulo(int IDCapitulo, int IDPodcast){
         gcap.eliminarCapitulo(IDCapitulo, IDPodcast);
     }
+    public List<Capitulo> buscarCapitulosPodcast(int IDPodcast){
+        return gcap.buscarCapitulosPodcast(IDPodcast);
+    }
 }

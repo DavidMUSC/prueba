@@ -20,4 +20,7 @@ public class gestionCapitulo {
     public void eliminarCapitulo(int IDCapitulo, int IDPodcast){
         fbd.eliminarCapitulo(IDCapitulo, IDPodcast);
     }
+    public List<Capitulo> buscarCapitulosPodcast(int IDPodcast){
+        return fbd.buscarCapitulosPodcast(IDPodcast);
+    }
 }
