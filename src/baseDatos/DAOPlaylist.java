@@ -232,10 +232,11 @@ public class DAOPlaylist extends abstractDAO {
             con = this.getConexion();
 
             // Consulta para obtener las canciones de una playlist a partir del nombre de la playlist
-            String sqlObtenerCanciones = "SELECT c.* FROM CANCION c " +
-                    "JOIN CANCION_PLAYLIST cp ON c.IDCancion = cp.IDCancion " +
-                    "JOIN PLAYLIST p ON cp.IDPlaylist = p.IDPlaylist " +
-                    "WHERE p.nombre = ?";
+            String sqlObtenerCanciones  = "SELECT c.* " +
+                    "FROM CANCION c " +
+                    "JOIN FORMARPARTE fp ON c.IDCancion = fp.IDCancion " +
+                    "JOIN PLAYLIST p ON fp.IDPlaylist = p.IDPlaylist " +
+                    "WHERE p.nombrePlaylist = ?";
 
             // Obtener las canciones de la playlist
             stmCanciones = con.prepareStatement(sqlObtenerCanciones);
