@@ -16,6 +16,7 @@ public class fachadaAplicacion {
     gestionAlbum gal;
     gestionCancion gc;
     gestionDiscograficas gd;
+    gestionCapitulo gcap;
 
     public fachadaAplicacion(){
         fgui=new gui.fachadaGui(this);
@@ -29,6 +30,7 @@ public class fachadaAplicacion {
         gal = new gestionAlbum(fgui, fbd);
         gc = new gestionCancion(fgui, fbd);
         gd = new gestionDiscograficas(fgui, fbd);
+        gcap = new gestionCapitulo(fgui, fbd);
 
     }
     public static void main(String args[]) {
@@ -219,4 +221,11 @@ public class fachadaAplicacion {
         gd.eliminarDiscografica(idDiscografica);
     }
 
+    //METODOS CAPITULO
+    public void insertarCapitulo(Capitulo capitulo){
+        gcap.insertarCapitulo(capitulo);
+    }
+    public void eliminarCapitulo(int IDCapitulo, int IDPodcast){
+        gcap.eliminarCapitulo(IDCapitulo, IDPodcast);
+    }
 }

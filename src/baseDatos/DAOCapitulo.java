@@ -60,19 +60,20 @@ public class DAOCapitulo extends abstractDAO {
         }
     }
 
-    public void eliminarCapitulo(int IDCapitulo) {
+    public void eliminarCapitulo(int IDCapitulo, int IDPodcast) {
         Connection con = null;
         PreparedStatement stmEliminarCapitulo = null;
 
         try {
             con = getConexion();
 
-            // Consulta para eliminar el capítulo
-            String sqlEliminarCapitulo = "DELETE FROM Capitulo WHERE IDCapitulo = ?";
+            // Consulta para eliminar el capítulo de un podcast concreto
+            String sqlEliminarCapitulo = "DELETE FROM Capitulo WHERE IDCapitulo = ? AND IDPodcast = ?";
 
             // Eliminar el capítulo
             stmEliminarCapitulo = con.prepareStatement(sqlEliminarCapitulo);
             stmEliminarCapitulo.setInt(1, IDCapitulo);
+            stmEliminarCapitulo.setInt(2, IDPodcast);
             stmEliminarCapitulo.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -82,13 +83,11 @@ public class DAOCapitulo extends abstractDAO {
                 if (stmEliminarCapitulo != null) {
                     stmEliminarCapitulo.close();
                 }
-                if (con != null) {
-                    con.close();
-                }
             } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
         }
     }
+
 
 }

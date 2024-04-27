@@ -173,16 +173,8 @@ public class VPublicar extends JFrame {
         } else {
             if(albumActual == null){
                 crearAlbum();
-            }else if(discografica.getText().equals(txtDisco.getText()) && nombre.getText().equals(txtAlbum.getText())){
-                fa.muestraExcepcion("El álbum ya existe. Si deseas añadir canciones a este álbum, selecciona la opción 'Nueva canción'.");
-            }
-            else{
-                fa.eliminarAlbum(albumActual.getIdAlbum());
-                if(flagDisco){
-                    fa.eliminarDiscografica(albumActual.getIDDiscografica());
-                    flagDisco = false;
-                }
-                albumActual = null;
+            }else{
+                //TODO:Eliminar album actual y despues discografica
                 crearAlbum();
             }
         }
