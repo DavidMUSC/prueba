@@ -32,6 +32,12 @@ public class modeloListaBiblioteca extends javax.swing.AbstractListModel {
         fireIntervalAdded(this,sizeAnterior,lista.size());
     }
 
+    // Método para agregar un elemento al modelo
+    public void agregarElemento(String elemento){
+        lista.add(elemento);
+        fireIntervalAdded(this,lista.size()-1,lista.size()-1);
+    }
+
     //Método para vaciar la lista
     public void vaciarLista(){
         int sizeAnterior = lista.size();

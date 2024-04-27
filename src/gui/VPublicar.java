@@ -12,10 +12,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.event.*;
 
-import aplicacion.Album;
-import aplicacion.Cancion;
-import aplicacion.Discografica;
-import aplicacion.fachadaAplicacion;
+import aplicacion.*;
 
 
 /**
@@ -38,8 +35,13 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
         //poner botones bttNuevaCancion y bttGuardar a false
         bttNuevaCancion.setEnabled(false);
         bttGuardar.setEnabled(false);
-
+        //buscar los podcast y capitulos del artista
+        buscarPodcastyCapitulosArtista();
     }
+
+    /**
+     * MÉTODOS PARA LA PESTAÑA DE ALBUM
+    * */
 
     @Override
     public void pasarCancion(Cancion c) {
@@ -108,7 +110,16 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
         lista = new JList();
         lista.setModel(new modeloListaBiblioteca());
 
+        list1 = new JList();
+        list1.setModel(new modeloListaBiblioteca());
+        list2 = new JList();
+        list2.setModel(new modeloListaBiblioteca());
 
+        list1.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { // This line prevents double events
+                list1ValueChanged(e);
+            }
+        });
     }
 
     private void bttInicio(ActionEvent e) {
@@ -257,6 +268,131 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
     }
 
 
+    /**
+     * MÉTODOS PARA LA PESTAÑA DE PODCAST
+     */
+    private void bttNuevoPodcast(ActionEvent e) {
+        //si el campo de nombre del podcast está vacío
+        if(nombrePodcast.getText().isEmpty()) {
+            fa.muestraExcepcion("Introduce un nombre para el podcast.");        }else{
+            //crear el podcast
+            Podcast podcast = new Podcast(-1, nombrePodcast.getText());
+
+
+
+            //TODO:ponr bien esto
+            //buscar id usuario por su id
+            //int idArtista = fa.obtenerIDArtistaPorNombre(usuarioActual);
+            //fa.publicarPodcast(podcast,usuarioActual );
+            //limpiar el campo de nombre
+            nombrePodcast.setText("");
+            //añadir a la list1
+            modeloListaBiblioteca modelo = (modeloListaBiblioteca) list1.getModel();
+            modelo.agregarElemento(podcast.getNombre());
+
+            //vaciar la lista de capítulos
+            modeloListaBiblioteca modelo2 = (modeloListaBiblioteca) list2.getModel();
+            modelo2.vaciarLista();
+        }
+    }
+
+    private void buscarPodcastyCapitulosArtista(){
+
+        //buscar id usuario por su id
+        //int idArtista = fa.obtenerIDArtistaPorNombre(usuarioActual);
+        //buscar los podcast del artista
+        List<Podcast> podcasts = fa.buscarPodcasts(usuarioActual);
+
+        if(podcasts.isEmpty()){
+            return;
+        }
+        //añadir a la list1
+        modeloListaBiblioteca modelo = (modeloListaBiblioteca) list1.getModel();
+        for(Podcast p: podcasts){
+            modelo.agregarElemento(p.getNombre());
+        }
+        //se selecciona el primer elemento del modelo
+        list1.setSelectedIndex(0);
+        //buscar los capitulos del podcast seleccionado
+        List<Capitulo> capitulos = fa.buscarCapitulosPodcast(podcasts.get(0).getIdPodcast());
+        //añadir a la list2
+        modeloListaBiblioteca modelo2 = (modeloListaBiblioteca) list2.getModel();
+        for(Capitulo c: capitulos){
+            modelo2.agregarElemento(c.getNombre());
+        }
+    }
+
+    //listener para la lista de podcast
+    private void list1ValueChanged(ListSelectionEvent e) {
+        //buscar los capitulos del podcast seleccionado
+        List<Podcast> podcasts = fa.buscarPodcasts(usuarioActual);
+        List<Capitulo> capitulos = fa.buscarCapitulosPodcast(podcasts.get(list1.getSelectedIndex()).getIdPodcast());
+        //añadir a la list2
+        modeloListaBiblioteca modelo2 = (modeloListaBiblioteca) list2.getModel();
+        modelo2.vaciarLista();
+        for(Capitulo c: capitulos){
+            modelo2.agregarElemento(c.getNombre());
+        }
+        //Poner el txtNombre a nombre del podcast
+        txtNombre.setText(podcasts.get(list1.getSelectedIndex()).getNombre());
+    }
+
+    private void bttAnadirCapitulo(ActionEvent e) {
+        //Comprobar campos de nombre, explicito y duracion
+        if(nombreCapitulo.getText().isEmpty() || duracionCapitulo.getText().isEmpty()) {
+            fa.muestraExcepcion("Completa los campos de nombre y duración antes de continuar.");
+        }else {
+
+            //buscar id podcast por su nombre
+            List<Podcast> podcasts = fa.buscarPodcasts(usuarioActual);
+            int idPodcast = podcasts.get(list1.getSelectedIndex()).getIdPodcast();
+            //crear el capitulo
+            Capitulo capitulo = new Capitulo( nombreCapitulo.getText(),-1, duracionCapitulo.getText(), explicito.isSelected(),idPodcast);
+            fa.insertarCapitulo(capitulo);
+            //limpiar los campos
+            nombreCapitulo.setText("");
+            duracionCapitulo.setText("");
+            explicito.setSelected(false);
+            //añadir a la list2
+            modeloListaBiblioteca modelo = (modeloListaBiblioteca) list2.getModel();
+            modelo.agregarElemento(capitulo.getNombre());
+        }
+    }
+
+    private void bttEliminarCapitulo(ActionEvent e) {
+        //Comprobar que se ha seleccionado un capitulo
+        if(list2.getSelectedIndex() == -1) {
+            fa.muestraExcepcion("Selecciona un capítulo para poder borrarlo.");
+        }
+        else {
+            //Borrar el capitulo de la lista
+            int index = list2.getSelectedIndex();
+            List<Podcast> podcasts = fa.buscarPodcasts(usuarioActual);
+            int idPodcast = podcasts.get(list1.getSelectedIndex()).getIdPodcast();
+            List<Capitulo> capitulos = fa.buscarCapitulosPodcast(idPodcast);
+            fa.eliminarCapitulo(capitulos.get(index).getIDCapitulo(), idPodcast);
+            modeloListaBiblioteca modelo = (modeloListaBiblioteca) list2.getModel();
+            modelo.vaciarLista();
+            //pasar la lista de capitulos a strings con los nombres de los capitulos
+            capitulos = fa.buscarCapitulosPodcast(idPodcast);
+            if(!capitulos.isEmpty()){
+                List<String> nombres = new ArrayList<>();
+                for(Capitulo ca: capitulos){
+                    nombres.add(ca.getNombre());
+                }
+
+                //Añadir las capitulos de lista a la lista de la ventana
+                modelo.agregarLista(nombres);
+            }
+        }
+    }
+
+
+
+
+
+
+
 
 
 
@@ -280,16 +416,14 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
         button2 = new JButton();
         label6 = new JLabel();
         scrollPane2 = new JScrollPane();
-        list1 = new JList();
         label7 = new JLabel();
         scrollPane3 = new JScrollPane();
-        list2 = new JList();
-        label8 = new JLabel();
+        txtNombre = new JLabel();
         label9 = new JLabel();
-        textField1 = new JTextField();
+        nombreCapitulo = new JTextField();
         label10 = new JLabel();
-        textField2 = new JTextField();
-        checkBox1 = new JCheckBox();
+        duracionCapitulo = new JTextField();
+        explicito = new JCheckBox();
         button3 = new JButton();
         button4 = new JButton();
         panel4 = new JPanel();
@@ -419,6 +553,7 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                     button2.setBackground(new Color(0x00d856));
                     button2.setFont(new Font("Arial", Font.BOLD, 14));
                     button2.setForeground(Color.white);
+                    button2.addActionListener(e -> bttNuevoPodcast(e));
 
                     //---- label6 ----
                     label6.setText("TUS PODCAST");
@@ -442,10 +577,10 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                         scrollPane3.setViewportView(list2);
                     }
 
-                    //---- label8 ----
-                    label8.setText("PODCAST");
-                    label8.setFont(new Font("Arial", Font.BOLD, 14));
-                    label8.setForeground(new Color(0x00d856));
+                    //---- txtNombre ----
+                    txtNombre.setText("PODCAST");
+                    txtNombre.setFont(new Font("Arial", Font.BOLD, 14));
+                    txtNombre.setForeground(new Color(0x00d856));
 
                     //---- label9 ----
                     label9.setText("Nombre:");
@@ -453,21 +588,23 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                     //---- label10 ----
                     label10.setText("Duraci\u00f3n:");
 
-                    //---- checkBox1 ----
-                    checkBox1.setText("Expl\u00edcito");
-                    checkBox1.setFont(new Font("Arial", Font.PLAIN, 12));
+                    //---- explicito ----
+                    explicito.setText("Expl\u00edcito");
+                    explicito.setFont(new Font("Arial", Font.PLAIN, 12));
 
                     //---- button3 ----
                     button3.setText("A\u00d1ADIR CAP\u00cdTULO");
                     button3.setFont(new Font("Arial", Font.BOLD, 14));
                     button3.setForeground(Color.white);
                     button3.setBackground(new Color(0x00d856));
+                    button3.addActionListener(e -> bttAnadirCapitulo(e));
 
                     //---- button4 ----
                     button4.setText("ELIMINAR CAP\u00cdTULO");
                     button4.setFont(new Font("Arial", Font.BOLD, 14));
                     button4.setForeground(Color.white);
                     button4.setBackground(new Color(0x00d856));
+                    button4.addActionListener(e -> bttEliminarCapitulo(e));
 
                     GroupLayout panel5Layout = new GroupLayout(panel5);
                     panel5.setLayout(panel5Layout);
@@ -492,8 +629,8 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                                 .addGroup(panel5Layout.createParallelGroup()
                                     .addGroup(panel5Layout.createSequentialGroup()
                                         .addGroup(panel5Layout.createParallelGroup()
-                                            .addComponent(label8)
-                                            .addComponent(checkBox1))
+                                            .addComponent(txtNombre)
+                                            .addComponent(explicito))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
                                         .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -504,11 +641,11 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                                             .addGroup(panel5Layout.createSequentialGroup()
                                                 .addComponent(label9)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textField1)
+                                                .addComponent(nombreCapitulo)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(label10)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(duracionCapitulo, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)))
                                         .addGap(58, 58, 58))
                                     .addGroup(panel5Layout.createSequentialGroup()
                                         .addGap(26, 26, 26)
@@ -535,15 +672,15 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
                                     .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                                     .addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label8)
+                                .addComponent(txtNombre)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(label9)
-                                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreCapitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label10)
-                                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(duracionCapitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBox1)
+                                .addComponent(explicito)
                                 .addGap(24, 24, 24)
                                 .addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(button3)
@@ -751,12 +888,12 @@ public class VPublicar extends JFrame implements PasarCancionCallback{
     private JLabel label7;
     private JScrollPane scrollPane3;
     private JList list2;
-    private JLabel label8;
+    private JLabel txtNombre;
     private JLabel label9;
-    private JTextField textField1;
+    private JTextField nombreCapitulo;
     private JLabel label10;
-    private JTextField textField2;
-    private JCheckBox checkBox1;
+    private JTextField duracionCapitulo;
+    private JCheckBox explicito;
     private JButton button3;
     private JButton button4;
     private JPanel panel4;

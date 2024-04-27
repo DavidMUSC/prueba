@@ -82,8 +82,8 @@ new FormModel {
 					"foreground": new java.awt.Color( 255, 255, 255, 255 )
 					"background": new java.awt.Color( 0, 216, 86, 255 )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-						"$horizontalGroup": "par l {seq t {space :p:46:p, comp label6:::p::p, space :::x, comp label7:::p::p, space :p:116:p}, seq {space :::x, comp label5:::p::p, space u:::p, comp nombrePodcast:::p:163:p, space :p:47:p, comp button2:::p::p, space :p:89:p}, seq {space :::p, par l {seq {par l {comp label8::l:p::p, comp checkBox1::l:p::p}, space :0:0:x}, seq t {par t {seq {comp button3:::p::p, space :::x, comp button4:::p::p}, seq t {comp label9:::p::p, space u:::p, comp textField1:::::x, space s:::p, comp label10:::p::p, space :::p, comp textField2:::p:147:p}}, space :p:58:p}, seq l {space :p:26:p, comp scrollPane2:::p:139:p, space :::x, comp scrollPane3:::p:182:p, space :p:61:p}}, space :::p}}"
-						"$verticalGroup": "par l {seq l {space :p:14:p, par b {comp label5::b:p::p, comp nombrePodcast::b:p::p, comp button2::b:p::p}, space s:::p, par b {comp label6::b:p::p, comp label7::b:p::p}, space :::p, par l {comp scrollPane3::::191:x, comp scrollPane2::::191:x}, space :::p, comp label8:::p::p, space u:::p, par b {comp label9::b:p::p, comp textField1::b:p::p, comp label10::b:p::p, comp textField2::b:p::p}, space :::p, comp checkBox1:::p::p, space :p:24:p, par b {comp button3::b:p::p, comp button4::b:p::p}, space :p:30:p}}"
+						"$horizontalGroup": "par l {seq t {space :p:46:p, comp label6:::p::p, space :::x, comp label7:::p::p, space :p:116:p}, seq {space :::x, comp label5:::p::p, space u:::p, comp nombrePodcast:::p:163:p, space :p:47:p, comp button2:::p::p, space :p:89:p}, seq {space :::p, par l {seq {par l {comp txtNombre::l:p::p, comp explicito::l:p::p}, space :0:0:x}, seq t {par t {seq {comp button3:::p::p, space :::x, comp button4:::p::p}, seq t {comp label9:::p::p, space u:::p, comp nombreCapitulo:::::x, space s:::p, comp label10:::p::p, space :::p, comp duracionCapitulo:::p:147:p}}, space :p:58:p}, seq l {space :p:26:p, comp scrollPane2:::p:139:p, space :::x, comp scrollPane3:::p:182:p, space :p:61:p}}, space :::p}}"
+						"$verticalGroup": "par l {seq l {space :p:14:p, par b {comp label5::b:p::p, comp nombrePodcast::b:p::p, comp button2::b:p::p}, space s:::p, par b {comp label6::b:p::p, comp label7::b:p::p}, space :::p, par l {comp scrollPane3::::191:x, comp scrollPane2::::191:x}, space :::p, comp txtNombre:::p::p, space u:::p, par b {comp label9::b:p::p, comp nombreCapitulo::b:p::p, comp label10::b:p::p, comp duracionCapitulo::b:p::p}, space :::p, comp explicito:::p::p, space :p:24:p, par b {comp button3::b:p::p, comp button4::b:p::p}, space :p:30:p}}"
 					} ) {
 						name: "panel5"
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -100,6 +100,7 @@ new FormModel {
 							"background": new java.awt.Color( 0, 216, 86, 255 )
 							"font": new java.awt.Font( "Arial", 1, 14 )
 							"foreground": sfield java.awt.Color white
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttNuevoPodcast", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label6"
@@ -112,6 +113,9 @@ new FormModel {
 							name: "scrollPane2"
 							add( new FormComponent( "javax.swing.JList" ) {
 								name: "list1"
+								auxiliary() {
+									"JavaCodeGenerator.customCreate": true
+								}
 							} )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -125,10 +129,13 @@ new FormModel {
 							name: "scrollPane3"
 							add( new FormComponent( "javax.swing.JList" ) {
 								name: "list2"
+								auxiliary() {
+									"JavaCodeGenerator.customCreate": true
+								}
 							} )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label8"
+							name: "txtNombre"
 							"text": "PODCAST"
 							"font": new java.awt.Font( "Arial", 1, 14 )
 							"foreground": new java.awt.Color( 0, 216, 86, 255 )
@@ -138,17 +145,17 @@ new FormModel {
 							"text": "Nombre:"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField1"
+							name: "nombreCapitulo"
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label10"
 							"text": "Duración:"
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField2"
+							name: "duracionCapitulo"
 						} )
 						add( new FormComponent( "javax.swing.JCheckBox" ) {
-							name: "checkBox1"
+							name: "explicito"
 							"text": "Explícito"
 							"font": new java.awt.Font( "Arial", 0, 12 )
 						} )
@@ -158,6 +165,7 @@ new FormModel {
 							"font": new java.awt.Font( "Arial", 1, 14 )
 							"foreground": new java.awt.Color( 255, 255, 255, 255 )
 							"background": new java.awt.Color( 0, 216, 86, 255 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttAnadirCapitulo", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "button4"
@@ -165,6 +173,7 @@ new FormModel {
 							"font": new java.awt.Font( "Arial", 1, 14 )
 							"foreground": sfield java.awt.Color white
 							"background": new java.awt.Color( 0, 216, 86, 255 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bttEliminarCapitulo", true ) )
 						} )
 					}, new FormLayoutConstraints( null ) {
 						"title": "Podcast"
