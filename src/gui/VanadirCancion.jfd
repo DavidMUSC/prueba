@@ -16,7 +16,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label2"
 					"text": "Nombre:"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 1, 12 )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
@@ -56,35 +56,42 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label4"
 					"text": "Duración:"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 1, 12 )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label6"
 					"text": "Género:"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 1, 12 )
 				} )
 				add( new FormComponent( "javax.swing.JCheckBox" ) {
 					name: "checkBoxExplicito"
 					"text": "Explícito"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 1, 12 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkBoxExplicito", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "comboBoxIdioma"
+					auxiliary() {
+						"JavaCodeGenerator.customCreate": true
+					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "idioma", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label7"
 					"text": "Idioma:"
+					"font": new com.jformdesigner.model.SwingDerivedFont( "Arial", 1, 0, false )
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "comboBoxGenero"
+					auxiliary() {
+						"JavaCodeGenerator.customCreate": true
+					}
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "genero", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label8"
 					"text": "Letra:"
-					"font": new java.awt.Font( "Arial", 0, 12 )
+					"font": new java.awt.Font( "Arial", 1, 12 )
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane1"

@@ -17,13 +17,17 @@ public class VanadirCancion extends JDialog {
     fachadaAplicacion fa;
     String usuarioActual;
     Integer idAlbum;
-    boolean explicito = false;
+    boolean explicito;
+    Integer contador;
     public VanadirCancion(Frame owner, fachadaAplicacion fa, String usuarioActual, Integer idAlbum) {
         super(owner);
         this.fa= fa;
+        this.explicito = false;
+        this.contador = 0;
         initComponents();
         this.usuarioActual = usuarioActual;
         this.idAlbum = idAlbum;
+
     }
 
     private void button2(ActionEvent e) {
@@ -44,40 +48,87 @@ public class VanadirCancion extends JDialog {
             //Cambiar DAO para que no necesite el idAlbum porque ya se le mete al crear la cancion a insertar
             Cancion cancion = new Cancion(nombreCancion, -1, duracionCancion, idiomaCancion,generoCancion, letra, 0, idAlbum, explicito);
             fa.publicarCancion(cancion, idAlbum);
+
+            contador++;
+
+            //limpiar campos
+            buscadorNombre.setText("");
+            buscadorDuracion.setText("");
+            letraCancion.setText("");
+            comboBoxGenero.setSelectedIndex(0);
+            comboBoxIdioma.setSelectedIndex(0);
+            checkBoxExplicito.setSelected(false);
         }
     }
 
-    private void idioma(ActionEvent e) {
-        // Definir los tipos de álbum disponibles
-        String[] idiomas = {"Español", "Chino", "Gallego", "Portugues", "Ingles", "Cromañon", "Frances", "Italiano"};
 
-        // Limpiar el JComboBox antes de añadir los nuevos tipos
-        comboBoxIdioma.removeAllItems();
 
-        // Añadir los tipos de álbum al JComboBox
-        for (String a : idiomas) {
-            comboBoxIdioma.addItem(a);
-        }
-    }
-
-    private void genero(ActionEvent e) {
-        String[] generos = {"Pop", "Rock", "Rap", "Reggaeton", "Indie", "Techno", "Clasica"};
-
-        // Limpiar el JComboBox antes de añadir los nuevos tipos
-        comboBoxGenero.removeAllItems();
-
-        // Añadir los tipos de álbum al JComboBox
-        for (String a : generos) {
-            comboBoxGenero.addItem(a);
-        }
-    }
+    
 
     private void checkBoxExplicito(ActionEvent e) {
         explicito = checkBoxExplicito.isSelected();
     }
 
+    private void createUIComponents() {
+        comboBoxIdioma = new JComboBox();
+        // Definir los tipos de álbum disponibles
+        String[] idiomas = {"Español", "Chino", "Gallego", "Portugues", "Ingles", "Cromañon", "Frances", "Italiano"};
+        
+        // Añadir los tipos de álbum al JComboBox
+        for (String a : idiomas) {
+            comboBoxIdioma.addItem(a);
+        }
+        //el color de fondo de la pestaña es #00d856
+        comboBoxIdioma.setBackground(new Color(0, 216, 86));
+        // Configuración del color de selección a un verde más oscuro
+        comboBoxIdioma.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (isSelected) {
+                    c.setBackground(new Color(0, 153, 76)); // Un verde más oscuro, #00994C
+                    c.setForeground(Color.WHITE); // Color de texto blanco para mejor contraste
+                }
+                return c;
+            }
+        });
+        
+        comboBoxGenero = new JComboBox();
+        // Definir los tipos de álbum disponibles
+        String[] generos = {"Pop", "Rock", "Rap", "Reggaeton", "Indie", "Techno", "Clasica"};
+        for (String a : generos) {
+            comboBoxGenero.addItem(a);
+        }
+        //el color de fondo de la pestaña es #00d856
+        comboBoxGenero.setBackground(new Color(0, 216, 86));
+        // Configuración del color de selección a un verde más oscuro
+        comboBoxGenero.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (isSelected) {
+                    c.setBackground(new Color(0, 153, 76)); // Un verde más oscuro, #00994C
+                    c.setForeground(Color.WHITE); // Color de texto blanco para mejor contraste
+                }
+                return c;
+            }
+        });
+    }
+
+    private void genero(ActionEvent e) {
+        // TODO add your code here
+    }
+
+    private void idioma(ActionEvent e) {
+        // TODO add your code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        createUIComponents();
+
         panel3 = new JPanel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -90,9 +141,7 @@ public class VanadirCancion extends JDialog {
         label4 = new JLabel();
         label6 = new JLabel();
         checkBoxExplicito = new JCheckBox();
-        comboBoxIdioma = new JComboBox();
         label7 = new JLabel();
-        comboBoxGenero = new JComboBox();
         label8 = new JLabel();
         scrollPane1 = new JScrollPane();
         letraCancion = new JTextArea();
@@ -105,7 +154,7 @@ public class VanadirCancion extends JDialog {
 
             //---- label2 ----
             label2.setText("Nombre:");
-            label2.setFont(new Font("Arial", Font.PLAIN, 12));
+            label2.setFont(new Font("Arial", Font.BOLD, 12));
 
             //---- bttAnadir ----
             bttAnadir.setText("A\u00d1ADIR");
@@ -152,15 +201,15 @@ public class VanadirCancion extends JDialog {
 
             //---- label4 ----
             label4.setText("Duraci\u00f3n:");
-            label4.setFont(new Font("Arial", Font.PLAIN, 12));
+            label4.setFont(new Font("Arial", Font.BOLD, 12));
 
             //---- label6 ----
             label6.setText("G\u00e9nero:");
-            label6.setFont(new Font("Arial", Font.PLAIN, 12));
+            label6.setFont(new Font("Arial", Font.BOLD, 12));
 
             //---- checkBoxExplicito ----
             checkBoxExplicito.setText("Expl\u00edcito");
-            checkBoxExplicito.setFont(new Font("Arial", Font.PLAIN, 12));
+            checkBoxExplicito.setFont(new Font("Arial", Font.BOLD, 12));
             checkBoxExplicito.addActionListener(e -> checkBoxExplicito(e));
 
             //---- comboBoxIdioma ----
@@ -168,13 +217,14 @@ public class VanadirCancion extends JDialog {
 
             //---- label7 ----
             label7.setText("Idioma:");
+            label7.setFont(new Font("Arial", label7.getFont().getStyle() | Font.BOLD, label7.getFont().getSize()));
 
             //---- comboBoxGenero ----
             comboBoxGenero.addActionListener(e -> genero(e));
 
             //---- label8 ----
             label8.setText("Letra:");
-            label8.setFont(new Font("Arial", Font.PLAIN, 12));
+            label8.setFont(new Font("Arial", Font.BOLD, 12));
 
             //======== scrollPane1 ========
             {
