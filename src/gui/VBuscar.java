@@ -74,8 +74,10 @@ public class VBuscar extends JFrame {
         }
         List<Playlist> listaPlaylist = fa.buscarPlaylists(nombre);
         for(Playlist a : listaPlaylist){
-            Elemento e3 = new Elemento(a.getNombrePlaylist()/* + " - "+a.getCreador()*/,"Playlist");
-            lista.add(e3);
+            if(!a.getNombrePlaylist().equals("Canciones que te gustan")){
+                Elemento e3 = new Elemento(a.getNombrePlaylist()/* + " - "+a.getCreador()*/,"Playlist");
+                lista.add(e3);
+            }
         }
         List<Cancion> listaCanciones = fa.buscarCanciones(nombre);
         for(Cancion a : listaCanciones){
@@ -134,6 +136,15 @@ public class VBuscar extends JFrame {
                             elems.add(new Elemento(cancion,artista,0));
                         }
                         fa.muestraLista(elems,titulo,artista,usuarioActual);
+                }
+                if(type.equals("Playlist")){
+                    String titulo = (String)tabla.getValueAt(tabla.getSelectedRow(),1);
+                    String autor = "Playlist creada por ";
+                    autor += fa.buscarCreadorPlaylist((String)tabla.getValueAt(tabla.getSelectedRow(),1));
+                    List<Elemento> elems = new ArrayList<>();
+                    /*for(String cancion: fa.){
+                        elems.add(new Elemento(cancion,artista,0));
+                    }*/
                 }
             }
         });

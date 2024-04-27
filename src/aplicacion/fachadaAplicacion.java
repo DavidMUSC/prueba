@@ -114,6 +114,9 @@ public class fachadaAplicacion {
         gp.registrarPlaylist(nombre,usuario);
     }
 
+    public String buscarCreadorPlaylist(String nombrePlaylist) {
+        return gp.buscarCreadorPlaylist(nombrePlaylist);
+    }
     public List<Playlist> buscarPlaylists(String terminoBusqueda){
         return gp.buscarPlaylists(terminoBusqueda);
     }

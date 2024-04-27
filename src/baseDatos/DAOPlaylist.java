@@ -135,6 +135,9 @@ public class DAOPlaylist extends abstractDAO {
     }
 
 
+
+
+
     public List<Playlist> buscarPlaylists(String terminoBusqueda) {
         Connection con;
         PreparedStatement stmPlaylist = null;
@@ -170,6 +173,36 @@ public class DAOPlaylist extends abstractDAO {
             }
         }
         return playlistsEncontradas;
+    }
+
+    public String buscarCreadorPlaylist(String nombrePlaylist) {
+        Connection con;
+        PreparedStatement stmPlaylist = null;
+        ResultSet rsPlaylist;
+        List<Playlist> playlistsEncontradas = new ArrayList<>();
+        String res="";
+        con = this.getConexion();
+
+        String sql = "SELECT IDUsuario FROM PLAYLIST WHERE nombrePlaylist = ?";
+        try {
+            stmPlaylist = con.prepareStatement(sql);
+            stmPlaylist.setString(1, nombrePlaylist);
+
+            rsPlaylist = stmPlaylist.executeQuery();
+            while (rsPlaylist.next()) {
+               res=rsPlaylist.getString("IDUsuario");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmPlaylist.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return res;
     }
 
     public List<Elemento> buscarPlaylistsUsuario(String nombreUsuario) {
