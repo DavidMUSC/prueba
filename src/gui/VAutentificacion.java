@@ -62,7 +62,7 @@ public class VAutentificacion extends JDialog {
             this.dispose();
         }else if(fa.comprobarAutentificacionAdministrador(usuario.getText(), contraseña.getText())!=null){
             op=3;
-            VPrincipal vpa = new VPrincipal(fa,op,usuario.getText());
+            VAdmin vpa = new VAdmin(fa);
             vpa.setVisible(true);
             this.dispose();
         }else{

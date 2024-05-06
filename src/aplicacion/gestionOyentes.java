@@ -9,6 +9,7 @@ public class gestionOyentes {
     public gestionOyentes(fachadaGui fgui, fachadaBaseDatos fbd) {
         this.fgui = fgui;
         this.fbd = fbd;
+
         admin = false;
     }
     public Oyente comprobarAutentificacionOyente(String nombre, String contrasena){
