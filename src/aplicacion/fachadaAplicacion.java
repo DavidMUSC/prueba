@@ -148,7 +148,7 @@ public class fachadaAplicacion {
         gp.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
     }
     public int buscarIDPlaylists2(String terminoBusqueda) {
-        gp.buscarIDPlaylists2(terminoBusqueda);
+        return gp.buscarIDPlaylists2(terminoBusqueda);
     }
 
     public void eliminarPlaylist(int idPlaylist) {
