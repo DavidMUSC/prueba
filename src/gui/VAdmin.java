@@ -50,6 +50,9 @@ public class VAdmin extends JFrame {
     private void bttBorrarPlaylist(ActionEvent e) {
         String playlist = (String)list1.getSelectedValue();
         if(fa.obtenerCancionesDePlaylist(playlist).isEmpty()){
+            //int id = fa.buscarIDPlaylists(playlist);
+            //fa.eliminarPlaylist(id);
+        }else{
 
         }
     }
