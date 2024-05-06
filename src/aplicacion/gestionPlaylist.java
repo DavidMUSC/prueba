@@ -44,4 +44,7 @@ public class gestionPlaylist {
     public void eliminarPlaylist(int idPlaylist) {
         fbd.eliminarPlaylist(idPlaylist);
     }
+    public int buscarIDPlaylists2(String terminoBusqueda) {
+       return fbd.buscarIDPlaylists2(terminoBusqueda);
+    }
 }
