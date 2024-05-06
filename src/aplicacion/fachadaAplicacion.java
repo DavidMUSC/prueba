@@ -148,6 +148,9 @@ public class fachadaAplicacion {
         gp.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
     }
 
+    public void eliminarPlaylist(int idPlaylist) {
+        gp.eliminarPlaylist(idPlaylist);
+    }
     //FUNCIONES CANCION
     public List<Cancion> buscarCanciones(String terminoBusqueda){
         return gc.buscarCanciones(terminoBusqueda);
