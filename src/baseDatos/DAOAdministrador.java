@@ -74,4 +74,5 @@ public class DAOAdministrador extends abstractDAO {
         }
         return administradorArrayList;
     }
+
 }

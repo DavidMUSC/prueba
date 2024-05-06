@@ -40,4 +40,8 @@ public class gestionPlaylist {
     public void insertarCancionEnPlaylist(String nombreCancion,int IDPlaylist){
         fbd.insertarCancionEnPlaylist(nombreCancion,IDPlaylist);
     }
+
+    public void eliminarPlaylist(int idPlaylist) {
+        fbd.eliminarPlaylist(idPlaylist);
+    }
 }

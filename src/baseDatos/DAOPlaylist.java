@@ -310,5 +310,28 @@ public class DAOPlaylist extends abstractDAO {
         return cancionesDePlaylist;
     }
 
+    // Método para eliminar una playlist de la base de datos a partir de su nombre
+    public void eliminarPlaylist(int idPlaylist){
+        Connection con;
+        PreparedStatement stmtEliminar = null;
+        con = this.getConexion();
+        String sql = "DELETE FROM PLAYLIST WHERE IDPlaylist = ?";
 
+        try {
+            stmtEliminar = con.prepareStatement(sql);
+            stmtEliminar.setInt(1, idPlaylist);
+            stmtEliminar.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                if (stmtEliminar != null) {
+                    stmtEliminar.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
 }
